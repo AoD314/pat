@@ -5,26 +5,20 @@
 
 const char * help = 
 {
-	"{|help | false | this message}"
-	"{ s | size | 1     | count dataset}"
-	"{b|boost}"
-	"{k}"
+    "{ h |  help  | false                                                    | this message }"
+    "{ l |  left  |/work/projects/pat/pat/examples/stereo/dataset/aloe_l.png | left image   }"
+    "{ r | right  |/work/projects/pat/pat/examples/stereo/dataset/aloe_r.png | right image  }"
+    "{   | result |/work/projects/pat/pat/examples/stereo/dataset/result.png | result image = disparity }"
 };
 
 Settings::Settings(int argc, const char ** argv)
 {
 	parser = new cv::CommandLineParser(argc, argv, help);
-	//parser->printParams();
 }
 
 Settings::~Settings()
 {
 	delete parser;
-}
-
-size_t Settings::get_size()
-{
-	return parser->get<size_t>("size");
 }
 
 bool Settings::is_exit()
@@ -35,4 +29,19 @@ bool Settings::is_exit()
 		return true; 
 	}
 	return false;
+}
+
+std::string Settings::left()
+{
+    return parser->get<std::string>("l");
+}
+
+std::string Settings::right()
+{
+    return parser->get<std::string>("r");
+}
+
+std::string Settings::result()
+{
+    return parser->get<std::string>("result");
 }
