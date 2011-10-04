@@ -10,7 +10,7 @@ set(CMAKE_BUILD_TYPE "Release")
 file(GLOB srcs "*.cpp")
 file(GLOB hdrs "*.hpp")
 
-	
+
 if(UNIX)
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb")
 	set(CMAKE_CXX_FLAGS "-O0 -ggdb")

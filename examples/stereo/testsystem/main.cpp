@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <stdlib.h>
 
 #include <opencv2/opencv.hpp>
 
@@ -30,15 +31,31 @@ void uniq(std::vector<std::string> & list)
 	}
 }
 
+void print_vec(std::vector<std::string> & list)
+{
+	cout << "---" << endl;
+	std::vector<std::string>::const_iterator it;
+	for (it = list.begin(); it != list.end(); ++it)
+	{
+		cout << *it << endl;
+	}
+	cout << "---" << endl;
+}
+
 void get_list_name_dataset(std::vector<std::string> & list)
 {
-	for (size_t i = 0; i < list.size(); i++)
+	for (size_t i = 0; i < list.size();)
 	{
 		size_t pos = list[i].find_last_of("_");
 		if (pos != std::string::npos)
 		{
 			list[i].erase(pos);
-		}		
+			i++;
+		}
+		else
+		{
+			list.erase(list.begin() + i, list.begin() + i + 1);
+		}
 	}
 
 	std::sort(list.begin(), list.end());
@@ -50,16 +67,18 @@ int main(int argc, const char ** argv)
 	Settings settings(argc, argv);
 	if (settings.is_exit()) return 0;
 
-	std::vector<std::string> list = cv::Directory::GetListFiles(settings.get_gt(), "*.png");
+	std::vector<std::string> list;
 
+	list = cv::Directory::GetListFiles(settings.get_gt(), ".png");
 	get_list_name_dataset(list);
 
 	std::vector<std::string>::const_iterator it;
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		std::string cmd = "stereobp -r=" + *it + "_r.png -l=" + *it + "_l.png --result=res.png";
+		std::string cmd = "./stereobp -r=" + *it + "_r.png -l=" + *it + "_l.png --result=res.png";
 		cout << "run : " << cmd << endl;
-		system(cmd.c_str());
+		int ret = system(cmd.c_str());
+		cout << "ret : " << ret << endl;
 		
 		// analyze
 
