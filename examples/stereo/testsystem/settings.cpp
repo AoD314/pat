@@ -5,16 +5,13 @@
 
 const char * help = 
 {
-	"{|help | false | this message}"
-	"{ s | size | 1     | count dataset}"
-	"{b|boost}"
-	"{k}"
+	"{ h  | help        | false | this message}"
+	"{ gt | groundtruth |   .   | folder with ground truth of disparity }"
 };
 
 Settings::Settings(int argc, const char ** argv)
 {
 	parser = new cv::CommandLineParser(argc, argv, help);
-	//parser->printParams();
 }
 
 Settings::~Settings()
@@ -22,9 +19,9 @@ Settings::~Settings()
 	delete parser;
 }
 
-size_t Settings::get_size()
+std::string Settings::get_gt()
 {
-	return parser->get<size_t>("size");
+	return parser->get<std::string>("gt");
 }
 
 bool Settings::is_exit()

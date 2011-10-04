@@ -6,8 +6,8 @@
 const char * help = 
 {
     "{ h |  help  | false                                                    | this message }"
-    "{ l |  left  |/work/projects/pat/pat/examples/stereo/dataset/aloe_l.png | left image   }"
-    "{ r | right  |/work/projects/pat/pat/examples/stereo/dataset/aloe_r.png | right image  }"
+    "{ l |  left  |/work/projects/pat/pat/examples/stereo/dataset/aloe_l.png | left image }"
+    "{ r | right  |/work/projects/pat/pat/examples/stereo/dataset/aloe_r.png | right image }"
     "{   | result |/work/projects/pat/pat/examples/stereo/dataset/result.png | result image = disparity }"
 };
 

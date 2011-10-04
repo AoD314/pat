@@ -9,11 +9,10 @@ class Settings
 {
 	public:
 		Settings(int argc, const char ** argv);
-
-		size_t get_size();
-		bool   is_exit();
-
+		bool is_exit();
 		~Settings();
+
+		std::string get_gt();
 
 	private:
 		cv::CommandLineParser * parser;
