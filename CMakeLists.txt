@@ -52,40 +52,7 @@ set(pat_version "${PAT_MAJOR_VERSION}.${PAT_MINOR_VERSION}.${PAT_SUBMINOR_VERSIO
 set(BUILD_EXAMPLES ON CACHE BOOL "Build all examples")
 
 if(BUILD_EXAMPLES)
-
-	file(GLOB subdir "examples/*")
-	
-	#message(STATUS "list subdir : ${subdir}")
-		
-	set(list_of_dirs "")
-	foreach(dir ${subdir})
-		#message(STATUS "checking dir : examples/${dir}")
-		if(IS_DIRECTORY ${dir})
-			#message(STATUS "found new dir : ${dir}")
-			set(list_of_dirs ${list_of_dirs} ${dir})
-		endif()
-	endforeach()
-
-	foreach (dir ${list_of_dirs})
-	
-		file(GLOB list_srcs "${dir}/*.cpp")
-		file(GLOB list_hdrs "${dir}/*.hpp")
-	
-		foreach (first_name ${list_srcs})
-			string(REGEX REPLACE "^.*/(.+)/.+.cpp" "\\1" ex_name ${first_name})
-			break()
-		endforeach()
-		
-		message(STATUS "")
-		message(STATUS "added new project : ${ex_name}")
-		#message(STATUS "files : ${list_srcs}")
-		message(STATUS "")
-		
-		add_executable( ${ex_name} ${list_srcs} ${list_hdrs} )
-		target_link_libraries( ${ex_name} "pat" )
-		
-	endforeach()
-
+	add_subdirectory(examples)
 endif()
 # ----------------------------------------------------------------------------
 
