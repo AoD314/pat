@@ -22,7 +22,10 @@ endif()
 file(GLOB src_lib "src/*.cpp")
 file(GLOB inc_lib "include/pat/*.hpp")
 
-add_library( ${target} ${src_lib} ${inc_lib})
+find_package (Qt4 REQUIRED)
+include (${QT_USE_FILE})
+
+add_library( ${target} ${src_lib} ${inc_lib} ${QT_LIBRARIES})
 #target_link_libraries( ${target} )
 
 # ----------------------------------------------------------------------------
@@ -54,7 +57,17 @@ set(BUILD_EXAMPLES ON CACHE BOOL "Build all examples")
 if(BUILD_EXAMPLES)
 	add_subdirectory(examples)
 endif()
+
 # ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# gui
+# ----------------------------------------------------------------------------
+
+add_subdirectory(gui)
+
+# ----------------------------------------------------------------------------
+
 
 # ----------------------------------------------------------------------------
 # INSTALL

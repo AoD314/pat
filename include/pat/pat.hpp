@@ -4,6 +4,8 @@
 
 #include <string>
 
+#include <QtNetwork/QTcpSocket>
+
 #include "pat/params.hpp"
 
 namespace pat
@@ -32,6 +34,22 @@ namespace pat
 			bool next_params();
 	};
 
+	class PAT_Server
+	{
+		public:
+
+		private:
+	};
+
+	class PAT_Client
+	{
+		public:
+			PAT_Client();
+			std::string get_params(std::string name);
+
+		private:
+			QTcpSocket socket;
+	};
 }
 
 #endif
