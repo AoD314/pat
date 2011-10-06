@@ -2,9 +2,12 @@
 #ifndef __PAT_HPP__
 #define __PAT_HPP__
 
+#define PAT
+
 #include <string>
 
 #include <QtNetwork/QTcpSocket>
+#include <QtNetwork/QTcpServer>
 
 #include "pat/params.hpp"
 
@@ -39,17 +42,31 @@ namespace pat
 		public:
 
 		private:
+			QTcpServer server;
 	};
 
-	class PAT_Client
+	class PAT_System
 	{
 		public:
-			PAT_Client();
-			std::string get_params(std::string name);
+			PAT_System();
+			PAT_System(const std::string & host, unsigned int port);
+			~PAT_System();
+
+			std::string get_params (const std::string & name);
+
+			template <typename T>
+			void init(const std::string & name, T min_value, T max_value, T step, T start_value)
+			{
+			}
+
+			void send_result(double result);
 
 		private:
-			QTcpSocket socket;
+			std::string  host;
+			unsigned int port;
+			QTcpSocket * socket;
 	};
+
 }
 
 #endif

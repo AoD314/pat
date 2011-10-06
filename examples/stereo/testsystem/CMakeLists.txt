@@ -5,7 +5,7 @@ set(target "testsystem" )
 project( ${target} )
 
 find_package( OpenCV REQUIRED )
-set(CMAKE_BUILD_TYPE "Release")
+set(CMAKE_BUILD_TYPE "Debug")
 
 file(GLOB srcs "*.cpp")
 file(GLOB hdrs "*.hpp")

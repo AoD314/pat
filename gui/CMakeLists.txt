@@ -7,8 +7,8 @@ set(CMAKE_BUILD_TYPE "Debug")
 #set (RESOURCES ${RESOURCE_PATH}/resources.qrc)
 #set (TRANSLATIONS_PATH resources/translations)
 
-find_package (Qt4 REQUIRED)
-include (${QT_USE_FILE})
+find_package(Qt4 REQUIRED)
+include(${QT_USE_FILE})
 
 file(GLOB srcs "*.cpp")
 file(GLOB hdrs "*.hpp")
@@ -37,5 +37,3 @@ file(GLOB hdrs "*.hpp")
 
 add_executable( ${target} ${srcs} ${hdrs})# ${MOC_SOURCES} ${QRC_SOURCES} ${TRANSLATIONS})
 target_link_libraries( ${target} ${QT_LIBRARIES})
-
-message ("QT library : ${QT_LIBRARIES}")

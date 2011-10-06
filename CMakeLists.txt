@@ -23,7 +23,7 @@ file(GLOB src_lib "src/*.cpp")
 file(GLOB inc_lib "include/pat/*.hpp")
 
 find_package (Qt4 REQUIRED)
-include (${QT_USE_FILE})
+include_directories(${QT_INCLUDE_DIR})
 
 add_library( ${target} ${src_lib} ${inc_lib} ${QT_LIBRARIES})
 #target_link_libraries( ${target} )
