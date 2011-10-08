@@ -14,7 +14,7 @@ file(GLOB srcs "*.cpp")
 file(GLOB hdrs "*.hpp")
 
 #qt4_add_resources (QRC_SOURCES ${RESOURCES})
-#qt4_wrap_cpp (MOC_SOURCES ${hdrs})
+qt4_wrap_cpp (MOC_SOURCES ${hdrs})
 
 #set (LANGUAGES rus eng)
 #set (LANGUAGES "")
@@ -35,5 +35,5 @@ file(GLOB hdrs "*.hpp")
 #source_group ("Generated Files" FILES ${MOC_SOURCES})
 #source_group ("Resource Files" FILES ${QRC_SOURCES})
 
-add_executable( ${target} ${srcs} ${hdrs})# ${MOC_SOURCES} ${QRC_SOURCES} ${TRANSLATIONS})
+add_executable( ${target} ${srcs} ${hdrs} ${MOC_SOURCES}) # ${QRC_SOURCES} ${TRANSLATIONS})
 target_link_libraries( ${target} ${QT_LIBRARIES})

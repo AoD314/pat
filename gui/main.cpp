@@ -1,13 +1,17 @@
 
+#include <stdlib.h>
+#include <string>
+#include <iostream>
+
 #include <QtGui/qapplication.h>
-#include <QtGui/qlabel.h>
+#include "mainwindow.hpp"
 
 int main(int argc, char ** argv)
 {
 	QApplication app(argc, argv);
 
-	QLabel l("hello");
-	l.show();
+	MainWindow main_windows;
+	main_windows.show();
 
 	return app.exec();
 }
