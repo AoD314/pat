@@ -5,6 +5,8 @@
 
 #include <opencv2/opencv.hpp>
 
+#include "pat/pat.hpp"
+
 #include "settings.hpp"
 
 using std::cout;
@@ -160,6 +162,9 @@ int main(int argc, const char ** argv)
 	}
 
 	cout << "total error is : " << total_err << endl;
+
+	pat::PAT_System pat;
+	pat.send_result(total_err);
 
 	return 0;
 }

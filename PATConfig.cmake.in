@@ -1,0 +1,24 @@
+# Locate PAT library
+
+# PAT_FOUND - System has PAT library
+# PAT_INCLUDE_DIRS - The PAT library include directories
+# PAT_LIBRARIES - The libraries needed to use PAT library
+# PAT_DEFINITIONS - Compiler switches required for using PAT library
+
+# Provide the include directories to the caller
+set(PAT_INCLUDE_DIRS @CMAKE_INCLUDE_DIRS_CONFIGCMAKE@)
+include_directories(${PAT_INCLUDE_DIRS})
+
+set(PAT_LIB_DIR @CMAKE_LIB_DIRS_CONFIGCMAKE@)
+link_directories(${PAT_LIB_DIR})
+
+set(PAT_LIBS "pat" @QT_LIBS@)
+
+# ======================================================
+#  Version variables:
+# ======================================================
+SET(PAT_VERSION @pat_version@)
+SET(PAT_VERSION_MAJOR  @PAT_VERSION_MAJOR@)
+SET(PAT_VERSION_MINOR  @PAT_VERSION_MINOR@)
+SET(PAT_VERSION_PATCH  @PAT_VERSION_PATCH@)
+

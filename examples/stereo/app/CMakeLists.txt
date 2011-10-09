@@ -4,18 +4,21 @@ set(target "stereobp" )
 
 project( ${target} )
 
-find_package( OpenCV REQUIRED )
 set(CMAKE_BUILD_TYPE "Debug")
-
-file(GLOB srcs "*.cpp")
-file(GLOB hdrs "*.hpp")
-
-
 if(UNIX)
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb")
 	set(CMAKE_CXX_FLAGS "-O0 -ggdb")
 endif()
 
+file(GLOB srcs "*.cpp")
+file(GLOB hdrs "*.hpp")
+
 add_executable( ${target} ${srcs} ${hdrs})
 
-target_link_libraries( ${target} ${OpenCV_LIBS})
+find_package( OpenCV REQUIRED )
+find_package( PAT REQUIRED )
+
+message("${OpenCV_LIBS}")
+message("${PAT_LIBS}")
+
+target_link_libraries( ${target} ${OpenCV_LIBS} ${PAT_LIBS})

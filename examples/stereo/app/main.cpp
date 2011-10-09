@@ -2,6 +2,8 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/gpu/gpu.hpp>
 
+#include "pat/pat.hpp"
+
 #include "settings.hpp"
 
 using cv::Mat;
@@ -16,7 +18,17 @@ int main(int argc, const char ** argv)
     Mat r = cv::imread(settings.right(), 0);
     Mat l = cv::imread(settings.left() , 0);
 
-    StereoBeliefPropagation csbp(96, 7, 5);
+	const int max_disparity = 96;
+	int iteration = 7;
+	int level = 5;
+
+	pat::PAT_System pat;
+
+	pat.init("max_disp", 64, 96, 16, 80);
+	pat.init("iter", 3, 11, 2, 5);
+
+
+	StereoBeliefPropagation csbp(max_disparity, iteration, level);
 
     GpuMat disparity(l.size(), CV_8U);
     GpuMat left  (l);

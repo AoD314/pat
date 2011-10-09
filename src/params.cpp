@@ -90,6 +90,8 @@ namespace pat
 
 		if (find_record_int(name))
 			return get_record_int(name).get_value() > get_record_int(name).get_max();
+
+		return true;
 	}
 
 	bool Params::less_min(std::string name)
@@ -99,6 +101,8 @@ namespace pat
 
 		if (find_record_int(name))
 			return get_record_int(name).get_value() < get_record_int(name).get_min();
+
+		return true;
 	}
 
 }
