@@ -52,6 +52,8 @@ file(GLOB src_lib "src/*.cpp")
 file(GLOB inc_lib "include/pat/*.hpp")
 
 find_package (Qt4 REQUIRED)
+include(${QT_USE_FILE})
+
 include_directories(${QT_INCLUDE_DIR})
 set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "${CMAKE_INCLUDE_DIRS_CONFIGCMAKE} ${QT_INCLUDE_DIR}")
 set(QT_LIBS ${QT_LIBRARIES})

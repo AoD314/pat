@@ -12,6 +12,10 @@ include_directories(${PAT_INCLUDE_DIRS})
 set(PAT_LIB_DIR @CMAKE_LIB_DIRS_CONFIGCMAKE@)
 link_directories(${PAT_LIB_DIR})
 
+get_filename_component(PAT_CONFIG_PATH "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+get_filename_component(PAT_INSTALL_PATH "${PAT_CONFIG_PATH}/../.." REALPATH)
+
 set(PAT_LIBS "pat" @QT_LIBS@)
 
 # ======================================================
