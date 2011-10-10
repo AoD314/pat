@@ -51,7 +51,7 @@ set(CMAKE_LIB_DIRS_CONFIGCMAKE "${LIBRARY_OUTPUT_PATH}")
 file(GLOB src_lib "src/*.cpp")
 file(GLOB inc_lib "include/pat/*.hpp")
 
-find_package (Qt4 REQUIRED)
+find_package(Qt4 COMPONENTS QtCore QtGui QtNetwork REQUIRED)
 if(UNIX)
 	include(${QT_USE_FILE})
 endif()
@@ -60,7 +60,7 @@ include_directories(${QT_INCLUDE_DIR})
 set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "${CMAKE_INCLUDE_DIRS_CONFIGCMAKE} ${QT_INCLUDE_DIR}")
 set(QT_LIBS ${QT_LIBRARIES})
 
-add_library( ${target} ${src_lib} ${inc_lib} ${QT_LIBRARIES})
+add_library( ${target} SHARED ${src_lib} ${inc_lib} ${QT_LIBRARIES})
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/PATConfig.cmake.in" "${CMAKE_BINARY_DIR}/PATConfig.cmake" IMMEDIATE @ONLY)
 
