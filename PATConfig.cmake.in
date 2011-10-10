@@ -16,7 +16,7 @@ get_filename_component(PAT_CONFIG_PATH "${CMAKE_CURRENT_LIST_FILE}" PATH)
 
 get_filename_component(PAT_INSTALL_PATH "${PAT_CONFIG_PATH}/../.." REALPATH)
 
-set(PAT_LIBS "pat" @QT_LIBS@)
+set(PAT_LIBS pat @QT_LIBS@)
 
 # ======================================================
 #  Version variables:
