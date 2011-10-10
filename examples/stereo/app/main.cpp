@@ -22,11 +22,14 @@ int main(int argc, const char ** argv)
 	int iteration = 7;
 	int level = 5;
 
+#if 1
 	pat::PAT_System pat;
 
 	pat.init("max_disp", 64, 96, 16, 80);
 	pat.init("iter", 3, 11, 2, 5);
 
+	pat.get_params("max_disp");
+#endif
 
 	StereoBeliefPropagation csbp(max_disparity, iteration, level);
 

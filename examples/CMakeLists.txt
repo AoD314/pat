@@ -1,6 +1,6 @@
 
 cmake_minimum_required(VERSION 2.8)
 
-project(stereo)
+project("stereo")
 
-add_subdirectory(stereo)
+add_subdirectory("stereo")
