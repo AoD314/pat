@@ -38,14 +38,6 @@ namespace pat
 			bool next_params();
 	};
 
-	class PAT_Server
-	{
-		public:
-
-		private:
-			QTcpServer server;
-	};
-
 	class PAT_System
 	{
 		public:
