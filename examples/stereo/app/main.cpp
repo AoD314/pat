@@ -6,6 +6,8 @@
 
 #include "settings.hpp"
 
+#define use_pat_system
+
 using cv::Mat;
 using cv::gpu::GpuMat;
 using cv::gpu::StereoBeliefPropagation;
@@ -18,17 +20,22 @@ int main(int argc, const char ** argv)
     Mat r = cv::imread(settings.right(), 0);
     Mat l = cv::imread(settings.left() , 0);
 
-	const int max_disparity = 96;
+	int max_disparity = 96;
 	int iteration = 7;
 	int level = 5;
 
-#if 1
+#ifdef use_pat_system
+
 	pat::PAT_System pat;
 
-	pat.init("max_disp", 64, 96, 16, 80);
+	pat.init("max_disp", 80, 96, 16, 80);
 	pat.init("iter", 3, 11, 2, 5);
+	pat.init("level", 3, 7, 2, 3);
 
-	pat.get_params("max_disp");
+	max_disparity = pat.get_params<int>("max_disp");
+	iteration     = pat.get_params<int>("iter");
+	level         = pat.get_params<int>("level");
+
 #endif
 
 	StereoBeliefPropagation csbp(max_disparity, iteration, level);
