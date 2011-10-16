@@ -6,6 +6,8 @@
 #include <QtGui/qapplication.h>
 #include "mainwindow.hpp"
 
+using pat::MainWindow;
+
 int main(int argc, char ** argv)
 {
 	QApplication app(argc, argv);

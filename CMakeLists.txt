@@ -47,14 +47,11 @@ set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "\"${PAT_CONFIG_FILE_INCLUDE_DIR}\" \"${CMAKE
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Output directory for libraries" )
 set(CMAKE_LIB_DIRS_CONFIGCMAKE "${LIBRARY_OUTPUT_PATH}")
 
-
 file(GLOB src_lib "src/*.cpp")
 file(GLOB inc_lib "include/pat/*.hpp")
 
 find_package(Qt4 COMPONENTS QtCore QtGui QtNetwork REQUIRED)
-if(UNIX)
-	include(${QT_USE_FILE})
-endif()
+include(${QT_USE_FILE})
 
 include_directories(${QT_INCLUDE_DIR})
 set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "${CMAKE_INCLUDE_DIRS_CONFIGCMAKE} ${QT_INCLUDE_DIR}")
@@ -85,7 +82,6 @@ if(UNIX)
 endif()
 
 # ----------------------------------------------------------------------------
-
 
 
 # ----------------------------------------------------------------------------

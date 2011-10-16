@@ -6,30 +6,29 @@
 #include <QtNetwork/QTcpServer>
 #include <QtNetwork/QTcpSocket>
 
-class MainWindow : public QWidget
+#include "pat_server.hpp"
+
+namespace pat
 {
-	Q_OBJECT
 
-	public:
-		MainWindow(QWidget * parent = 0);
+	class MainWindow : public QWidget
+	{
+		Q_OBJECT
 
-	private:
-		QHBoxLayout * layout_h;
-		QVBoxLayout * layout_v;
+		public:
+			MainWindow(QWidget * parent = 0);
 
-		QTextEdit    * edit;
-		QPushButton  * button;
-		QTextBrowser * text;
+		private:
+			QHBoxLayout * layout_h;
+			QVBoxLayout * layout_v;
 
-		QTcpServer * server;
-		int port;
+			QTextEdit   * edit;
+			QPushButton * button;
+			QTextEdit   * text;
 
-		void send_to_client(QTcpSocket * socket, std::string value);
-
-	private slots:
-		void read_client();
-		void new_connection();
-
-};
+			pat::PAT_Server * server;
+			int port;
+	};
+}
 
 #endif
