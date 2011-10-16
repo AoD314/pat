@@ -13,4 +13,4 @@ qt4_wrap_cpp (MOC_SOURCES ${hdrs})
 
 add_executable( ${target} ${srcs} ${hdrs} ${MOC_SOURCES})
 
-target_link_libraries( ${target} ${QT_LIBRARIES})
+target_link_libraries( ${target} ${QT_LIBRARIES} pat)

@@ -37,7 +37,7 @@ namespace pat
 
 		int ret = socket->write(arr_block);
 
-		socket->waitForReadyRead();
+		socket->waitForReadyRead(1000);
 
 		qDebug() << "writed ! : " << ret;
 	}

@@ -1,10 +1,19 @@
 
 #include "pat/params.hpp"
+#include "pat/convert.hpp"
 
 namespace pat
 {
+	std::string Params::get_str(std::string name)
+	{
+		if (find_record_float(name))
+			return to_str(get_record_float(name).get_value());
 
-	RecordParams<r_int>&   Params::get_record_int(std::string name)
+		if (find_record_int(name))
+			return to_str(get_record_int(name).get_value());
+	}
+
+	RecordParams<Params::r_int>&   Params::get_record_int(std::string name)
 	{
 		for(std::size_t i = 0; i < record_int.size(); i++)
 		{
@@ -15,7 +24,7 @@ namespace pat
 		}
 	}
 
-	RecordParams<r_float>& Params::get_record_float(std::string name)
+	RecordParams<Params::r_float>& Params::get_record_float(std::string name)
 	{
 		for(std::size_t i = 0; i < record_float.size(); i++)
 		{

@@ -1,5 +1,6 @@
 
 #include "pat_server.hpp"
+#include "pat/convert.hpp"
 
 namespace pat
 {
@@ -72,11 +73,40 @@ namespace pat
 
 			block_size = 0;
 
-			if (q_cmd.compare("get") == 0)
+			process(client, q_cmd, q_name, q_value, q_value_from, q_value_to, q_value_step, q_value_type);
+		}
+	}
+
+	void PAT_Server::process(QTcpSocket * client, QString cmd, QString name, QString value, QString value_from, QString value_to, QString step, QString type)
+	{
+		std::string t(type.toStdString());
+
+		if (cmd.compare("init") == 0)
+		{
+			if ((t.compare("f") == 0)     ||
+				(t.compare("d") == 0)     ||
+				(t.compare("float") == 0) ||
+				(t.compare("double") == 0))
 			{
-				send_to_client(client, "1111");
+				params.add<Params::r_float>(name.toStdString(),
+											from_str<Params::r_float>(value_from.toStdString()),
+											from_str<Params::r_float>(value_to.toStdString()),
+											from_str<Params::r_float>(step.toStdString()));
+			}
+			else
+			{
+				params.add<Params::r_int>(name.toStdString(),
+										  from_str<Params::r_int>(value_from.toStdString()),
+										  from_str<Params::r_int>(value_to.toStdString()),
+										  from_str<Params::r_int>(step.toStdString()));
 			}
 		}
+		else if (cmd.compare("get") == 0)
+		{
+			send_to_client(client, params.get_str(name.toStdString()));
+		}
+
+		//params.add<unsigned long int>(name.toStdString())
 	}
 
 	void PAT_Server::new_connection()

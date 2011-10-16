@@ -8,6 +8,8 @@
 #include <QtNetwork/QTcpSocket>
 #include <QtNetwork/QHostAddress>
 
+#include "pat/params.hpp"
+
 namespace pat
 {
 
@@ -20,8 +22,12 @@ namespace pat
 
 			void send_to_client(QTcpSocket * socket, std::string value);
 
+
 		private:
+			Params params;
 			quint32 block_size;
+
+			void process(QTcpSocket * client, QString cmd, QString name, QString value, QString value_from, QString value_to, QString step, QString type);
 
 		public slots:
 			void read();

@@ -10,12 +10,12 @@
 
 namespace pat
 {
-	typedef long long int r_int;
-	typedef double      r_float;
-
 	class Params
 	{
 		public:
+			typedef long long int r_int;
+			typedef double      r_float;
+
 			template <typename T>
 			void add(std::string name, T min_value, T max_value, T step, T start_value)
 			{
@@ -47,6 +47,8 @@ namespace pat
 			{
 				add<T>(name, min_value, max_value, static_cast<T>(1));
 			}
+
+			std::string get_str(std::string name);
 
 			template <typename T>
 			T get(std::string name)
