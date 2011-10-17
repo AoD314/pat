@@ -29,6 +29,10 @@ namespace pat
 
 			void process(QTcpSocket * client, QString cmd, QString name, QString value, QString value_from, QString value_to, QString step, QString type);
 
+		signals:
+			void log(QString msg);
+			void next_step(double result);
+
 		public slots:
 			void read();
 			void new_connection();

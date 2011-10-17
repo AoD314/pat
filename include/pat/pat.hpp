@@ -70,6 +70,31 @@ namespace pat
 			std::string receive_message_from_server();
 	};
 
+	class PAT_Algorithm
+	{
+		protected:
+			Params params;
+
+		public:
+			virtual void init() = 0;
+			virtual void next_step(double value) = 0;
+			virtual bool is_done() = 0;
+	};
+
+	class PAT_BruteForce : public PAT_Algorithm
+	{
+		public:
+			void init();
+			void next_step(double value);
+			bool is_done();
+			void answer();
+
+		private:
+			Params params_max;
+			double MAX;
+			bool isdone;
+	};
+
 }
 
 #endif

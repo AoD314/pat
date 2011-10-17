@@ -20,7 +20,8 @@ namespace pat
 
 	void PAT_Server::send_to_client(QTcpSocket * socket, std::string value)
 	{
-		qDebug() << "send to client";
+		log("send to client");
+
 		QByteArray arr_block;
 		QDataStream out(&arr_block, QIODevice::WriteOnly);
 		out.setVersion(QDataStream::Qt_4_7);
@@ -31,11 +32,13 @@ namespace pat
 		out << quint32(arr_block.size() - sizeof(quint32));
 
 		socket->write(arr_block);
+
+		socket->waitForBytesWritten();
 	}
 
 	void PAT_Server::read()
 	{
-		qDebug() << "read client";
+		log("read client");
 
 		QTcpSocket * client = (QTcpSocket *)sender();
 		QDataStream in(client);
@@ -105,13 +108,17 @@ namespace pat
 		{
 			send_to_client(client, params.get_str(name.toStdString()));
 		}
+		else if (cmd.compare("result") == 0)
+		{
+			next_step(from_str<double>(value.toStdString()));
+		}
 
 		//params.add<unsigned long int>(name.toStdString())
 	}
 
 	void PAT_Server::new_connection()
 	{
-		qDebug() << "conn";
+		log("new connection");
 		QTcpSocket * client = this->nextPendingConnection();
 		connect(client, SIGNAL(disconnected()), client, SLOT(deleteLater()));
 		connect(client, SIGNAL(readyRead()),    this,   SLOT(read()));

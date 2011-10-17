@@ -21,6 +21,21 @@ namespace pat
 
 		port = 13314;
 		server = new pat::PAT_Server(port);
+
+		connect(server, SIGNAL(log(QString)), text, SLOT(append(QString)));
+		connect(server, SIGNAL(next_step(double)), this, SLOT(next_step(double)));
+
+		connect(button, SIGNAL(clicked()), this, SLOT(click_run()));
 	}
 
+	void MainWindow::next_step(double result)
+	{
+		alg->next_step(result);
+	}
+
+	void MainWindow::click_run()
+	{
+		alg = new pat::PAT_BruteForce();
+		alg->init();
+	}
 }

@@ -8,6 +8,8 @@
 
 #include "pat_server.hpp"
 
+#include "pat/pat.hpp"
+
 namespace pat
 {
 
@@ -28,6 +30,12 @@ namespace pat
 
 			pat::PAT_Server * server;
 			int port;
+
+			pat::PAT_Algorithm * alg;
+
+		private slots:
+			void click_run();
+			void next_step(double result);
 	};
 }
 

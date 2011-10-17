@@ -37,7 +37,7 @@ namespace pat
 
 		int ret = socket->write(arr_block);
 
-		socket->waitForReadyRead(1000);
+		socket->waitForBytesWritten();
 
 		qDebug() << "writed ! : " << ret;
 	}
@@ -54,6 +54,8 @@ namespace pat
 		QDataStream in(socket);
 		in.setVersion(QDataStream::Qt_4_7);
 		block_size = 0;
+
+		socket->waitForReadyRead();
 
 		for (;;)
 		{
