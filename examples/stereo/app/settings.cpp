@@ -5,10 +5,10 @@
 
 const char * help = 
 {
-    "{ h |  help  | false                                                    | this message }"
-    "{ l |  left  |/work/projects/pat/pat/examples/stereo/dataset/aloe_l.png | left image }"
-    "{ r | right  |/work/projects/pat/pat/examples/stereo/dataset/aloe_r.png | right image }"
-    "{   | result |/work/projects/pat/pat/examples/stereo/dataset/result.png | result image = disparity }"
+	"{ h |  help  | false      | this message }"
+	"{ l |  left  | aloe_l.png | left image   }"
+	"{ r | right  | aloe_r.png | right image  }"
+	"{   | result | result.png | result image = disparity }"
 };
 
 Settings::Settings(int argc, const char ** argv)

@@ -61,6 +61,15 @@ add_library( ${target} SHARED ${src_lib} ${inc_lib} ${QT_LIBRARIES})
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/PATConfig.cmake.in" "${CMAKE_BINARY_DIR}/PATConfig.cmake" IMMEDIATE @ONLY)
 
+# ----------------------------------------------------------------------------
+# post build event
+# ----------------------------------------------------------------------------
+
+add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/bin)
+add_custom_command( TARGET ${target} POST_BUILD  COMMAND ${CMAKE_COMMAND} -E copy ${LIBRARY_OUTPUT_PATH}/libpat.* ${CMAKE_BINARY_DIR}/bin)
+
+# ----------------------------------------------------------------------------
+
 
 # ----------------------------------------------------------------------------
 # gui

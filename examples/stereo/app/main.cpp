@@ -6,8 +6,6 @@
 
 #include "settings.hpp"
 
-#define use_pat_system
-
 using cv::Mat;
 using cv::gpu::GpuMat;
 using cv::gpu::StereoBeliefPropagation;

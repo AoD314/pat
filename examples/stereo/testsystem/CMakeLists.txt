@@ -21,3 +21,17 @@ file(GLOB hdrs "*.hpp")
 add_executable( ${target} ${srcs} ${hdrs} )
 
 target_link_libraries( ${target} ${OpenCV_LIBS} ${PAT_LIBS})
+
+# ----------------------------------------------------------------------------
+# post build event
+# ----------------------------------------------------------------------------
+
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/bin)
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/stereo/testsystem/${target} ${CMAKE_BINARY_DIR}/bin)
+
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/aloe_gl.png ${CMAKE_BINARY_DIR}/bin)
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/aloe_gr.png ${CMAKE_BINARY_DIR}/bin)
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/aloe_l.png ${CMAKE_BINARY_DIR}/bin)
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/aloe_r.png ${CMAKE_BINARY_DIR}/bin)
+
+# ----------------------------------------------------------------------------

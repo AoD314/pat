@@ -1,8 +1,7 @@
 
 #ifndef __PAT_HPP__
 #define __PAT_HPP__
-
-#define PAT
+#define use_pat_system
 
 #include <string>
 

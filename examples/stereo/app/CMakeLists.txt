@@ -17,3 +17,12 @@ file(GLOB hdrs "*.hpp")
 add_executable( ${target} ${srcs} ${hdrs})
 
 target_link_libraries( ${target} ${OpenCV_LIBS} ${PAT_LIBS})
+
+# ----------------------------------------------------------------------------
+# post build event
+# ----------------------------------------------------------------------------
+
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/bin)
+add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/stereo/app/${target} ${CMAKE_BINARY_DIR}/bin)
+
+# ----------------------------------------------------------------------------
