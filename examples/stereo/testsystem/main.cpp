@@ -13,6 +13,21 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+void rum_cmd(std::string app_name, std::string args)
+{
+	std::string cmd;
+
+	#ifdef WIN32
+		cmd = app_name + ".exe ";
+	#else
+		cmd = "./" + app_name + " ";
+	#endif
+
+	cmd += args;
+
+	system(cmd.c_str());
+}
+
 void uniq(std::vector<std::string> & list)
 {
 	if (list.size() <= 0) return;
@@ -125,10 +140,13 @@ int main(int argc, const char ** argv)
 	Settings settings(argc, argv);
 	if (settings.is_exit()) return 0;
 
+	std::cout << "start  test_system" << std::endl;
+
 	std::vector<std::string> list;
 
 	//list = cv::Directory::GetListFiles(settings.get_gt(), ".png");
 	list.push_back("aloe_l.png");
+	list.push_back("baby_l.png");
 
 	get_list_name_dataset(list);
 
@@ -137,12 +155,11 @@ int main(int argc, const char ** argv)
 	std::vector<std::string>::const_iterator it;
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		std::string cmd = "stereobp.exe -r=" + *it + "_r.png -l=" + *it + "_l.png --result=res.png";
+		std::string args = "-r=" + *it + "_r.png -l=" + *it + "_l.png --result=res.png";
 		std::string gts = *it + "_gl.png";
 
-		cout << "run : " << cmd << endl;
-		int ret = system(cmd.c_str());
-		cout << "ret : " << ret << endl;
+		cout << "run : " << "stereobp " << args << endl;
+		rum_cmd("stereobp", args);
 		
 		// analyze
 
@@ -158,13 +175,17 @@ int main(int argc, const char ** argv)
 		// load result (disparity)
 		cv::Mat disp = cv::imread("res.png", 0);
 		
-		total_err += calc_err(gt, disp);
+		double current_err = calc_err(gt, disp);
+		std::cout << "current error is : " << current_err << std::endl;
+		total_err += current_err;
 	}
 
 	cout << "total error is : " << total_err << endl;
 
 	pat::PAT_System pat;
 	pat.send_result(total_err);
+
+	std::cout << "finish test_system" << std::endl;
 
 	return 0;
 }

@@ -15,6 +15,8 @@ int main(int argc, const char ** argv)
 	Settings settings(argc, argv);
 	if (settings.is_exit()) return 0;
 
+	std::cout << "start  StereoBP" << std::endl;
+
     Mat r = cv::imread(settings.right(), 0);
     Mat l = cv::imread(settings.left() , 0);
 
@@ -48,6 +50,8 @@ int main(int argc, const char ** argv)
     disparity.download(disp);
 
     cv::imwrite(settings.result(), disp);
+
+	std::cout << "finish StereoBP" << std::endl;
 
 	return 0;
 }
