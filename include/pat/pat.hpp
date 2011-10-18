@@ -83,6 +83,8 @@ namespace pat
 	class PAT_BruteForce : public PAT_Algorithm
 	{
 		public:
+			PAT_BruteForce(std::string path_to_testsystem);
+
 			void init();
 			void next_step(double value);
 			bool is_done();
@@ -92,6 +94,8 @@ namespace pat
 			Params params_max;
 			double MAX;
 			bool isdone;
+			bool is_need_first_pass;
+			std::string testsystem;
 	};
 
 }

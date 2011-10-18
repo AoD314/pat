@@ -2,6 +2,8 @@
 #ifndef __MAINWINDOW_HPP__
 #define __MAINWINDOW_HPP__
 
+#include <string>
+
 #include <QtGui>
 #include <QtNetwork/QTcpServer>
 #include <QtNetwork/QTcpSocket>
@@ -24,18 +26,21 @@ namespace pat
 			QHBoxLayout * layout_h;
 			QVBoxLayout * layout_v;
 
-			QTextEdit   * edit;
+			QLineEdit   * edit;
 			QPushButton * button;
 			QTextEdit   * text;
 
 			pat::PAT_Server * server;
 			int port;
 
+			std::string path_to_testsystem;
+
 			pat::PAT_Algorithm * alg;
 
 		private slots:
 			void click_run();
 			void next_step(double result);
+			void change_path(QString path);
 	};
 }
 
