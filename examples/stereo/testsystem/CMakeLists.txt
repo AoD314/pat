@@ -34,4 +34,10 @@ add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SO
 add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/aloe_l.png ${CMAKE_BINARY_DIR}/bin)
 add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/aloe_r.png ${CMAKE_BINARY_DIR}/bin)
 
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/baby_gl.png ${CMAKE_BINARY_DIR}/bin)
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/baby_gr.png ${CMAKE_BINARY_DIR}/bin)
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/baby_l.png ${CMAKE_BINARY_DIR}/bin)
+add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/baby_r.png ${CMAKE_BINARY_DIR}/bin)
+
+
 # ----------------------------------------------------------------------------
