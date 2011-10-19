@@ -31,11 +31,13 @@ namespace pat
 
 		signals:
 			void log(QString msg);
-			void next_step(double result);
+			void result(double result);
+			void get(QTcpSocket * client, QString name);
 
 		public slots:
 			void read();
 			void new_connection();
+			void send_to_value(QTcpSocket * client, QString value);
 
 	};
 

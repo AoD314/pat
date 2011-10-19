@@ -69,8 +69,9 @@ namespace pat
 			std::string receive_message_from_server();
 	};
 
-	class PAT_Algorithm
+	class PAT_Algorithm : public QObject
 	{
+		Q_OBJECT
 		protected:
 			Params params;
 
@@ -78,10 +79,19 @@ namespace pat
 			virtual void init() = 0;
 			virtual void next_step(double value) = 0;
 			virtual bool is_done() = 0;
+
+		signals:
+			virtual void send(QTcpSocket * client, QString val) = 0;
+
+		public slots:
+			virtual void result(double val) = 0;
+			virtual void get(QTcpSocket * client, QString name) = 0;
 	};
 
 	class PAT_BruteForce : public PAT_Algorithm
 	{
+		Q_OBJECT
+
 		public:
 			PAT_BruteForce(std::string path_to_testsystem);
 
@@ -96,6 +106,13 @@ namespace pat
 			bool isdone;
 			bool is_need_first_pass;
 			std::string testsystem;
+
+		signals:
+			void send(QTcpSocket * client, QString val);
+
+		public slots:
+			void result(double val);
+			void get(QTcpSocket * client, QString name);
 	};
 
 }

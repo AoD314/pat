@@ -20,7 +20,8 @@ namespace pat
 
 	void PAT_Server::send_to_client(QTcpSocket * socket, std::string value)
 	{
-		log("send to client");
+		QString str = "send to client : " + QString(value.c_str());
+		log(str);
 
 		QByteArray arr_block;
 		QDataStream out(&arr_block, QIODevice::WriteOnly);
@@ -38,8 +39,6 @@ namespace pat
 
 	void PAT_Server::read()
 	{
-		log("read client");
-
 		QTcpSocket * client = (QTcpSocket *)sender();
 		QDataStream in(client);
 		in.setVersion(QDataStream::Qt_4_7);
@@ -70,9 +69,8 @@ namespace pat
 
 			in >> q_cmd >> q_name >> q_value >> q_value_from >>  q_value_to >> q_value_step >> q_value_type;
 
-			QString msg = q_cmd + " " + q_name + " " + q_value;
-
-			qDebug() << msg;
+			QString str = "read from client : " + q_cmd + " " + q_name + " " + q_value + " " + q_value_from + " " +  q_value_to + " " + q_value_step + " " + q_value_type;
+			log(str);
 
 			block_size = 0;
 
@@ -106,14 +104,17 @@ namespace pat
 		}
 		else if (cmd.compare("get") == 0)
 		{
-			send_to_client(client, params.get_str(name.toStdString()));
+			get(client, name);
 		}
 		else if (cmd.compare("result") == 0)
 		{
-			next_step(from_str<double>(value.toStdString()));
+			result(from_str<double>(value.toStdString()));
 		}
+	}
 
-		//params.add<unsigned long int>(name.toStdString())
+	void PAT_Server::send_to_value(QTcpSocket * client, QString value)
+	{
+		send_to_client(client, value.toStdString());
 	}
 
 	void PAT_Server::new_connection()

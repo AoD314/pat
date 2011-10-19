@@ -47,17 +47,28 @@ set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "\"${PAT_CONFIG_FILE_INCLUDE_DIR}\" \"${CMAKE
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Output directory for libraries" )
 set(CMAKE_LIB_DIRS_CONFIGCMAKE "${LIBRARY_OUTPUT_PATH}")
 
-file(GLOB src_lib "src/*.cpp")
-file(GLOB inc_lib "include/pat/*.hpp")
+find_package(Qt4 4.7.0 COMPONENTS QtCore QtGui QtNetwork REQUIRED)
+include( ${QT_USE_FILE} )
 
-find_package(Qt4 COMPONENTS QtCore QtGui QtNetwork REQUIRED)
-include(${QT_USE_FILE})
-
-include_directories(${QT_INCLUDE_DIR})
+include_directories( ${QT_INCLUDE_DIR} )
 set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "${CMAKE_INCLUDE_DIRS_CONFIGCMAKE} ${QT_INCLUDE_DIR}")
 set(QT_LIBS ${QT_LIBRARIES})
 
-add_library( ${target} SHARED ${src_lib} ${inc_lib} ${QT_LIBRARIES})
+file(GLOB src_lib "*.cpp")
+file(GLOB inc_lib "*.hpp")
+
+qt4_wrap_cpp(moc_objs ${inc_lib})
+
+include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+
+ADD_DEFINITIONS(${QT_DEFINITIONS})
+ADD_DEFINITIONS(-DQT_PLUGIN)
+ADD_DEFINITIONS(-DQT_NO_DEBUG)
+ADD_DEFINITIONS(-DQT_SHARED)
+
+add_library( ${target} SHARED ${src_lib} ${QT_LIBRARIES} ${moc_objs})
+target_link_libraries( ${target} ${QT_LIBRARIES})
+
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/PATConfig.cmake.in" "${CMAKE_BINARY_DIR}/PATConfig.cmake" IMMEDIATE @ONLY)
 

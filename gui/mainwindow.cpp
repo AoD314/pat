@@ -24,7 +24,10 @@ namespace pat
 		server = new pat::PAT_Server(port);
 
 		connect(server, SIGNAL(log(QString)), text, SLOT(append(QString)));
-		connect(server, SIGNAL(next_step(double)), this, SLOT(next_step(double)));
+		connect(server, SIGNAL(result(double)), this, SLOT(next_step(double)));
+		connect(server, SIGNAL(get(QTcpSocket*,QString)),  alg,    SLOT(get(QTcpSocket*,QString)));
+		connect(alg,    SIGNAL(send(QTcpSocket*,QString)), server, SLOT(send_to_value(QTcpSocket*,QString)));
+
 
 		connect(button, SIGNAL(clicked()), this, SLOT(click_run()));
 		connect(edit, SIGNAL(textChanged(QString)), this, SLOT(change_path(QString)));
