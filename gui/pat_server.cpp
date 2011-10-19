@@ -40,6 +40,7 @@ namespace pat
 	void PAT_Server::read()
 	{
 		QTcpSocket * client = (QTcpSocket *)sender();
+		last_client = client;
 		QDataStream in(client);
 		in.setVersion(QDataStream::Qt_4_7);
 
@@ -74,37 +75,19 @@ namespace pat
 
 			block_size = 0;
 
-			process(client, q_cmd, q_name, q_value, q_value_from, q_value_to, q_value_step, q_value_type);
+			process(q_cmd, q_name, q_value, q_value_from, q_value_to, q_value_step, q_value_type);
 		}
 	}
 
-	void PAT_Server::process(QTcpSocket * client, QString cmd, QString name, QString value, QString value_from, QString value_to, QString step, QString type)
+	void PAT_Server::process(QString cmd, QString name, QString value, QString value_from, QString value_to, QString step, QString type)
 	{
-		std::string t(type.toStdString());
-
 		if (cmd.compare("init") == 0)
 		{
-			if ((t.compare("f") == 0)     ||
-				(t.compare("d") == 0)     ||
-				(t.compare("float") == 0) ||
-				(t.compare("double") == 0))
-			{
-				params.add<Params::r_float>(name.toStdString(),
-											from_str<Params::r_float>(value_from.toStdString()),
-											from_str<Params::r_float>(value_to.toStdString()),
-											from_str<Params::r_float>(step.toStdString()));
-			}
-			else
-			{
-				params.add<Params::r_int>(name.toStdString(),
-										  from_str<Params::r_int>(value_from.toStdString()),
-										  from_str<Params::r_int>(value_to.toStdString()),
-										  from_str<Params::r_int>(step.toStdString()));
-			}
+			init(name, value, value_from, value_to, step, type);
 		}
 		else if (cmd.compare("get") == 0)
 		{
-			get(client, name);
+			get(name);
 		}
 		else if (cmd.compare("result") == 0)
 		{
@@ -112,9 +95,9 @@ namespace pat
 		}
 	}
 
-	void PAT_Server::send_to_value(QTcpSocket * client, QString value)
+	void PAT_Server::send_to_value(QString value)
 	{
-		send_to_client(client, value.toStdString());
+		send_to_client(last_client, value.toStdString());
 	}
 
 	void PAT_Server::new_connection()

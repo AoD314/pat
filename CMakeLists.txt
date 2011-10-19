@@ -54,8 +54,8 @@ include_directories( ${QT_INCLUDE_DIR} )
 set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "${CMAKE_INCLUDE_DIRS_CONFIGCMAKE} ${QT_INCLUDE_DIR}")
 set(QT_LIBS ${QT_LIBRARIES})
 
-file(GLOB src_lib "*.cpp")
-file(GLOB inc_lib "*.hpp")
+file(GLOB src_lib "src/*.cpp")
+file(GLOB inc_lib "include/pat/*.hpp")
 
 qt4_wrap_cpp(moc_objs ${inc_lib})
 

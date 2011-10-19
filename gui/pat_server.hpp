@@ -26,18 +26,20 @@ namespace pat
 		private:
 			Params params;
 			quint32 block_size;
+			QTcpSocket * last_client;
 
-			void process(QTcpSocket * client, QString cmd, QString name, QString value, QString value_from, QString value_to, QString step, QString type);
+			void process(QString cmd, QString name, QString value, QString value_from, QString value_to, QString step, QString type);
 
 		signals:
 			void log(QString msg);
 			void result(double result);
-			void get(QTcpSocket * client, QString name);
+			void get(QString name);
+			void init(QString name, QString value, QString value_from, QString value_to, QString step, QString type);
 
 		public slots:
 			void read();
 			void new_connection();
-			void send_to_value(QTcpSocket * client, QString value);
+			void send_to_value(QString value);
 
 	};
 

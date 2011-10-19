@@ -81,11 +81,12 @@ namespace pat
 			virtual bool is_done() = 0;
 
 		signals:
-			virtual void send(QTcpSocket * client, QString val) = 0;
+			virtual void send(QString val) = 0;
 
 		public slots:
 			virtual void result(double val) = 0;
-			virtual void get(QTcpSocket * client, QString name) = 0;
+			virtual void get(QString name) = 0;
+			virtual void init(QString name, QString value, QString value_from, QString value_to, QString step, QString type) = 0;
 	};
 
 	class PAT_BruteForce : public PAT_Algorithm
@@ -108,11 +109,12 @@ namespace pat
 			std::string testsystem;
 
 		signals:
-			void send(QTcpSocket * client, QString val);
+			void send(QString val);
 
 		public slots:
 			void result(double val);
-			void get(QTcpSocket * client, QString name);
+			void get(QString name);
+			void init(QString name, QString value, QString value_from, QString value_to, QString step, QString type);
 	};
 
 }
