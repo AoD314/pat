@@ -4,7 +4,6 @@
 
 #include <string>
 
-#include <QtGui>
 #include <QtNetwork/QTcpServer>
 #include <QtNetwork/QTcpSocket>
 
@@ -36,11 +35,17 @@ namespace pat
 			std::string path_to_testsystem;
 
 			pat::PAT_Algorithm * alg;
+			QString path;
+			QString program;
+			QStringList arguments;
+
+
 
 		private slots:
 			void click_run();
 			void next_step(double result);
 			void change_path(QString path);
+			void finished(int i);
 	};
 }
 

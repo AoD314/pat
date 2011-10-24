@@ -5,6 +5,7 @@
 
 #include <string>
 
+#include <QtCore/QProcess>
 #include <QtNetwork/QTcpSocket>
 #include <QtNetwork/QTcpServer>
 
@@ -79,9 +80,11 @@ namespace pat
 			virtual void init() = 0;
 			virtual void next_step(double value) = 0;
 			virtual bool is_done() = 0;
+			virtual void answer() = 0;
 
 		signals:
-			virtual void send(QString val) = 0;
+			virtual void send(QString val);
+			virtual void info(QString info);
 
 		public slots:
 			virtual void result(double val) = 0;
@@ -94,7 +97,7 @@ namespace pat
 		Q_OBJECT
 
 		public:
-			PAT_BruteForce(std::string path_to_testsystem);
+			PAT_BruteForce();
 
 			void init();
 			void next_step(double value);
@@ -102,14 +105,15 @@ namespace pat
 			void answer();
 
 		private:
-			Params params_max;
-			double MAX;
+			Params params_min;
+			double MIN;
 			bool isdone;
 			bool is_need_first_pass;
 			std::string testsystem;
 
 		signals:
 			void send(QString val);
+			void info(QString info);
 
 		public slots:
 			void result(double val);

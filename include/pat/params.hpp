@@ -48,6 +48,8 @@ namespace pat
 				add<T>(name, min_value, max_value, static_cast<T>(1));
 			}
 
+			bool find(std::string name);
+
 			std::string get_str(std::string name);
 
 			template <typename T>

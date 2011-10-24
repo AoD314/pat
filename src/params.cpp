@@ -4,6 +4,14 @@
 
 namespace pat
 {
+
+	bool Params::find(std::string name)
+	{
+		if (find_record_int(name)) return true;
+		if (find_record_float(name)) return true;
+		return false;
+	}
+
 	std::string Params::get_str(std::string name)
 	{
 		if (find_record_float(name))
