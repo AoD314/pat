@@ -23,6 +23,11 @@ target_link_libraries( ${target} ${OpenCV_LIBS} ${PAT_LIBS})
 # ----------------------------------------------------------------------------
 
 add_custom_command( TARGET ${target} COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/bin)
-add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/stereo/app/${target} ${CMAKE_BINARY_DIR}/bin)
+
+if (UNIX)
+	add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/stereo/app/${target} ${CMAKE_BINARY_DIR}/bin)
+else()
+	add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/stereo/app/$(ConfigurationName)/stereobp.exe ${CMAKE_BINARY_DIR}/bin)
+endif()
 
 # ----------------------------------------------------------------------------

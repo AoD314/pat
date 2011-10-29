@@ -4,12 +4,10 @@
 
 #include <string>
 
-#include <QtNetwork/QTcpServer>
-#include <QtNetwork/QTcpSocket>
+#include <QtCore>
 
-#include "pat_server.hpp"
-
-#include "pat/pat.hpp"
+#include "pat/gui_algorithm.hpp"
+#include "pat/gui_server.hpp"
 
 namespace pat
 {
@@ -38,7 +36,6 @@ namespace pat
 			QString path;
 			QString program;
 			QStringList arguments;
-
 
 
 		private slots:

@@ -4,7 +4,8 @@
 #include <limits>
 #include <iostream>
 
-#include "pat/pat.hpp"
+#include "pat/gui_alg_bruteforce.hpp"
+#include "pat/pat_convert.hpp"
 
 namespace pat
 {

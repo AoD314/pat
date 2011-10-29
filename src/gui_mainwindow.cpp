@@ -1,5 +1,6 @@
 
-#include "mainwindow.hpp"
+#include "pat/gui_mainwindow.hpp"
+#include "pat/gui_alg_bruteforce.hpp"
 
 namespace pat
 {

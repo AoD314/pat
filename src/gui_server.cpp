@@ -1,6 +1,6 @@
 
-#include "pat_server.hpp"
-#include "pat/convert.hpp"
+#include "pat/gui_server.hpp"
+#include "pat/pat_convert.hpp"
 
 namespace pat
 {

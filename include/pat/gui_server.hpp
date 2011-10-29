@@ -8,7 +8,7 @@
 #include <QtNetwork/QTcpSocket>
 #include <QtNetwork/QHostAddress>
 
-#include "pat/params.hpp"
+#include "pat/pat_params.hpp"
 
 namespace pat
 {

@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include <QtGui/qapplication.h>
-#include "mainwindow.hpp"
+#include "pat/gui_mainwindow.hpp"
 
 using pat::MainWindow;
 
