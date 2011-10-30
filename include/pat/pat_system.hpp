@@ -7,6 +7,7 @@
 
 #include "pat/pat_convert.hpp"
 #include "patconfig.hpp"
+#include <typeinfo>
 
 namespace pat
 {
