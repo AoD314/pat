@@ -14,6 +14,11 @@ namespace pat
 		is_need_first_pass = true;
 	}
 
+	void PAT_BruteForce::log(QString msg)
+	{
+		info(msg);
+	}
+
 	void PAT_BruteForce::answer()
 	{
 		QString str("");
@@ -27,7 +32,6 @@ namespace pat
 		info(str);
 	}
 
-
 	void PAT_BruteForce::init()
 	{
 		std::vector<std::string> list = params.get_list_params();
@@ -37,7 +41,7 @@ namespace pat
 			params.set_min(*it);
 		}
 
-		MIN = -std::numeric_limits<double>::max();
+		MIN = std::numeric_limits<double>::max();
 	}
 
 	void PAT_BruteForce::next_step(double value)

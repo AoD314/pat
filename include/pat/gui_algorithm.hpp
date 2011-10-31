@@ -19,6 +19,7 @@ namespace pat
 			virtual void next_step(double value) = 0;
 			virtual bool is_done() = 0;
 			virtual void answer() = 0;
+			virtual void log(QString msg) = 0;
 
 		signals:
 			void send(QString val);

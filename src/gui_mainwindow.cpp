@@ -25,7 +25,7 @@ namespace pat
 		server = new pat::PAT_Server(port);
 
 
-		connect(server, SIGNAL(log(QString)), text, SLOT(append(QString)));
+		connect(server, SIGNAL(log(QString)),  text,  SLOT(append(QString)));
 		connect(server, SIGNAL(result(double)), this, SLOT(next_step(double)));
 
 
@@ -58,10 +58,11 @@ namespace pat
 	void MainWindow::click_run()
 	{
 		alg = new pat::PAT_BruteForce();
+		alg->init();
 
-		connect(server, SIGNAL(get(QString)),  alg,    SLOT(get(QString)));
-		//connect(alg,    SIGNAL(info(QString)), text,   SLOT(append(QString)));
-		connect(alg,    SIGNAL(send(QString)), server, SLOT(send_to_value(QString)));
+		connect(server, SIGNAL(get(QString)),  alg,   SLOT(get(QString)));
+		//connect(alg,    SIGNAL(info(QString)), text,  SLOT(append(QString)));
+		connect(alg,    SIGNAL(send(QString)), server,SLOT(send_to_value(QString)));
 		connect(server, SIGNAL(init(QString,QString,QString,QString,QString,QString)), alg, SLOT(init(QString,QString,QString,QString,QString,QString)));
 
 		program = QString(path_to_testsystem.c_str());

@@ -62,33 +62,33 @@ set(QT_LIBS ${QT_LIBRARIES})
 
 set(lib_srcs "src/pat_base.cpp"
              "src/pat_convert.cpp"
-			 "src/pat_params.cpp"
-			 "src/pat_system.cpp"
+             "src/pat_params.cpp"
+             "src/pat_system.cpp"
     )
-	
+
 set(lib_hdrs "include/pat/pat.hpp"
              "include/pat/pat_base.hpp"
-			 "include/pat/pat_convert.hpp"
-			 "include/pat/pat_params.hpp"
-			 "include/pat/pat_record_params.hpp"
-			 "include/pat/pat_system.hpp"
+             "include/pat/pat_convert.hpp"
+             "include/pat/pat_params.hpp"
+             "include/pat/pat_record_params.hpp"
+             "include/pat/pat_system.hpp"
              "include/pat/version.hpp"
     )
 
 ### GUI ###
-	
-set(gui_srcs "src/gui_bruteforce.cpp"
+
+set(gui_srcs "src/gui_alg_bruteforce.cpp"
              "src/gui_main.cpp"
              "src/gui_mainwindow.cpp"
-			 "src/gui_server.cpp"
+             "src/gui_server.cpp"
     )
-	
+
 set(gui_hdrs "")
 
 set(gui_mocs "include/pat/gui_alg_bruteforce.hpp"
              "include/pat/gui_algorithm.hpp"
              "include/pat/gui_mainwindow.hpp"
-			 "include/pat/gui_server.hpp"
+             "include/pat/gui_server.hpp"
     )
 
 qt4_wrap_cpp(gui_mocs_obj ${gui_mocs})

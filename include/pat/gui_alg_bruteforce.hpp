@@ -20,6 +20,7 @@ namespace pat
 			void next_step(double value);
 			bool is_done();
 			void answer();
+			void log(QString msg);
 
 		private:
 			Params params_min;
@@ -27,10 +28,6 @@ namespace pat
 			bool isdone;
 			bool is_need_first_pass;
 			std::string testsystem;
-
-		signals:
-			void send(QString val);
-			void info(QString info);
 
 		public slots:
 			void result(double val);
