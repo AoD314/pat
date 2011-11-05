@@ -12,7 +12,6 @@
 
 namespace pat
 {
-
 	class PAT_Server : public QTcpServer
 	{
 		Q_OBJECT
@@ -21,7 +20,6 @@ namespace pat
 			PAT_Server(int port);
 
 			void send_to_client(QTcpSocket * socket, std::string value);
-
 
 		private:
 			Params params;

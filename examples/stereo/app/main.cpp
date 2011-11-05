@@ -21,7 +21,7 @@ int main(int argc, const char ** argv)
     Mat l = cv::imread(settings.left() , 0);
 
 	int max_disparity = 96;
-	int iteration = 7;
+	int iteration = 9;
 	int level = 5;
 
 #ifdef use_pat_system
@@ -29,7 +29,7 @@ int main(int argc, const char ** argv)
 	pat::PAT_System pat;
 
 	pat.init("max_disp", 80, 96, 16, 80);
-	pat.init("iter", 7, 11, 2, 7);
+	pat.init("iter", 9, 11, 2, 9);
 	pat.init("level", 5, 7, 2, 5);
 
 	max_disparity = pat.get_params<int>("max_disp");

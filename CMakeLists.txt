@@ -91,6 +91,8 @@ set(gui_mocs "include/pat/gui_alg_bruteforce.hpp"
              "include/pat/gui_server.hpp"
     )
 
+set(gui_hdrs ${gui_hdrs} ${gui_mocs})
+
 qt4_wrap_cpp(gui_mocs_obj ${gui_mocs})
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )

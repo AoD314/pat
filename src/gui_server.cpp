@@ -27,7 +27,6 @@ namespace pat
 		QDataStream out(&arr_block, QIODevice::WriteOnly);
 		out.setVersion(QDataStream::Qt_4_7);
 
-
 		out << quint32(0) << QString(value.c_str());
 		out.device()->seek(0);
 		out << quint32(arr_block.size() - sizeof(quint32));
@@ -81,6 +80,8 @@ namespace pat
 
 	void PAT_Server::process(QString cmd, QString name, QString value, QString value_from, QString value_to, QString step, QString type)
 	{
+		log("run process: " + cmd);
+
 		if (cmd.compare("init") == 0)
 		{
 			init(name, value, value_from, value_to, step, type);

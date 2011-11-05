@@ -16,12 +16,13 @@ namespace pat
 
 	void PAT_BruteForce::log(QString msg)
 	{
-		info(msg);
+		logging(msg);
 	}
 
 	void PAT_BruteForce::answer()
 	{
 		QString str("");
+
 		std::vector<std::string> list = params_min.get_list_params();
 		std::vector<std::string>::iterator it;
 		for(it = list.begin(); it != list.end(); ++it)
@@ -29,7 +30,8 @@ namespace pat
 			str += QString((*it).c_str()) + QString(" = ") + QString((params_min.get_str(*it)).c_str()) + QString("\n");
 		}
 		qDebug() << str;
-		info(str);
+
+		logging(str);
 	}
 
 	void PAT_BruteForce::init()

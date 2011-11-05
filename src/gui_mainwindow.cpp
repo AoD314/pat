@@ -6,7 +6,7 @@ namespace pat
 {
 	MainWindow::MainWindow(QWidget * parent) : QWidget(parent)
 	{
-		QLineEdit    * edit   = new QLineEdit(QString("/work/projects/pat/pat/examples/build-stereo/bin/testsystem"));
+		QLineEdit    * edit   = new QLineEdit(QString("C:/work/pat/examples/build/bin/testsystem.exe"));
 		QPushButton  * button = new QPushButton("RUN");
 		QTextEdit    * text   = new QTextEdit;
 		text->setReadOnly(true);
@@ -28,6 +28,7 @@ namespace pat
 		connect(server, SIGNAL(log(QString)),  text,  SLOT(append(QString)));
 		connect(server, SIGNAL(result(double)), this, SLOT(next_step(double)));
 
+		//connect(alg,    SIGNAL(logging(QString)), text, SLOT(append(QString)));
 
 		connect(button, SIGNAL(clicked()), this, SLOT(click_run()));
 		connect(edit, SIGNAL(textChanged(QString)), this, SLOT(change_path(QString)));
@@ -60,23 +61,28 @@ namespace pat
 		alg = new pat::PAT_BruteForce();
 		alg->init();
 
-		connect(server, SIGNAL(get(QString)),  alg,   SLOT(get(QString)));
-		//connect(alg,    SIGNAL(info(QString)), text,  SLOT(append(QString)));
-		connect(alg,    SIGNAL(send(QString)), server,SLOT(send_to_value(QString)));
+		connect(server, SIGNAL(get(QString)),     alg,    SLOT(get(QString)));
+		connect(alg,    SIGNAL(send(QString)),    server, SLOT(send_to_value(QString)));
+
 		connect(server, SIGNAL(init(QString,QString,QString,QString,QString,QString)), alg, SLOT(init(QString,QString,QString,QString,QString,QString)));
 
+		// set working directory
 		program = QString(path_to_testsystem.c_str());
 		QStringList folders = program.split("/");
 		folders.removeLast();
 		path = folders.join("/");
 
-		QProcess * app = new QProcess(this);
-		app->setWorkingDirectory(path);
-		app->start(program, arguments);
-	}
-
-	void MainWindow::finished(int i)
-	{
-		qDebug() << "finish : " << i;
+		try
+		{
+			QProcess * app = new QProcess(this);
+			qDebug() << "set working directory : " << path;
+			app->setWorkingDirectory(path);		
+			qDebug() << "start program  : " << program;
+			app->start(program, arguments);
+		}
+		catch(...)
+		{
+			qDebug() << " EXCEPTION !!! ";
+		}
 	}
 }

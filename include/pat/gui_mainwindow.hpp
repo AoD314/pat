@@ -42,7 +42,6 @@ namespace pat
 			void click_run();
 			void next_step(double result);
 			void change_path(QString path);
-			void finished(int i);
 	};
 }
 

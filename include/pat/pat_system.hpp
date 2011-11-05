@@ -2,12 +2,13 @@
 #ifndef __PAT_SYSTEM_HPP__
 #define __PAT_SYSTEM_HPP__
 
+#include <typeinfo>
+
 #include <QtNetwork/QTcpSocket>
 #include <QtNetwork/QTcpServer>
 
 #include "pat/pat_convert.hpp"
 #include "patconfig.hpp"
-#include <typeinfo>
 
 namespace pat
 {
