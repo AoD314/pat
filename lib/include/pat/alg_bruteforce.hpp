@@ -5,7 +5,7 @@
 #include <QtCore>
 
 #include "pat/pat_params.hpp"
-#include "pat/gui_algorithm.hpp"
+#include "pat/algorithm.hpp"
 
 namespace pat
 {	

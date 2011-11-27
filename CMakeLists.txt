@@ -65,12 +65,12 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/patconfig.h.cmake" "${PAT_CONFIG_FIL
 # The C+//0 include & link directories:
 # ---------------------------------------------------------------------------
 
-include_directories("." "${PAT_CONFIG_FILE_INCLUDE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/include/pat")
+include_directories("." "${PAT_CONFIG_FILE_INCLUDE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/lib/include" "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/pat")
 
 # -------------------------------------------------------------------------------------------
 #  Part 1/3: ${BIN_DIR}/PATConfig.cmake              -> For use *without* "make install"
 # -------------------------------------------------------------------------------------------
-set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "\"${PAT_CONFIG_FILE_INCLUDE_DIR}\" \"${CMAKE_CURRENT_SOURCE_DIR}/include\" \"${CMAKE_CURRENT_SOURCE_DIR}/include/pat\"")
+set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "\"${PAT_CONFIG_FILE_INCLUDE_DIR}\" \"${CMAKE_CURRENT_SOURCE_DIR}/include\" \"${CMAKE_CURRENT_SOURCE_DIR}/lib/include/pat\"")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Output directory for libraries" )
 set(CMAKE_LIB_DIRS_CONFIGCMAKE "${LIBRARY_OUTPUT_PATH}")
 
@@ -92,40 +92,51 @@ set(QT_LIBS ${QT_LIBRARIES})
 
 ### LIB ###
 
-set(lib_srcs "src/pat_base.cpp"
-             "src/pat_convert.cpp"
-             "src/pat_params.cpp"
-             "src/pat_system.cpp"
+set(lib_srcs "lib/src/pat_base.cpp"
+             "lib/src/pat_convert.cpp"
+             "lib/src/pat_params.cpp"
+             "lib/src/alg_bruteforce.cpp"
+             "lib/src/pat_system.cpp"
     )
 
-set(lib_hdrs "include/pat/pat.hpp"
-             "include/pat/pat_base.hpp"
-             "include/pat/pat_convert.hpp"
-             "include/pat/pat_params.hpp"
-             "include/pat/pat_record_params.hpp"
-             "include/pat/pat_system.hpp"
-             "include/pat/version.hpp"
+set(lib_hdrs "lib/include/pat/pat.hpp"
+             "lib/include/pat/pat_base.hpp"
+             "lib/include/pat/pat_convert.hpp"
+             "lib/include/pat/pat_params.hpp"
+             "lib/include/pat/pat_record_params.hpp"
+             "lib/include/pat/pat_system.hpp"
+             "lib/include/pat/version.hpp"
+    )
+
+set(lib_mocs "lib/include/pat/alg_bruteforce.hpp"
+             "lib/include/pat/algorithm.hpp"
     )
 
 ### GUI ###
 
-set(gui_srcs "src/gui_alg_bruteforce.cpp"
-             "src/gui_main.cpp"
-             "src/gui_mainwindow.cpp"
-             "src/gui_server.cpp"
+set(gui_srcs 
+             "gui/main.cpp"
+             "gui/mainwindow.cpp"
+             "gui/server.cpp"
+             "common/settings.cpp" 
     )
 
-set(gui_hdrs "")
+set(gui_hdrs "common/settings.hpp")
 
-set(gui_mocs "include/pat/gui_alg_bruteforce.hpp"
-             "include/pat/gui_algorithm.hpp"
-             "include/pat/gui_mainwindow.hpp"
-             "include/pat/gui_server.hpp"
+set(gui_mocs 
+             "gui/mainwindow.hpp"
+             "gui/server.hpp"
     )
+
+### CONSOLE ###
+
+
 
 set(gui_hdrs ${gui_hdrs} ${gui_mocs})
+set(lib_hdrs ${lib_hdrs} ${lib_mocs})
 
 qt4_wrap_cpp(gui_mocs_obj ${gui_mocs})
+qt4_wrap_cpp(lib_mocs_obj ${lib_mocs})
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
@@ -137,7 +148,7 @@ if (WIN32)
 	add_definitions(-DPATAPI_EXPORTS)
 endif()
 
-add_library( ${target_lib} SHARED ${lib_srcs} ${lib_hdrs})
+add_library( ${target_lib} SHARED ${lib_srcs} ${lib_hdrs} ${lib_mocs_obj})
 target_link_libraries( ${target_lib} ${QT_LIBRARIES})
 
 add_executable( ${target_gui} ${gui_srcs} ${gui_hdrs} ${gui_mocs_obj})

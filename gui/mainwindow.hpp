@@ -6,8 +6,8 @@
 
 #include <QtCore>
 
-#include "pat/gui_algorithm.hpp"
-#include "pat/gui_server.hpp"
+#include "pat/algorithm.hpp"
+#include "server.hpp"
 
 namespace pat
 {
