@@ -5,6 +5,9 @@ set(target_lib "pat" )
 set(target_gui "pat_gui" )
 project( ${target_lib} )
 
+
+
+
 # ----------------------------------------------------------------------------
 # CONFIGURE
 # ----------------------------------------------------------------------------
@@ -19,10 +22,33 @@ endif()
 
 # ----------------------------------------------------------------------------
 
+
+
+
+
+
+
+# ----------------------------------------------------------------------------
+# DOCUMENTATION
+# ----------------------------------------------------------------------------
+
+set(ENABLE_DOCS OFF CACHE BOOL "Enable build documentation")
+if (ENABLE_DOCS)
+		add_subdirectory(doc)
+endif()
+
+# ----------------------------------------------------------------------------
+
+
+
+
+
+
+
 # ----------------------------------------------------------------------------
 #  Get actual pat version number from sources
 # ----------------------------------------------------------------------------
-set(pat_version_file "${CMAKE_CURRENT_SOURCE_DIR}/include/pat/version.hpp")
+set(pat_version_file "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/pat/version.hpp")
 file(STRINGS "${pat_version_file}" pat_version_parts REGEX "#define PAT_VERSION_.+[ ]+[0-9]+" )
 string(REGEX REPLACE ".+PAT_VERSION_MAJOR[ ]+([0-9]+).*" "\\1"  PAT_VERSION_MAJOR  "${pat_version_parts}")
 string(REGEX REPLACE ".+PAT_VERSION_MINOR[ ]+([0-9]+).*" "\\1"  PAT_VERSION_MINOR  "${pat_version_parts}")
@@ -47,6 +73,12 @@ include_directories("." "${PAT_CONFIG_FILE_INCLUDE_DIR}" "${CMAKE_CURRENT_SOURCE
 set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "\"${PAT_CONFIG_FILE_INCLUDE_DIR}\" \"${CMAKE_CURRENT_SOURCE_DIR}/include\" \"${CMAKE_CURRENT_SOURCE_DIR}/include/pat\"")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Output directory for libraries" )
 set(CMAKE_LIB_DIRS_CONFIGCMAKE "${LIBRARY_OUTPUT_PATH}")
+
+
+
+
+
+
 
 # ---------------------------------------------------------------------------
 # BUILD
@@ -108,12 +140,13 @@ endif()
 add_library( ${target_lib} SHARED ${lib_srcs} ${lib_hdrs})
 target_link_libraries( ${target_lib} ${QT_LIBRARIES})
 
-if (WIN32)
-	#remove_definitions(-DPATAPI_EXPORTS)
-endif()
-
 add_executable( ${target_gui} ${gui_srcs} ${gui_hdrs} ${gui_mocs_obj})
 target_link_libraries( ${target_gui} ${QT_LIBRARIES} ${target_lib})
+
+
+
+
+
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/PATConfig.cmake.in" "${CMAKE_BINARY_DIR}/PATConfig.cmake" IMMEDIATE @ONLY)
 

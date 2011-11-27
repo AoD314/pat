@@ -11,7 +11,6 @@
 
 namespace pat
 {
-
 	class MainWindow : public QWidget
 	{
 		Q_OBJECT
@@ -36,6 +35,9 @@ namespace pat
 			QString path;
 			QString program;
 			QStringList arguments;
+
+		signals:
+			void add_text(QString msg);
 
 
 		private slots:

@@ -1,22 +1,139 @@
-
 \documentclass[12pt, a4paper, utf8]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[english, russian]{babel}
 \usepackage[T2A]{fontenc}
-\usepackage{xltxtra}
-\usepackage{xecyr}
+%\usepackage{xltxtra}
+%\usepackage{xecyr}
 
-\usepackage{fontspec}
-\defaultfontfeatures{Scale=MatchLowercase}
-\setmainfont[Mapping=tex-text]{Liberation Serif}
-\setsansfont[Mapping=tex-text]{Liberation Sans}
-\setmonofont{Droid Sans Mono}
+%\usepackage{fontspec}
+%\defaultfontfeatures{Scale=MatchLowercase}
+%\setmainfont[Mapping=tex-text]{Liberation Serif}
+%\setsansfont[Mapping=tex-text]{Liberation Sans}
+%\setmonofont{Droid Sans Mono}
+
+\usepackage{multicol}
+
+% меняем размеры страницы
+\usepackage{geometry}
+\geometry{left=3.0cm}
+\geometry{right=2.0cm}
+\geometry{top=2.0cm}
+\geometry{bottom=2.0cm}
 
 \makeindex
 
+% будем считать что переполнения не было, если строка вышла за границу не более чем 0.01pt
+\hfuzz=0.001pt
+
+% разрешаю увеличить расстояние между словами не больше чем на 14pt, что бы не было переполнения
+\emergencystretch=14pt
+
+% изменение межстрочного интервала
+\def\heightline{1.3}
+\linespread{\heightline} % 1.3 - это полуторный
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% добавляем точки в Оглавление
+
+\renewcommand{\thesection}{\arabic{section}.} 
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.} 
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.} 
+
 \begin{document}
 
+\begin{titlepage}
+\begin{center}
+{Министерство образования и науки Российской Федерации\\ 
+Государственное образовательное учреждение \\ 
+высшего профессионального образования \\ 
+<<Нижегородский государственный университет им. Н.И. Лобачевского>>\\
 
+\bf{Факультет вычислительной математики и кибернетики\\
+Кафедра математического обеспечения ЭВМ\\
+}
+\vspace{5em}
+АСПИРАНТСКАЯ ДИССЕРТАЦИЯ\\
+}
+{\bf \Large	\textsf{ Оптимизация значений параметров в системах компьютерного зрения \\ } }
+\end{center}
+\vspace{3em}
+\begin{multicols}{2}
+\vbox to 14 cm{\ }
+\noindent 
+{\bf Допущена к защите} : {\hrulefill}\\
+Заведующий кафедрой МО ЭВМ \\
+д.ф.--м.н., проф. \\
+
+\vspace*{1em}
+{ \noindent
+\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small Подпись}}\hspace{-1.5cm}{\hrulefill\ \ Стронгин Р. Г. }
+}
+
+\vspace*{1em}
+{ \noindent
+\hbox to 0cm{\raisebox{0.25em}{<<\qquad \qquad \quad >>}}{\hrulefill\ 2011 г. }
+}
+
+\noindent
+{\bf Выполнил}: аспирант  \\
+
+\vspace*{0.5em}
+{ \noindent
+\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small Подпись}}\hspace{-1.5cm}{\hrulefill\ \ Морозов А. С. }
+}
+
+\vspace{1.5em}
+\noindent
+{\bf Научный руководитель}: \\
+д. т. н., профессор кафедры МО ЭВМ \\
+
+{ \noindent
+\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small Подпись}}\hspace{-1.5cm}{\hrulefill\ \ ФИО }
+}
+\end{multicols}
+\vfill 
+\begin{center} 
+{\rm Нижний Новгород \\ 2011 г.} 
+\end {center} 
+\end{titlepage} 
+
+\tableofcontents
+
+\newpage
+
+\section*{Введение}
+\addcontentsline{toc}{section}{Введение} 
+
+Введение.
+
+\section{top}
+
+\section*{Заключение}
+\addcontentsline{toc}{section}{Заключение} 
+
+Заключение.
+
+
+\newpage
+\begin{thebibliography}{99}
+\addcontentsline{toc}{section}{Список литературы}
+
+	\bibitem{rdtscp} Gabriele Paoloni. How to Benchmark Code Execution Times on Intel IA-32 and IA-64 Instruction Set Architectures, September 2010
+
+
+\end{thebibliography}
+
+\newpage
+\addcontentsline{toc}{section}{Список иллюстраций}
+\listoffigures
+
+\newpage
+\addcontentsline{toc}{section}{Список таблиц}
+\listoftables
+
+%\newpage
+%\addcontentsline{toc}{section}{Предметный указатель}
+%\input{main.ind}
 
 \end{document}
 

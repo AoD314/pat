@@ -6,9 +6,10 @@ namespace pat
 {
 	MainWindow::MainWindow(QWidget * parent) : QWidget(parent)
 	{
-		QLineEdit    * edit   = new QLineEdit(QString("C:/work/pat/examples/build/bin/testsystem.exe"));
+		//C:/work/pat/examples/build/bin/testsystem.exe
+		QLineEdit    * edit   = new QLineEdit(QString("/work/projects/pat/pat/examples/build-stereo/bin/testsystem"));
 		QPushButton  * button = new QPushButton("RUN");
-		QTextEdit    * text   = new QTextEdit;
+		QTextEdit    * text   = new QTextEdit(QString("Hello !"));
 		text->setReadOnly(true);
 
 		QHBoxLayout * layout_h = new QHBoxLayout;
@@ -24,11 +25,10 @@ namespace pat
 		port = 13314;
 		server = new pat::PAT_Server(port);
 
+		connect(this, SIGNAL(add_text(QString)), text, SLOT(change_path(QString)));
 
 		connect(server, SIGNAL(log(QString)),  text,  SLOT(append(QString)));
-		connect(server, SIGNAL(result(double)), this, SLOT(next_step(double)));
-
-		//connect(alg,    SIGNAL(logging(QString)), text, SLOT(append(QString)));
+		connect(server, SIGNAL(result(double)), this, SLOT(next_step(double)));		
 
 		connect(button, SIGNAL(clicked()), this, SLOT(click_run()));
 		connect(edit, SIGNAL(textChanged(QString)), this, SLOT(change_path(QString)));
@@ -61,10 +61,12 @@ namespace pat
 		alg = new pat::PAT_BruteForce();
 		alg->init();
 
-		connect(server, SIGNAL(get(QString)),     alg,    SLOT(get(QString)));
-		connect(alg,    SIGNAL(send(QString)),    server, SLOT(send_to_value(QString)));
+		QObject::connect(server, SIGNAL(get(QString)),     alg,    SLOT(get(QString)));
+		QObject::connect(alg,    SIGNAL(send(QString)),    server, SLOT(send_to_value(QString)));
 
-		connect(server, SIGNAL(init(QString,QString,QString,QString,QString,QString)), alg, SLOT(init(QString,QString,QString,QString,QString,QString)));
+		QObject::connect(alg,    SIGNAL(logging(QString)), this, SLOT());
+
+		QObject::connect(server, SIGNAL(init(QString,QString,QString,QString,QString,QString)), alg, SLOT(init(QString,QString,QString,QString,QString,QString)));
 
 		// set working directory
 		program = QString(path_to_testsystem.c_str());
