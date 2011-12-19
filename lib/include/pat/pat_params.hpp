@@ -14,11 +14,11 @@ namespace pat
 	class PAT_EXPORTS Params
 	{
 		public:
-			typedef long long int r_int;
-			typedef double      r_float;
+			typedef long long int   r_int;
+			typedef double        r_float;
 
 			template <typename T>
-			void add(std::string name, T min_value, T max_value, T step, T start_value)
+			void add(std::string name, T min, T max, T step, T def)
 			{
 				std::string type(typeid(step).name());
 
@@ -27,26 +27,26 @@ namespace pat
 					(type.compare("float") == 0) ||
 					(type.compare("double") == 0))
 				{
-					record_float.push_back(RecordParams<r_float>(name, min_value, max_value, step, start_value));
+					record_float.push_back(RecordParams<r_float>(name, min, max, step, def));
 				}
 				else
 				{
-					record_int.push_back(RecordParams<r_int>(name, min_value, max_value, step, start_value));
+					record_int.push_back  (RecordParams<r_int>  (name, min, max, step, def));
 				}
 
 				list_name_params.push_back(name);
 			}
 
 			template <typename T>
-			void add(std::string name, T min_value, T max_value, T step)
+			void add(std::string name, T min, T max, T step)
 			{
-				add<T>(name, min_value, max_value, step, min_value + ((max_value - min_value)/static_cast<T>(2)));
+				add<T>(name, min, max, step, min + ((max - min)/static_cast<T>(2)));
 			}
 
 			template <typename T>
-			void add(std::string name, T min_value, T max_value)
+			void add(std::string name, T min, T max)
 			{
-				add<T>(name, min_value, max_value, static_cast<T>(1));
+				add<T>(name, min, max, static_cast<T>(1));
 			}
 
 			bool find(std::string name);
@@ -57,10 +57,10 @@ namespace pat
 			T get(std::string name)
 			{
 				if (find_record_float(name))
-					return static_cast<T>(get_record_float(name).get_value());
+					return static_cast<T>(get_record_float(name).value);
 
 				if (find_record_int(name))
-					return static_cast<T>(get_record_int(name).get_value());
+					return static_cast<T>(get_record_int(name).value);
 
 				return T();
 			}
@@ -69,10 +69,10 @@ namespace pat
 			T get_min(std::string name)
 			{
 				if (find_record_float(name))
-					return static_cast<T>(get_record_float(name).get_min());
+					return static_cast<T>(get_record_float(name).min);
 
 				if (find_record_int(name))
-					return static_cast<T>(get_record_int(name).get_min());
+					return static_cast<T>(get_record_int(name).min);
 
 				return T();
 			}
@@ -81,10 +81,10 @@ namespace pat
 			T get_step(std::string name)
 			{
 				if (find_record_float(name))
-					return static_cast<T>(get_record_float(name).get_step());
+					return static_cast<T>(get_record_float(name).step);
 
 				if (find_record_int(name))
-					return static_cast<T>(get_record_int(name).get_step());
+					return static_cast<T>(get_record_int(name).step);
 
 				return T();
 			}
@@ -93,10 +93,22 @@ namespace pat
 			T get_max(std::string name)
 			{
 				if (find_record_float(name))
-					return static_cast<T>(get_record_float(name).get_max());
+					return static_cast<T>(get_record_float(name).max);
 
 				if (find_record_int(name))
-					return static_cast<T>(get_record_int(name).get_max());
+					return static_cast<T>(get_record_int(name).max);
+
+				return T();
+			}
+
+			template <typename T>
+			T get_def(std::string name)
+			{
+				if (find_record_float(name))
+					return static_cast<T>(get_record_float(name).def);
+
+				if (find_record_int(name))
+					return static_cast<T>(get_record_int(name).def);
 
 				return T();
 			}
@@ -105,17 +117,42 @@ namespace pat
 			void set(std::string name, T value)
 			{
 				if (find_record_float(name))
-					get_record_float(name).set_value(value);
+					get_record_float(name).value = value;
 
 				if (find_record_int(name))
-					get_record_int(name).set_value(value);
+					get_record_int(name).value = value;
 
 				return T();
 			}
 
 			void set_min(std::string name);
 
+			void set_def(std::string name);
+
 			void set_max(std::string name);
+
+			template<typename T>
+			void modify_add(std::string name, T value)
+			{
+				if (find_record_float(name))
+				{
+					get_record_float(name).value = static_cast<T>(get_record_float(name).value + value);
+					if (get_record_float(name).value < get_record_float(name).min)
+						get_record_float(name).value = get_record_float(name).min;
+					if (get_record_float(name).value > get_record_float(name).max)
+						get_record_float(name).value = get_record_float(name).max;
+				}
+
+				if (find_record_int(name))
+				{
+					get_record_int(name).value = static_cast<T>(get_record_int(name).value + value);
+					if (get_record_int(name).value < get_record_int(name).min)
+						get_record_int(name).value = get_record_int(name).min;
+					if (get_record_int(name).value > get_record_int(name).max)
+						get_record_int(name).value = get_record_int(name).max;
+				}
+
+			}
 
 			void next(std::string name, unsigned int count = 1);
 
@@ -123,6 +160,8 @@ namespace pat
 			bool less_min(std::string name);
 
 			std::vector<std::string> get_list_params();
+
+			size_t dim();
 
 		private:
 			std::vector<RecordParams<r_int> >   record_int;
@@ -138,3 +177,4 @@ namespace pat
 }
 
 #endif
+
