@@ -65,15 +65,14 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/patconfig.h.cmake" "${PAT_CONFIG_FIL
 # The C+//0 include & link directories:
 # ---------------------------------------------------------------------------
 
-include_directories("." "${PAT_CONFIG_FILE_INCLUDE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/lib/include" "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/pat")
+include_directories("." "${PAT_CONFIG_FILE_INCLUDE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/lib/include" "${CMAKE_CURRENT_SOURCE_DIR}/lib/include" "${CMAKE_CURRENT_SOURCE_DIR}/common")
 
 # -------------------------------------------------------------------------------------------
 #  Part 1/3: ${BIN_DIR}/PATConfig.cmake              -> For use *without* "make install"
 # -------------------------------------------------------------------------------------------
-set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "\"${PAT_CONFIG_FILE_INCLUDE_DIR}\" \"${CMAKE_CURRENT_SOURCE_DIR}/include\" \"${CMAKE_CURRENT_SOURCE_DIR}/lib/include/pat\"")
+set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "\"${PAT_CONFIG_FILE_INCLUDE_DIR}\" \"${CMAKE_CURRENT_SOURCE_DIR}/include\" \"${CMAKE_CURRENT_SOURCE_DIR}/lib/include\" \"${CMAKE_CURRENT_SOURCE_DIR}/common\"")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Output directory for libraries" )
 set(CMAKE_LIB_DIRS_CONFIGCMAKE "${LIBRARY_OUTPUT_PATH}")
-
 
 
 
@@ -96,6 +95,7 @@ set(lib_srcs "lib/src/pat_base.cpp"
              "lib/src/pat_convert.cpp"
              "lib/src/pat_params.cpp"
              "lib/src/alg_bruteforce.cpp"
+             "lib/src/alg_gradient.cpp"
              "lib/src/pat_system.cpp"
     )
 
@@ -108,9 +108,14 @@ set(lib_hdrs "lib/include/pat/pat.hpp"
              "lib/include/pat/version.hpp"
     )
 
-set(lib_mocs "lib/include/pat/alg_bruteforce.hpp"
-             "lib/include/pat/algorithm.hpp"
+set(lib_mocs "lib/include/pat/algorithm.hpp"
+             "lib/include/pat/alg_bruteforce.hpp"
+             "lib/include/pat/alg_gradient.hpp"
     )
+### COMMON ###
+
+set(common_hdrs "common/settings.hpp")
+set(common_srcs "common/settings.cpp")
 
 ### GUI ###
 
@@ -132,8 +137,8 @@ set(gui_mocs
 
 
 
-set(gui_hdrs ${gui_hdrs} ${gui_mocs})
-set(lib_hdrs ${lib_hdrs} ${lib_mocs})
+set(gui_hdrs ${gui_hdrs} ${gui_mocs} ${common_hdrs})
+set(lib_hdrs ${lib_hdrs} ${lib_mocs} ${common_hdrs})
 
 qt4_wrap_cpp(gui_mocs_obj ${gui_mocs})
 qt4_wrap_cpp(lib_mocs_obj ${lib_mocs})
