@@ -8,6 +8,7 @@
 
 #include "pat/algorithm.hpp"
 #include "server.hpp"
+#include "settings.hpp"
 
 namespace pat
 {
@@ -16,9 +17,11 @@ namespace pat
 		Q_OBJECT
 
 		public:
-			MainWindow(QWidget * parent = 0);
+			MainWindow(Settings * set, QWidget * parent = 0);
+			~MainWindow();
 
 		private:
+			Settings * settings;
 			QHBoxLayout * layout_h;
 			QVBoxLayout * layout_v;
 

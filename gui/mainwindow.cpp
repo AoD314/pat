@@ -1,15 +1,16 @@
 
 #include "mainwindow.hpp"
 #include "pat/alg_bruteforce.hpp"
+#include "pat/alg_gradient.hpp"
 
 namespace pat
 {
-	MainWindow::MainWindow(QWidget * parent) : QWidget(parent)
+	MainWindow::MainWindow(Settings * set, QWidget * parent) : QWidget(parent)
 	{
-		//C:/work/pat/examples/build/bin/testsystem.exe
-		QLineEdit    * edit   = new QLineEdit(QString("/work/projects/pat/pat/examples/build-stereo/bin/testsystem"));
-		QPushButton  * button = new QPushButton("RUN");
-		QTextEdit    * text   = new QTextEdit(QString("Hello !"));
+		settings = set;
+		QLineEdit    * edit   = new QLineEdit(settings->get_path_to_testsystem());
+		QPushButton  * button = new QPushButton(tr("Start"));
+		QTextEdit    * text   = new QTextEdit();
 		text->setReadOnly(true);
 
 		QHBoxLayout * layout_h = new QHBoxLayout;
@@ -33,7 +34,12 @@ namespace pat
 		connect(button, SIGNAL(clicked()), this, SLOT(click_run()));
 		connect(edit, SIGNAL(textChanged(QString)), this, SLOT(change_path(QString)));
 
-		this->resize(800, 600);
+		setGeometry(settings->get_geometry_window());
+	}
+
+	MainWindow::~MainWindow()
+	{
+		settings->SaveSettings(this);
 	}
 
 	void MainWindow::change_path(QString path)
@@ -58,7 +64,8 @@ namespace pat
 
 	void MainWindow::click_run()
 	{
-		alg = new pat::PAT_BruteForce();
+		//alg = new pat::PAT_BruteForce();
+		alg = new pat::PAT_Gradient();
 		alg->init();
 
 		QObject::connect(server, SIGNAL(get(QString)),     alg,    SLOT(get(QString)));
