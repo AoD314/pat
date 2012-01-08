@@ -136,12 +136,35 @@ set(gui_mocs
 ### CONSOLE ###
 
 
+### LANGUAGE ###
+
+set (RESOURCES resources/resources.qrc)
+set (TRANSLATIONSATIONS_PATH ../resources/translations)
+
+set (LANGUAGES ru en)
+
+foreach (LANGUAGE ${LANGUAGES})
+    set (TS ${TRANSLATIONS_PATH}/${LANGUAGESAGE}.ts)
+    set (QM ${TRANSLATIONS_PATH}/${LANGUAGE}.qm)
+    set (TRANSLATIONSATIONS_PATHNS ${TRANSLATIONS} ${TS})
+    set (TRANSLATIONS_BINARY ${TRANSLATIONS_BINARYRY} ${QM})
+    add_custom_command (
+        OUTPUT ${QM}
+        COMMAND ${QT_LRELEASE_EXECUTABLE_EXECUTABLE} ${TS}
+        MAIN_DEPENDENCY ${TS})
+endforeach()
+
+add_custom_target (translations COMMAND ${QT_LUPDATE_EXECUTABLE} ${HEADERS} ${SOURCES} -ts ${TRANSLATIONS})
+add_custom_command (TARGET translations COMMAND ${QT_LRELEASE_EXECUTABLE} ${TRANSLATIONS})
+
 
 set(gui_hdrs ${gui_hdrs} ${gui_mocs} ${common_hdrs})
 set(lib_hdrs ${lib_hdrs} ${lib_mocs} ${common_hdrs})
 
 qt4_wrap_cpp(gui_mocs_obj ${gui_mocs})
 qt4_wrap_cpp(lib_mocs_obj ${lib_mocs})
+
+qt4_add_resources (qrc_sources ${RESOURCES})
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
@@ -156,10 +179,8 @@ endif()
 add_library( ${target_lib} SHARED ${lib_srcs} ${lib_hdrs} ${lib_mocs_obj})
 target_link_libraries( ${target_lib} ${QT_LIBRARIES})
 
-add_executable( ${target_gui} ${gui_srcs} ${gui_hdrs} ${gui_mocs_obj})
+add_executable( ${target_gui} ${gui_srcs} ${gui_hdrs} ${gui_mocs_obj} ${qrc_sources} ${translations})
 target_link_libraries( ${target_gui} ${QT_LIBRARIES} ${target_lib})
-
-
 
 
 
@@ -170,6 +191,12 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/PATConfig.cmake.in" "${CMAKE_BINARY_
 # post build event
 # ----------------------------------------------------------------------------
 add_custom_command( TARGET ${target_lib} POST_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/bin)
+add_custom_command( TARGET ${target_lib} POST_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/trans)
+add_custom_command( TARGET ${target_lib} POST_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/bin/trans)
+
+add_custom_command( TARGET ${target_gui} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations/*.qm ${CMAKE_BINARY_DIR}/trans)
+add_custom_command( TARGET ${target_gui} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations/*.qm ${CMAKE_BINARY_DIR}/bin/trans)
+
 if (UNIX)
 	add_custom_command( TARGET ${target_lib} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${LIBRARY_OUTPUT_PATH}/libpat.* ${CMAKE_BINARY_DIR}/bin)
 	add_custom_command( TARGET ${target_gui} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/pat_gui ${CMAKE_BINARY_DIR}/bin)
@@ -179,7 +206,6 @@ else()
 	add_custom_command( TARGET ${target_gui} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/$(ConfigurationName)/pat_gui.exe ${CMAKE_BINARY_DIR}/bin)
 endif()
 # ----------------------------------------------------------------------------
-
 
 # ----------------------------------------------------------------------------
 # INSTALL
