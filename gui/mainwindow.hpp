@@ -21,20 +21,33 @@ namespace pat
 			~MainWindow();
 
 		private:
+
+			// --- menu --- //
+
+			QMenuBar menu_bar;
+
+			QMenu * menu_app;
+			QMenu * menu_opt;
+			QMenu * menu_tools;
+			QMenu * menu_help;
+
+			// ------------ //
+
 			Settings * settings;
+
+			// ------------ //
+
 			QHBoxLayout * layout_h;
 			QVBoxLayout * layout_v;
 
-			QLineEdit   * edit;
-			QPushButton * button;
-			QTextEdit   * text;
+			QTextEdit   * text_log;
 
 			pat::PAT_Server * server;
 			int port;
 
-			std::string path_to_testsystem;
 
 			pat::PAT_Algorithm * alg;
+			QString path_to_testsystem;
 			QString path;
 			QString program;
 			QStringList arguments;
@@ -42,11 +55,13 @@ namespace pat
 		signals:
 			void add_text(QString msg);
 
-
 		private slots:
 			void click_run();
 			void next_step(double result);
-			void change_path(QString path);
+			void about_application();
+			void about_qt();
+			void settings_window();
+			void new_opt();
 	};
 }
 

@@ -9,22 +9,30 @@ Settings::Settings(int argc, char ** argv)
 	QSettings settings("pat.config", QSettings::IniFormat);
 	settings.setIniCodec("UTF-8");
 
-	#ifdef WIN32
-		//path_to_testsystem = "C:/work/pat/examples/build/bin/testsystem.exe";
-		path_to_testsystem = settings.value("/win/path_to_testsystem").toString();
-	#else
-		//path_to_testsystem = "/work/projects/pat/pat/examples/build-stereo/bin/testsystem";
-		path_to_testsystem = settings.value("/lin/path_to_testsystem").toString();
-	#endif
+	lang = settings.value("main/lang", "en").toString();
+	path_to_lang = settings.value("main/path_to_lang", "./trans").toString();
 
 	geometry = settings.value("window/geometry").toRect();
 }
 
-void Settings::SaveSettings(QWidget * win)
+void Settings::SaveSettings()
 {
 	QSettings settings("pat.config", QSettings::IniFormat);
 	settings.setIniCodec("UTF-8");
-	settings.setValue("window/geometry", win->geometry());
+
+	settings.setValue("window/geometry", geometry);
+	settings.setValue("main/lang", lang);
+	settings.setValue("main/path_to_lang", path_to_lang);
+}
+
+void Settings::set_win_size(QWidget * win)
+{
+	geometry = win->geometry();
+}
+
+void Settings::set_language(QString language)
+{
+	lang = language;
 }
 
 QString Settings::get_path_to_testsystem()
@@ -35,4 +43,14 @@ QString Settings::get_path_to_testsystem()
 QRect Settings::get_geometry_window()
 {
 	return geometry;
+}
+
+QString Settings::get_path_to_language()
+{
+	return path_to_lang;
+}
+
+QString Settings::language()
+{
+	return lang;
 }
