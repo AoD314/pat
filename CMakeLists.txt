@@ -122,6 +122,8 @@ set(common_srcs "common/settings.cpp")
 set(gui_srcs 
              "gui/main.cpp"
              "gui/mainwindow.cpp"
+             "gui/settingswindow.cpp"
+             "gui/algwindow.cpp"
              "gui/server.cpp"
              "common/settings.cpp" 
     )
@@ -130,6 +132,8 @@ set(gui_hdrs "common/settings.hpp")
 
 set(gui_mocs 
              "gui/mainwindow.hpp"
+             "gui/settingswindow.hpp"
+             "gui/algwindow.hpp"
              "gui/server.hpp"
     )
 
@@ -144,7 +148,7 @@ set (TRANSLATIONSATIONS_PATH ../resources/translations)
 set (LANGUAGES ru en)
 
 foreach (LANGUAGE ${LANGUAGES})
-    set (TS ${TRANSLATIONS_PATH}/${LANGUAGESAGE}.ts)
+    set (TS ${TRANSLATIONS_PATH}/${LANGUAGE}.ts)
     set (QM ${TRANSLATIONS_PATH}/${LANGUAGE}.qm)
     set (TRANSLATIONSATIONS_PATHNS ${TRANSLATIONS} ${TS})
     set (TRANSLATIONS_BINARY ${TRANSLATIONS_BINARYRY} ${QM})
@@ -155,8 +159,9 @@ foreach (LANGUAGE ${LANGUAGES})
 endforeach()
 
 add_custom_target (translations COMMAND ${QT_LUPDATE_EXECUTABLE} ${HEADERS} ${SOURCES} -ts ${TRANSLATIONS})
-add_custom_command (TARGET translations COMMAND ${QT_LRELEASE_EXECUTABLE} ${TRANSLATIONS})
+add_custom_command ( TARGET translations COMMAND ${QT_LRELEASE_EXECUTABLE} ${TRANSLATIONS})
 
+################
 
 set(gui_hdrs ${gui_hdrs} ${gui_mocs} ${common_hdrs})
 set(lib_hdrs ${lib_hdrs} ${lib_mocs} ${common_hdrs})
@@ -194,8 +199,16 @@ add_custom_command( TARGET ${target_lib} POST_BUILD COMMAND ${CMAKE_COMMAND} -E 
 add_custom_command( TARGET ${target_lib} POST_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/trans)
 add_custom_command( TARGET ${target_lib} POST_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/bin/trans)
 
-add_custom_command( TARGET ${target_gui} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations/*.qm ${CMAKE_BINARY_DIR}/trans)
-add_custom_command( TARGET ${target_gui} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations/*.qm ${CMAKE_BINARY_DIR}/bin/trans)
+foreach (LANGUAGE ${LANGUAGES})
+    set (TS ${TRANSLATIONS_PATH}/${LANGUAGESAGE}.ts)
+    add_custom_command( TARGET ${target_gui} POST_BUILD COMMAND
+        ${CMAKE_COMMAND} -E copy
+        ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations/${LANGUAGE}.qm ${CMAKE_BINARY_DIR}/trans)
+    add_custom_command( TARGET ${target_gui} POST_BUILD COMMAND
+        ${CMAKE_COMMAND} -E copy
+        ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations/${LANGUAGE}.qm
+        ${CMAKE_BINARY_DIR}/bin/trans)
+endforeach()
 
 if (UNIX)
 	add_custom_command( TARGET ${target_lib} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${LIBRARY_OUTPUT_PATH}/libpat.* ${CMAKE_BINARY_DIR}/bin)
