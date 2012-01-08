@@ -47,7 +47,7 @@ namespace pat
 		params_point = params;
 
 		MIN = std::numeric_limits<double>::max();
-		lambda = 1.0;
+		lambda = 128.0;
 		mode = 0;
 		res.resize(1 + params.dim());
 	}
@@ -62,6 +62,20 @@ namespace pat
 			params = params_point;
 			std::string name;
 
+			if (abs(lambda - 128.0) < 0.0000025)
+			{
+				// calculate lambda
+				lambda = 0;
+				for(size_t i = 0; i < params.dim(); ++i)
+				{
+					name = list.at(i);
+					lambda += ((params.get_step<double>(name) * params.get_step<double>(name))/ abs(res.at(i) - res.at(0)));
+				}
+				lambda /= params.dim();
+			}
+
+			qDebug() << "use new lambda: " << lambda;
+
 			for(size_t i = 0; i < params.dim(); ++i)
 			{
 				name = list.at(i);
@@ -71,7 +85,6 @@ namespace pat
 			qDebug() << "end ====== point(params)";
 			res.clear();
 			lambda *= 0.5;
-			isdone = (lambda < 0.0025);
 			mode = 0;
 			params_point = params;
 			return;

@@ -53,7 +53,7 @@ namespace pat
 		for(it = list.begin(); it != list.end(); ++it)
 		{
 			params.set_min(*it);
-		}	
+		}
 
 		while (current_iter <= max_iter && next_params())
 		{
