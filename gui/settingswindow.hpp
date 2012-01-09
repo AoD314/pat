@@ -7,29 +7,33 @@
 
 #include "settings.hpp"
 
-class SettingsWindow : public QWidget
+namespace pat
 {
-	Q_OBJECT
-	public:
-		SettingsWindow(Settings * set, QWidget * parent = 0);
 
-	private:
-		QHBoxLayout * box_h_l;
-		QHBoxLayout * box_h_b;
-		QVBoxLayout * box_v;
+	class SettingsWindow : public QWidget
+	{
+			Q_OBJECT
+		public:
+			SettingsWindow(Settings * set, QWidget * parent = 0);
 
-		QLabel * lbl_lang;
-		QComboBox * list_lang;
+		private:
+			QHBoxLayout * box_h_l;
+			QHBoxLayout * box_h_b;
+			QVBoxLayout * box_v;
 
-		QPushButton * btn_save;
-		QPushButton * btn_cancel;
+			QLabel * lbl_lang;
+			QComboBox * list_lang;
 
-		Settings * settings;
+			QPushButton * btn_save;
+			QPushButton * btn_cancel;
 
-	private slots:
-		void save_settings();
-		void cancel();
-};
+			Settings * settings;
 
+		private slots:
+			void save_settings();
+			void cancel();
+	};
+
+}
 
 #endif

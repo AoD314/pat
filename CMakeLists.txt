@@ -125,10 +125,12 @@ set(gui_srcs
              "gui/settingswindow.cpp"
              "gui/algwindow.cpp"
              "gui/server.cpp"
+             "gui/common.cpp"
              "common/settings.cpp" 
     )
 
-set(gui_hdrs "common/settings.hpp")
+set(gui_hdrs "common/settings.hpp"
+             "gui/common.hpp")
 
 set(gui_mocs 
              "gui/mainwindow.hpp"

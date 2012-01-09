@@ -5,30 +5,36 @@
 #include <QtCore>
 #include <QtGui>
 
-class AlgWindow : public QWidget
+namespace pat
 {
-	Q_OBJECT
 
-	public:
-		AlgWindow(QWidget * parent = 0);
+	class AlgWindow : public QWidget
+	{
+		Q_OBJECT
 
-	private:
+		public:
+			AlgWindow(QWidget * parent = 0);
 
-		QVBoxLayout * box_h;
-		QHBoxLayout * box_h_b;
-		QVBoxLayout * box_v;
+		private:
 
-		QLabel * lbl_alg;
-		QComboBox * list_alg;
+			QVBoxLayout * box_h;
+			QHBoxLayout * box_h_b;
+			QVBoxLayout * box_v;
 
-		QLabel * lbl_count;
-		QSpinBox * spin_count;
+			QLabel * lbl_alg;
+			QComboBox * list_alg;
 
-		QPushButton * btn_create;
-		QPushButton * btn_cancel;
+			QLabel * lbl_count;
+			QSpinBox * spin_count;
 
+			QPushButton * btn_create;
+			QPushButton * btn_cancel;
 
-};
+		private slots:
+			void cancel();
+	};
+
+}
 
 #endif
 
