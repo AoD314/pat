@@ -6,7 +6,7 @@
 namespace pat
 {
 
-	SettingsWindow::SettingsWindow(Settings * set, QWidget *parent)
+	SettingsWindow::SettingsWindow(Settings * set, QWidget *parent) : QDialog(parent)
 	{
 		settings = set;
 		box_v = new QVBoxLayout;

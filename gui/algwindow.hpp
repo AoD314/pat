@@ -8,12 +8,15 @@
 namespace pat
 {
 
-	class AlgWindow : public QWidget
+	class AlgWindow : public QDialog
 	{
 		Q_OBJECT
 
 		public:
 			AlgWindow(QWidget * parent = 0);
+
+			int max_iter();
+			int method();
 
 		private:
 

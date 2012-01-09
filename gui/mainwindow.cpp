@@ -80,13 +80,27 @@ namespace pat
 	void MainWindow::settings_window()
 	{
 		SettingsWindow * win = new SettingsWindow(settings);
-		win->showNormal();
+		win->exec();
 	}
 
 	void MainWindow::new_opt()
 	{
 		AlgWindow * win = new AlgWindow();
-		win->showNormal();
+		win->exec();
+
+		int max_iter = win->max_iter();
+		int meth = win->method();
+
+		switch (meth)
+		{
+			case 0:
+
+				break;
+
+			case 1:
+				break;
+		}
+
 	}
 
 	MainWindow::~MainWindow()

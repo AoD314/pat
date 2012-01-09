@@ -5,7 +5,7 @@
 namespace pat
 {
 
-	AlgWindow::AlgWindow(QWidget * parent) : QWidget(parent)
+	AlgWindow::AlgWindow(QWidget * parent) : QDialog(parent)
 	{
 		box_h = new QVBoxLayout;
 		box_h_b = new QHBoxLayout;
@@ -28,8 +28,11 @@ namespace pat
 		connect(btn_cancel, SIGNAL(clicked()), this, SLOT(cancel()));
 
 		box_h->addWidget(lbl_alg);
+		box_h->addStretch(1);
 		box_h->addWidget(list_alg);
+		box_h->addStretch(5);
 		box_h->addWidget(lbl_count);
+		box_h->addStretch(1);
 		box_h->addWidget(spin_count);
 
 		box_h_b->addWidget(btn_create);
@@ -37,6 +40,7 @@ namespace pat
 		box_h_b->addWidget(btn_cancel);
 
 		box_v->addLayout(box_h);
+		box_v->addSpacing(10);
 		box_v->addLayout(box_h_b);
 
 		setWindowTitle(tr("Create new optimization"));
@@ -48,6 +52,16 @@ namespace pat
 	void AlgWindow::cancel()
 	{
 		close();
+	}
+
+	int AlgWindow::max_iter()
+	{
+		return spin_count->value();
+	}
+
+	int AlgWindow::method()
+	{
+		return list_alg->currentIndex();
 	}
 
 }

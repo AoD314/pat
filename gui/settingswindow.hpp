@@ -10,9 +10,10 @@
 namespace pat
 {
 
-	class SettingsWindow : public QWidget
+	class SettingsWindow : public QDialog
 	{
-			Q_OBJECT
+		Q_OBJECT
+
 		public:
 			SettingsWindow(Settings * set, QWidget * parent = 0);
 
