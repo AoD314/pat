@@ -88,17 +88,25 @@ namespace pat
 		AlgWindow * win = new AlgWindow();
 		win->exec();
 
-		int max_iter = win->max_iter();
-		int meth = win->method();
-
-		switch (meth)
+		if (win->push_create())
 		{
-			case 0:
+			int max_iter = win->max_iter();
+			int meth = win->method();
+			QString app = win->app();
 
-				break;
+			switch (meth)
+			{
+				case 0:
+					alg = new pat::PAT_BruteForce();
+					break;
 
-			case 1:
-				break;
+				case 1:
+					alg = new pat::PAT_Gradient();
+					break;
+			}
+
+			alg->init();
+
 		}
 
 	}
@@ -126,9 +134,7 @@ namespace pat
 
 	void MainWindow::click_run()
 	{
-		//alg = new pat::PAT_BruteForce();
-		alg = new pat::PAT_Gradient();
-		alg->init();
+		//;
 
 		QObject::connect(server, SIGNAL(get(QString)),     alg,    SLOT(get(QString)));
 		QObject::connect(alg,    SIGNAL(send(QString)),    server, SLOT(send_to_value(QString)));

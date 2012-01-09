@@ -9,12 +9,20 @@ namespace pat
 	{
 		box_h = new QVBoxLayout;
 		box_h_b = new QHBoxLayout;
+		box_h_l = new QHBoxLayout;
 		box_v = new QVBoxLayout;
 
 		lbl_alg = new QLabel(tr("Algorithm") + ":");
 		list_alg = new QComboBox;
 		list_alg->addItem(tr("brute force"));
 		list_alg->addItem(tr("gradient"));
+
+		lbl_app = new QLabel(tr("Application") + ":");
+		text_edit = new QLineEdit;
+		btn_choose = new QPushButton(tr("..."));
+
+		box_h_l->addWidget(text_edit);
+		box_h_l->addWidget(btn_choose);
 
 		lbl_count = new QLabel(tr("Max count of iterations") + ":");
 		spin_count = new QSpinBox;
@@ -23,13 +31,19 @@ namespace pat
 		spin_count->setValue(5);
 
 		btn_create = new QPushButton(tr("Create"));
-		btn_cancel = new QPushButton(tr("Cansel"));
+		btn_cancel = new QPushButton(tr("Cancel"));
 
 		connect(btn_cancel, SIGNAL(clicked()), this, SLOT(cancel()));
+		connect(btn_create, SIGNAL(clicked()), this, SLOT(create()));
+		connect(btn_choose, SIGNAL(clicked()), this, SLOT(choose_app()));
 
 		box_h->addWidget(lbl_alg);
 		box_h->addStretch(1);
 		box_h->addWidget(list_alg);
+		box_h->addStretch(5);
+		box_h->addWidget(lbl_app);
+		box_h->addStretch(1);
+		box_h->addLayout(box_h_l);
 		box_h->addStretch(5);
 		box_h->addWidget(lbl_count);
 		box_h->addStretch(1);
@@ -43,15 +57,28 @@ namespace pat
 		box_v->addSpacing(10);
 		box_v->addLayout(box_h_b);
 
-		setWindowTitle(tr("Create new optimization"));
+		is_create = false;
+		setWindowTitle(tr("Optimize of the new application"));
 		setLayout(box_v);
-		resize(300, 180);
+		resize(350, 200);
 		center_qwidget(this);
 	}
 
 	void AlgWindow::cancel()
 	{
+		is_create = false;
 		close();
+	}
+
+	void AlgWindow::create()
+	{
+		is_create = true;
+		close();
+	}
+
+	bool AlgWindow::push_create()
+	{
+		return is_create;
 	}
 
 	int AlgWindow::max_iter()
@@ -64,4 +91,15 @@ namespace pat
 		return list_alg->currentIndex();
 	}
 
+	QString AlgWindow::app()
+	{
+		return text_edit->text();
+	}
+
+	void AlgWindow::choose_app()
+	{
+		QString app = QFileDialog::getOpenFileName(0);
+		text_edit->setText(app);
+	}
 }
+

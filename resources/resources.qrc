@@ -2,7 +2,5 @@
     <qresource>
         <file>translations/ru.qm</file> 
         <file>translations/ru.ts</file> 
-        <file>translations/en.qm</file> 
-        <file>translations/en.ts</file> 
     </qresource>
 </RCC>

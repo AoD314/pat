@@ -147,7 +147,7 @@ set(gui_mocs
 set (RESOURCES resources/resources.qrc)
 set (TRANSLATIONSATIONS_PATH ../resources/translations)
 
-set (LANGUAGES ru en)
+set (LANGUAGES ru)
 
 foreach (LANGUAGE ${LANGUAGES})
     set (TS ${TRANSLATIONS_PATH}/${LANGUAGE}.ts)
