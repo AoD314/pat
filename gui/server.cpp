@@ -11,6 +11,7 @@ namespace pat
 		if (!this->listen(QHostAddress::Any, port))
 		{
 			QMessageBox::critical(0, "Server Error", "Unable to start the server : " + this->errorString());
+			log(QString("Unable to start the server : " + this->errorString()));
 			this->close();
 			return;
 		}
@@ -20,8 +21,7 @@ namespace pat
 
 	void PAT_Server::send_to_client(QTcpSocket * socket, std::string value)
 	{
-		QString str = "send to client : " + QString(value.c_str());
-		log(str);
+		log(QString("send to client : " + QString(value.c_str())));
 
 		QByteArray arr_block;
 		QDataStream out(&arr_block, QIODevice::WriteOnly);

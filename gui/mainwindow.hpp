@@ -56,7 +56,6 @@ namespace pat
 			void add_text(QString msg);
 
 		private slots:
-			void click_run();
 			void next_step(double result);
 			void about_application();
 			void about_qt();

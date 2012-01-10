@@ -36,7 +36,7 @@ namespace pat
 
 	void PAT_Gradient::init()
 	{
-		qDebug() << "gradient alg is INIT()";
+		logging(QString("gradient alg is INIT()"));
 		list = params.get_list_params();
 		std::vector<std::string>::iterator it;
 		for(it = list.begin(); it != list.end(); ++it)
@@ -58,7 +58,7 @@ namespace pat
 
 		if (mode == params.dim())
 		{
-			qDebug() << "recalc new point(params)";
+			logging(QString("recalc new point(params)"));
 			params = params_point;
 			std::string name;
 
@@ -69,7 +69,7 @@ namespace pat
 				for(size_t i = 0; i < params.dim(); ++i)
 				{
 					name = list.at(i);
-					lambda += ((params.get_step<double>(name) * params.get_step<double>(name))/ abs(res.at(i) - res.at(0)));
+					lambda += ((params.get_step<double>(name) * params.get_step<double>(name))/ abs(res.at(i + 1) - res.at(0)));
 				}
 				lambda /= params.dim();
 			}
@@ -79,7 +79,7 @@ namespace pat
 			for(size_t i = 0; i < params.dim(); ++i)
 			{
 				name = list.at(i);
-				params.modify_add(name, (-lambda) * (res.at(i) - res.at(0)) / params.get_step<double>(name));
+				params.modify_add(name, (-lambda) * (res.at(i + 1) - res.at(0)) / params.get_step<double>(name));
 			}
 
 			qDebug() << "end ====== point(params)";
@@ -116,15 +116,14 @@ namespace pat
 
 		std::string n = params.get_str(name.toStdString());
 		qDebug() << "ALG : slot get(" << name << ") = " << QString(n.c_str());
-		qDebug() << "size(params) = " << params.dim();
 		send(QString(n.c_str()));
 	}
 
 	void PAT_Gradient::init(QString name, QString value, QString value_from, QString value_to, QString step, QString type)
 	{
-		qDebug() << "ALG : slot init(" << name << ")";
+		logging(QString("ALG : slot init(" + name + ")"));
 		if (params.find(name.toStdString())) return;
-		qDebug() << "ALG : slot init = [" << value << " " << value_from << " " << value_to << " " << step << " " << type << "]";
+		logging(QString("ALG : slot init = [" + value + " " + value_from + " " + value_to + " " + step + " " + type + "]"));
 
 		std::string t(type.toStdString());
 
@@ -138,7 +137,7 @@ namespace pat
 										from_str<Params::r_float>(value_to.toStdString()),
 										from_str<Params::r_float>(step.toStdString()),
 										from_str<Params::r_float>(value.toStdString()));
-			qDebug() << "added to float";
+			logging(QString("added to float"));
 		}
 		else
 		{
@@ -147,7 +146,7 @@ namespace pat
 									  from_str<Params::r_int>(value_to.toStdString()),
 									  from_str<Params::r_int>(step.toStdString()),
 									  from_str<Params::r_int>(value.toStdString()));
-			qDebug() << "added to int";
+			logging(QString("added to int"));
 		}
 	}
 }

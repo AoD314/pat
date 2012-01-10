@@ -18,8 +18,10 @@ namespace pat
 		trans.load(l + ".qm", pl);
 		qApp->installTranslator(&trans);
 
-		QTextEdit * text = new QTextEdit();
-		text->setReadOnly(true);
+		text_log = new QTextEdit();
+		text_log->setReadOnly(true);
+
+		alg = 0;
 
 
 		// MENU //
@@ -53,15 +55,15 @@ namespace pat
 
 		QVBoxLayout * layout_v = new QVBoxLayout;
 		layout_v->addWidget(&menu_bar);
-		//layout_v->addWidget(text);
+		layout_v->addWidget(text_log);
 
 		setLayout(layout_v);
 
 		port = 13314;
 		server = new pat::PAT_Server(port);
 
-		connect(server, SIGNAL(log(QString)),  text,  SLOT(append(QString)));
-		connect(server, SIGNAL(result(double)), this, SLOT(next_step(double)));		
+		connect(server, SIGNAL(log(QString)),   text_log,  SLOT(append(QString)));
+		connect(server, SIGNAL(result(double)), this, SLOT(next_step(double)));
 
 		setGeometry(settings->get_geometry_window());
 		setWindowTitle("PAT System (GUI)");
@@ -94,6 +96,11 @@ namespace pat
 			int meth = win->method();
 			QString app = win->app();
 
+			text_log->append(QString("Max iteration : " + QString::number(max_iter)));
+
+			if (alg != 0)
+				delete alg;
+
 			switch (meth)
 			{
 				case 0:
@@ -106,6 +113,34 @@ namespace pat
 			}
 
 			alg->init();
+
+			connect(alg,    SIGNAL(logging(QString)), text_log, SLOT(append(QString))); // ok
+			connect(alg,    SIGNAL(send(QString)),    server,   SLOT(send_to_value(QString))); // ok
+
+			connect(server, SIGNAL(get(QString)),                                          alg, SLOT(get(QString))); // ???
+			connect(server, SIGNAL(init(QString,QString,QString,QString,QString,QString)), alg, SLOT(init(QString,QString,QString,QString,QString,QString))); // ??
+
+			QStringList folders = app.split("/");
+			folders.removeLast();
+			path = folders.join("/");
+
+			program = app;
+
+			try
+			{
+				//qDebug() << "start program  : " << app;
+
+				QProcess * application = new QProcess(this);
+				text_log->append(QString("set working directory : " + path));
+				application->setWorkingDirectory(path);
+				text_log->append(QString("start program : " + app));
+				application->start(app, arguments);
+			}
+			catch(...)
+			{
+				qDebug() << " EXCEPTION !!! ";
+				text_log->append("Exception with run application : " + app);
+			}
 
 		}
 
@@ -129,36 +164,6 @@ namespace pat
 		else
 		{
 			alg->answer();
-		}
-	}
-
-	void MainWindow::click_run()
-	{
-		//;
-
-		QObject::connect(server, SIGNAL(get(QString)),     alg,    SLOT(get(QString)));
-		QObject::connect(alg,    SIGNAL(send(QString)),    server, SLOT(send_to_value(QString)));
-
-		QObject::connect(alg,    SIGNAL(logging(QString)), this, SLOT());
-
-		QObject::connect(server, SIGNAL(init(QString,QString,QString,QString,QString,QString)), alg, SLOT(init(QString,QString,QString,QString,QString,QString)));
-
-		// set working directory
-		QStringList folders = path_to_testsystem.split("/");
-		folders.removeLast();
-		path = folders.join("/");
-
-		try
-		{
-			QProcess * app = new QProcess(this);
-			qDebug() << "set working directory : " << path;
-			app->setWorkingDirectory(path);		
-			qDebug() << "start program  : " << program;
-			app->start(program, arguments);
-		}
-		catch(...)
-		{
-			qDebug() << " EXCEPTION !!! ";
 		}
 	}
 }

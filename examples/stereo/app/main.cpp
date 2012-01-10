@@ -29,8 +29,8 @@ int main(int argc, const char ** argv)
 	pat::PAT_System pat;
 
 	//pat.init("max_disp", 80, 96, 16, 80);
-	pat.init("iter",  1, 31, 1, 11);
-	pat.init("level", 3,  7, 1, 5);
+	pat.init("iter",  3, 15, 1, 3);
+	pat.init("level", 3, 5, 1, 3);
 
 	//max_disparity = pat.get_params<int>("max_disp");
 	iteration     = pat.get_params<int>("iter");

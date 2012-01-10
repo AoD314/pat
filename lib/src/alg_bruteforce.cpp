@@ -36,6 +36,7 @@ namespace pat
 
 	void PAT_BruteForce::init()
 	{
+		logging(QString("PAT_BruteForce::init()"));
 		std::vector<std::string> list = params.get_list_params();
 		std::vector<std::string>::iterator it;
 		for(it = list.begin(); it != list.end(); ++it)
@@ -48,6 +49,7 @@ namespace pat
 
 	void PAT_BruteForce::next_step(double value)
 	{
+		logging(QString("PAT_BruteForce::next_step(" + QString::number(value) + ")"));
 		if (MIN > value)
 		{
 			MIN = value;
@@ -78,6 +80,7 @@ namespace pat
 		}
 
 		isdone = (shift && it == list.end());
+		logging(QString("PAT_BruteForce::next_step( is_done = " + QString::number(isdone) + ")"));
 	}
 
 	bool PAT_BruteForce::is_done()
@@ -92,12 +95,20 @@ namespace pat
 
 	void PAT_BruteForce::get(QString name)
 	{
+		if (is_need_first_pass == true)
+		{
+			is_need_first_pass = false;
+			init();
+		}
+
 		std::string n = params.get_str(name.toStdString());
+		logging(QString("PAT_BruteForce::get("+ name + ") = " + n.c_str()));
 		send(QString(n.c_str()));
 	}
 
 	void PAT_BruteForce::init(QString name, QString value, QString value_from, QString value_to, QString step, QString type)
 	{
+		logging(QString("PAT_BruteForce::init("+ name + ") = " + value));
 		if (params.find(name.toStdString())) return;
 
 		std::string t(type.toStdString());
