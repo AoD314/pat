@@ -62,7 +62,7 @@ namespace pat
 			params = params_point;
 			std::string name;
 
-			if (abs(lambda - 128.0) < 0.0000025)
+			if (abs(lambda - 128.0) < 0.00025)
 			{
 				// calculate lambda
 				lambda = 0;
@@ -141,7 +141,6 @@ namespace pat
 										from_str<Params::r_float>(sp.value_to.toStdString()),
 										from_str<Params::r_float>(sp.step.toStdString()),
 										from_str<Params::r_float>(sp.value.toStdString()));
-			log(QString("added to float"));
 		}
 		else
 		{
@@ -150,7 +149,6 @@ namespace pat
 									  from_str<Params::r_int>(sp.value_to.toStdString()),
 									  from_str<Params::r_int>(sp.step.toStdString()),
 									  from_str<Params::r_int>(sp.value.toStdString()));
-			log(QString("added to int"));
 		}
 	}
 }
