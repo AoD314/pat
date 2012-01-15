@@ -1,6 +1,7 @@
 
 #include "server.hpp"
 #include "pat/pat_convert.hpp"
+#include "pat/pat_strparam.hpp"
 
 namespace pat
 {
@@ -19,15 +20,15 @@ namespace pat
 		connect(this, SIGNAL(newConnection()), this, SLOT(new_connection()));
 	}
 
-	void PAT_Server::send_to_client(QTcpSocket * socket, std::string value)
+	void PAT_Server::send_value_to_client(QTcpSocket * socket, QString value)
 	{
-		log(QString("send to client : " + QString(value.c_str())));
+		log(QString("send to client : " + value));
 
 		QByteArray arr_block;
 		QDataStream out(&arr_block, QIODevice::WriteOnly);
 		out.setVersion(QDataStream::Qt_4_7);
 
-		out << quint32(0) << QString(value.c_str());
+		out << quint32(0) << value;
 		out.device()->seek(0);
 		out << quint32(arr_block.size() - sizeof(quint32));
 
@@ -43,13 +44,8 @@ namespace pat
 		QDataStream in(client);
 		in.setVersion(QDataStream::Qt_4_7);
 
-		QString q_cmd;
-		QString q_name;
-		QString q_value;
-		QString q_value_from;
-		QString q_value_to;
-		QString q_value_step;
-		QString q_value_type;
+		QString cmd;
+		StrParams sp;
 
 		for (;;)
 		{
@@ -67,38 +63,39 @@ namespace pat
 				break;
 			}
 
-			in >> q_cmd >> q_name >> q_value >> q_value_from >>  q_value_to >> q_value_step >> q_value_type;
+			in >> cmd;
+			in >> sp.name;
+			in >> sp.value;
+			in >> sp.value_from;
+			in >> sp.value_to;
+			in >> sp.step;
+			in >> sp.type;
 
-			QString str = "read from client : " + q_cmd + " " + q_name + " " + q_value + " " + q_value_from + " " +  q_value_to + " " + q_value_step + " " + q_value_type;
-			log(str);
+			log(QString("server read: [command : " +  cmd + "] " + sp.to_str()));
 
 			block_size = 0;
 
-			process(q_cmd, q_name, q_value, q_value_from, q_value_to, q_value_step, q_value_type);
+			// process
+
+			if (cmd.compare("init") == 0)
+			{
+				init(sp);
+			}
+			else if (cmd.compare("get") == 0)
+			{
+				get(sp.name);
+			}
+			else if (cmd.compare("result") == 0)
+			{
+				result(from_str<double>(sp.value.toStdString()));
+			}
+
 		}
 	}
 
-	void PAT_Server::process(QString cmd, QString name, QString value, QString value_from, QString value_to, QString step, QString type)
+	void PAT_Server::send_to_client(QString value)
 	{
-		log("run process: " + cmd);
-
-		if (cmd.compare("init") == 0)
-		{
-			init(name, value, value_from, value_to, step, type);
-		}
-		else if (cmd.compare("get") == 0)
-		{
-			get(name);
-		}
-		else if (cmd.compare("result") == 0)
-		{
-			result(from_str<double>(value.toStdString()));
-		}
-	}
-
-	void PAT_Server::send_to_value(QString value)
-	{
-		send_to_client(last_client, value.toStdString());
+		send_value_to_client(last_client, value);
 	}
 
 	void PAT_Server::new_connection()

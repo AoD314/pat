@@ -18,11 +18,7 @@ namespace pat
 		trans.load(l + ".qm", pl);
 		qApp->installTranslator(&trans);
 
-		text_log = new QTextEdit();
-		text_log->setReadOnly(true);
-
 		alg = 0;
-
 
 		// MENU //
 
@@ -50,23 +46,39 @@ namespace pat
 		menu_bar.addMenu(menu_opt);
 		menu_bar.addMenu(menu_tools);
 		menu_bar.addMenu(menu_help);
+		menu_bar.setFixedHeight(25);
 
 		/////////
 
+		text_log = new QTextEdit();
+		text_log->setReadOnly(true);
+
+		status = new ParamStatus;
+
+
+		QSplitter * splitter = new QSplitter(Qt::Horizontal);
+		splitter->addWidget(status);
+		splitter->addWidget(text_log);
+
 		QVBoxLayout * layout_v = new QVBoxLayout;
 		layout_v->addWidget(&menu_bar);
-		layout_v->addWidget(text_log);
-
+		layout_v->addWidget(splitter);
 		setLayout(layout_v);
 
 		port = 13314;
 		server = new pat::PAT_Server(port);
 
-		connect(server, SIGNAL(log(QString)),   text_log,  SLOT(append(QString)));
+		connect(server, SIGNAL(log(QString)),   text_log, SLOT(append(QString)));
 		connect(server, SIGNAL(result(double)), this, SLOT(next_step(double)));
 
 		setGeometry(settings->get_geometry_window());
 		setWindowTitle("PAT System (GUI)");
+	}
+
+	MainWindow::~MainWindow()
+	{
+		settings->set_win_size(this);
+		settings->SaveSettings();
 	}
 
 	void MainWindow::about_application()
@@ -113,12 +125,12 @@ namespace pat
 			}
 
 			alg->init();
+			connect(alg, SIGNAL(log(QString)),  text_log, SLOT(append(QString)));
+			connect(alg, SIGNAL(publish(Params)), status, SLOT(update(Params)));
+			connect(alg, SIGNAL(send(QString)),   server, SLOT(send_to_client(QString)));
 
-			connect(alg,    SIGNAL(logging(QString)), text_log, SLOT(append(QString))); // ok
-			connect(alg,    SIGNAL(send(QString)),    server,   SLOT(send_to_value(QString))); // ok
-
-			connect(server, SIGNAL(get(QString)),                                          alg, SLOT(get(QString))); // ???
-			connect(server, SIGNAL(init(QString,QString,QString,QString,QString,QString)), alg, SLOT(init(QString,QString,QString,QString,QString,QString))); // ??
+			connect(server, SIGNAL(init(StrParams)), alg, SLOT(init(StrParams)));
+			connect(server, SIGNAL(get(QString)),    alg, SLOT(get(QString)));
 
 			QStringList folders = app.split("/");
 			folders.removeLast();
@@ -128,8 +140,6 @@ namespace pat
 
 			try
 			{
-				//qDebug() << "start program  : " << app;
-
 				QProcess * application = new QProcess(this);
 				text_log->append(QString("set working directory : " + path));
 				application->setWorkingDirectory(path);
@@ -138,18 +148,10 @@ namespace pat
 			}
 			catch(...)
 			{
-				qDebug() << " EXCEPTION !!! ";
 				text_log->append("Exception with run application : " + app);
 			}
 
 		}
-
-	}
-
-	MainWindow::~MainWindow()
-	{
-		settings->set_win_size(this);
-		settings->SaveSettings();
 	}
 
 	void MainWindow::next_step(double result)

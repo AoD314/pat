@@ -9,6 +9,7 @@
 #include "pat/algorithm.hpp"
 #include "server.hpp"
 #include "settings.hpp"
+#include "paramstatus.hpp"
 
 namespace pat
 {
@@ -41,12 +42,13 @@ namespace pat
 			QVBoxLayout * layout_v;
 
 			QTextEdit   * text_log;
+			ParamStatus * status;
 
-			pat::PAT_Server * server;
+			PAT_Server * server;
 			int port;
 
 
-			pat::PAT_Algorithm * alg;
+			PAT_Algorithm * alg;
 			QString path_to_testsystem;
 			QString path;
 			QString program;

@@ -5,6 +5,8 @@
 namespace pat
 {
 
+	Params::Params(): minvalue(std::numeric_limits<double>::max()){}
+
 	bool Params::find(std::string name)
 	{
 		if (find_record_int(name))   return true;

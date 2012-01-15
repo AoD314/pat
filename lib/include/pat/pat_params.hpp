@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <typeinfo>
+#include <limits>
 
 #include "pat/pat_record_params.hpp"
 #include "patconfig.hpp"
@@ -14,6 +15,9 @@ namespace pat
 	class PAT_EXPORTS Params
 	{
 		public:
+			Params();
+			double minvalue;
+
 			typedef long long int   r_int;
 			typedef double        r_float;
 
@@ -158,6 +162,15 @@ namespace pat
 
 			bool more_max(std::string name);
 			bool less_min(std::string name);
+
+			size_t get_points(std::string name)
+			{
+				if (find_record_float(name))
+					return static_cast<size_t>(1 + (get_record_float(name).max - get_record_float(name).min) / (get_record_float(name).step));
+
+				if (find_record_int(name))
+					return static_cast<size_t>(1 + (get_record_int(name).max - get_record_int(name).min) / (get_record_int(name).step));
+			}
 
 			std::vector<std::string> get_list_params();
 

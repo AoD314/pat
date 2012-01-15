@@ -96,6 +96,7 @@ set(lib_srcs "lib/src/pat_base.cpp"
              "lib/src/pat_params.cpp"
              "lib/src/alg_bruteforce.cpp"
              "lib/src/alg_gradient.cpp"
+             "lib/src/pat_strparam.cpp"
              "lib/src/pat_system.cpp"
     )
 
@@ -105,6 +106,7 @@ set(lib_hdrs "lib/include/pat/pat.hpp"
              "lib/include/pat/pat_params.hpp"
              "lib/include/pat/pat_record_params.hpp"
              "lib/include/pat/pat_system.hpp"
+             "lib/include/pat/pat_strparam.hpp"
              "lib/include/pat/version.hpp"
     )
 
@@ -126,6 +128,7 @@ set(gui_srcs
              "gui/algwindow.cpp"
              "gui/server.cpp"
              "gui/common.cpp"
+             "gui/paramstatus.cpp"
              "common/settings.cpp" 
     )
 
@@ -137,6 +140,7 @@ set(gui_mocs
              "gui/settingswindow.hpp"
              "gui/algwindow.hpp"
              "gui/server.hpp"
+             "gui/paramstatus.hpp"
     )
 
 ### CONSOLE ###

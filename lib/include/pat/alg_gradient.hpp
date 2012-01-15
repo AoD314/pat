@@ -22,7 +22,9 @@ namespace pat
 			void next_step(double value);
 			bool is_done();
 			void answer();
-			void log(QString msg);
+
+		protected:
+			void logging(QString msg);
 
 		private:
 			Params params_min;
@@ -39,7 +41,7 @@ namespace pat
 		public slots:
 			void result(double val);
 			void get(QString name);
-			void init(QString name, QString value, QString value_from, QString value_to, QString step, QString type);
+			void init(StrParams sp);
 	};
 
 }

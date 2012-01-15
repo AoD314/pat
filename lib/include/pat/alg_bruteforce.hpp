@@ -6,6 +6,7 @@
 
 #include "pat/pat_params.hpp"
 #include "pat/algorithm.hpp"
+#include "pat/pat_strparam.hpp"
 
 namespace pat
 {	
@@ -20,11 +21,12 @@ namespace pat
 			void next_step(double value);
 			bool is_done();
 			void answer();
-			void log(QString msg);
+
+		protected:
+			void logging(QString msg);
 
 		private:
 			Params params_min;
-			double MIN;
 			bool isdone;
 			bool is_need_first_pass;
 			std::string testsystem;
@@ -32,7 +34,7 @@ namespace pat
 		public slots:
 			void result(double val);
 			void get(QString name);
-			void init(QString name, QString value, QString value_from, QString value_to, QString step, QString type);
+			void init(StrParams sp);
 	};
 
 }
