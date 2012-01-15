@@ -75,7 +75,7 @@ namespace pat
 
 		lbl_points->setText(QString::number(points_in_dims));
 		lbl_iter->setText(QString::number(iter));
-		progress->setValue(100 * iter / points_in_dims);
+		progress->setValue(static_cast<int>(100.0 * iter / static_cast<double>(points_in_dims)));
 		lbl_result->setText(QString::number(p.minvalue));
 	}
 

@@ -69,7 +69,7 @@ namespace pat
 		server = new pat::PAT_Server(port);
 
 		connect(server, SIGNAL(log(QString)),   text_log, SLOT(append(QString)));
-		connect(server, SIGNAL(result(double)), this, SLOT(next_step(double)));
+		connect(server, SIGNAL(result(double)), this,     SLOT(next_step(double)));
 
 		setGeometry(settings->get_geometry_window());
 		setWindowTitle("PAT System (GUI)");
@@ -156,9 +156,11 @@ namespace pat
 
 	void MainWindow::next_step(double result)
 	{
+		text_log->append("MainWindow::next_step(" + QString::number(result) + ")");
 		alg->next_step(result);
 		if (!alg->is_done())
 		{
+			text_log->append("\nRun process again : " + program);
 			QProcess * app = new QProcess(this);
 			app->setWorkingDirectory(path);
 			app->start(program, arguments);
