@@ -96,6 +96,7 @@ set(lib_srcs "lib/src/pat_base.cpp"
              "lib/src/pat_params.cpp"
              "lib/src/alg_bruteforce.cpp"
              "lib/src/alg_gradient.cpp"
+			 "lib/src/algorithm.cpp"
              "lib/src/pat_strparam.cpp"
              "lib/src/pat_system.cpp"
     )

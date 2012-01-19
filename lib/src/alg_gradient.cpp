@@ -12,6 +12,8 @@ namespace pat
 	PAT_Gradient::PAT_Gradient()
 	{
 		is_need_first_pass = true;
+		max_iters = std::numeric_limits<size_t>::max();
+		iter_number = 0;
 	}
 
 	void PAT_Gradient::logging(QString msg)
@@ -50,6 +52,7 @@ namespace pat
 		lambda = 128.0;
 		mode = 0;
 		res.resize(1 + params.dim());
+		iter_number = 0;
 	}
 
 	void PAT_Gradient::next_step(double value)
@@ -58,7 +61,7 @@ namespace pat
 
 		if (mode == params.dim())
 		{
-			log(QString("recalc new point(params)"));
+			log(QString("\n\nrecalc new point(params)\n\n"));
 			params = params_point;
 			std::string name;
 
@@ -74,7 +77,7 @@ namespace pat
 				lambda /= params.dim();
 			}
 
-			log(QString("use new lambda: " + QString::number(lambda)));
+			log(QString("\nUSE new lambda: " + QString::number(lambda)) + "\n");
 
 			for(size_t i = 0; i < params.dim(); ++i)
 			{
@@ -87,9 +90,13 @@ namespace pat
 			publish(params);
 
 			res.clear();
+			res.resize(1 + params.dim());
 			lambda *= 0.5;
 			mode = 0;
 			params_point = params;
+			iter_number++;
+			if (iter_number >= max_iters)
+				isdone = true;
 			return;
 		}
 

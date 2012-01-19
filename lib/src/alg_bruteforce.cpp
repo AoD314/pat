@@ -12,6 +12,8 @@ namespace pat
 	PAT_BruteForce::PAT_BruteForce()
 	{
 		is_need_first_pass = true;
+		max_iters = std::numeric_limits<size_t>::max();
+		iter_number = 0;
 	}
 
 	void PAT_BruteForce::logging(QString msg)
@@ -43,7 +45,7 @@ namespace pat
 		{
 			params.set_min(*it);
 		}
-
+		iter_number = 0;
 	}
 
 	void PAT_BruteForce::next_step(double value)
@@ -78,7 +80,8 @@ namespace pat
 			}
 		}
 
-		isdone = (shift && it == list.end());
+		iter_number++;
+		isdone = (shift && it == list.end()) || (iter_number >= max_iters);
 		publish(params_min);
 		log(QString("PAT_BruteForce::next_step( is_done = " + QString::number(isdone) + ")"));
 	}

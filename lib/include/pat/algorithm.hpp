@@ -4,6 +4,8 @@
 
 #include <QtCore>
 
+#include <limits>
+
 #include "pat/pat_params.hpp"
 #include "pat/pat_strparam.hpp"
 
@@ -17,6 +19,10 @@ namespace pat
 			Params params;
 			virtual void logging(QString msg) = 0;
 
+			size_t iter_number;
+			size_t max_iters;
+
+
 		public:
 			virtual void init() = 0;
 			virtual void next_step(double value) = 0;
@@ -24,6 +30,7 @@ namespace pat
 
 			virtual void answer() = 0;
 
+			void set_max_iters(size_t max_it);
 
 		signals:
 			void send(QString val);

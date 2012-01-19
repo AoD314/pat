@@ -117,10 +117,12 @@ namespace pat
 			{
 				case 0:
 					alg = new pat::PAT_BruteForce();
+					alg->set_max_iters(max_iter);
 					break;
 
 				case 1:
 					alg = new pat::PAT_Gradient();
+					alg->set_max_iters(max_iter);
 					break;
 			}
 
