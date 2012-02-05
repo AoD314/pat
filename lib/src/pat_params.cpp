@@ -5,7 +5,9 @@
 namespace pat
 {
 
-	Params::Params(): minvalue(std::numeric_limits<double>::max()){}
+	Params::Params(): minvalue(std::numeric_limits<double>::max()), record_int(), record_float(), list_name_params(){}
+
+	Params::~Params() {}
 
 	bool Params::find(std::string name)
 	{
@@ -34,6 +36,7 @@ namespace pat
 				return record_int[i];
 			}
 		}
+		throw std::exception();
 	}
 
 	RecordParams<Params::r_float>& Params::get_record_float(std::string name)
@@ -45,6 +48,7 @@ namespace pat
 				return record_float[i];
 			}
 		}
+		throw std::exception();
 	}
 
 	std::vector<std::string> Params::get_list_params()

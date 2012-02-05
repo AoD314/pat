@@ -15,8 +15,8 @@ namespace pat
 		public:
 			AlgWindow(QWidget * parent = 0);
 
-			int max_iter();
-			int method();
+			size_t max_iter();
+			size_t method();
 			QString app();
 			bool push_create();
 

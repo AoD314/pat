@@ -27,6 +27,8 @@ namespace pat
 
 			void send_value_to_client(QTcpSocket * socket, QString value);
 
+			void operator=(const pat::PAT_Server&);
+
 		signals:
 			void log(QString msg);
 

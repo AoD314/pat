@@ -51,7 +51,7 @@ namespace pat
 		{
 			if (!block_size)
 			{
-				if (client->bytesAvailable() < sizeof(quint32))
+				if (static_cast<size_t>(client->bytesAvailable()) < sizeof(quint32))
 				{
 					break;
 				}
@@ -105,6 +105,8 @@ namespace pat
 		connect(client, SIGNAL(disconnected()), client, SLOT(deleteLater()));
 		connect(client, SIGNAL(readyRead()),    this,   SLOT(read()));
 	}
+
+	void PAT_Server::operator=(const pat::PAT_Server&){}
 
 }
 

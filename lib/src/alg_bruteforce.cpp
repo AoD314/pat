@@ -9,12 +9,7 @@
 
 namespace pat
 {
-	PAT_BruteForce::PAT_BruteForce()
-	{
-		is_need_first_pass = true;
-		max_iters = std::numeric_limits<size_t>::max();
-		iter_number = 0;
-	}
+	PAT_BruteForce::PAT_BruteForce() : params_min(), isdone(false), is_need_first_pass(true), testsystem("") {}
 
 	void PAT_BruteForce::logging(QString msg)
 	{

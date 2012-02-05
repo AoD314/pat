@@ -104,7 +104,7 @@ namespace pat
 
 		if (win->push_create())
 		{
-			int max_iter = win->max_iter();
+			size_t max_iter = win->max_iter();
 			int meth = win->method();
 			QString app = win->app();
 

@@ -43,7 +43,6 @@ namespace pat
 
 	void SettingsWindow::save_settings()
 	{
-		char ** c;
 		settings->set_language(list_lang->currentText());
 
 		QTranslator trans;

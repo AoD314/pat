@@ -9,12 +9,8 @@
 
 namespace pat
 {
-	PAT_Gradient::PAT_Gradient()
-	{
-		is_need_first_pass = true;
-		max_iters = std::numeric_limits<size_t>::max();
-		iter_number = 0;
-	}
+	PAT_Gradient::PAT_Gradient() : params_min(), params_point(), MIN(std::numeric_limits<double>::max()),
+		isdone(false), is_need_first_pass(true), testsystem(""), lambda(0.0), mode(0), res(), list() {}
 
 	void PAT_Gradient::logging(QString msg)
 	{

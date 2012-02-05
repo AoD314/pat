@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <exception>
 
 #include "patconfig.hpp"
 

@@ -17,7 +17,7 @@ namespace pat
 		public:
 			PAT_System();
 			PAT_System(const std::string & host, unsigned int port);
-			~PAT_System();
+			virtual ~PAT_System();
 
 			template <typename T>
 			T get_params(const std::string & name)

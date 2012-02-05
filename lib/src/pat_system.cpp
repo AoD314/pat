@@ -3,12 +3,13 @@
 
 namespace pat
 {
-	PAT_System::PAT_System() : host("127.0.0.1"), port(13314), socket(new QTcpSocket)
+	PAT_System::PAT_System() : host("127.0.0.1"), port(13314), socket(new QTcpSocket), block_size(0)
 	{
 		socket->connectToHost(QHostAddress(QString::fromUtf8(host.c_str())), port);
 	}
 
-	PAT_System::PAT_System(const std::string & host, unsigned int port): host(host), port(port), socket(new QTcpSocket)
+	PAT_System::PAT_System(const std::string & host, unsigned int port):
+		host(host), port(port), socket(new QTcpSocket), block_size(0)
 	{
 		socket->connectToHost(QHostAddress(QString::fromUtf8(host.c_str())), port);
 	}
@@ -29,7 +30,7 @@ namespace pat
 		out.device()->seek(0);
 		out << quint32(arr_block.size() - sizeof(quint32));
 
-		int ret = socket->write(arr_block);
+		socket->write(arr_block);
 
 		socket->waitForBytesWritten();
 	}
@@ -51,7 +52,7 @@ namespace pat
 		{
 			if (!block_size)
 			{
-				if (socket->bytesAvailable() < sizeof(quint32))
+				if (static_cast<size_t>(socket->bytesAvailable()) < sizeof(quint32))
 				{
 					break;
 				}

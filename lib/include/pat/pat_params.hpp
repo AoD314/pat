@@ -6,6 +6,9 @@
 #include <vector>
 #include <typeinfo>
 #include <limits>
+#include <exception>
+
+#include <inttypes.h>
 
 #include "pat/pat_record_params.hpp"
 #include "patconfig.hpp"
@@ -16,10 +19,12 @@ namespace pat
 	{
 		public:
 			Params();
+			virtual ~Params();
+
 			double minvalue;
 
-			typedef long long int   r_int;
-			typedef double        r_float;
+			typedef int64_t   r_int;
+			typedef double    r_float;
 
 			template <typename T>
 			void add(std::string name, T min, T max, T step, T def)
@@ -170,6 +175,8 @@ namespace pat
 
 				if (find_record_int(name))
 					return static_cast<size_t>(1 + (get_record_int(name).max - get_record_int(name).min) / (get_record_int(name).step));
+
+				throw std::exception();
 			}
 
 			std::vector<std::string> get_list_params();

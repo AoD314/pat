@@ -22,8 +22,8 @@ namespace pat
 			size_t iter_number;
 			size_t max_iters;
 
-
 		public:
+			PAT_Algorithm();
 			virtual void init() = 0;
 			virtual void next_step(double value) = 0;
 			virtual bool is_done() = 0;
@@ -31,6 +31,8 @@ namespace pat
 			virtual void answer() = 0;
 
 			void set_max_iters(size_t max_it);
+
+			virtual ~PAT_Algorithm();
 
 		signals:
 			void send(QString val);

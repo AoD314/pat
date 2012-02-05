@@ -10,12 +10,12 @@
 namespace pat
 {
 
-	void PAT_BASE::set_max_time(unsigned int sec)
+	void PAT_BASE::set_max_time(size_t sec)
 	{
 		max_time = sec;
 	}
 
-	void PAT_BASE::set_max_iter(unsigned long long iter)
+	void PAT_BASE::set_max_iter(size_t iter)
 	{
 		max_iter = iter;
 	}
@@ -43,7 +43,7 @@ namespace pat
 
 		Params cparams;
 
-		unsigned long long current_iter = 0;
+		size_t current_iter = 0;
 		double MAX = -std::numeric_limits<double>::max();
 
 		/* reset each value */

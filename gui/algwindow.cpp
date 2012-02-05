@@ -81,12 +81,12 @@ namespace pat
 		return is_create;
 	}
 
-	int AlgWindow::max_iter()
+	size_t AlgWindow::max_iter()
 	{
 		return spin_count->value();
 	}
 
-	int AlgWindow::method()
+	size_t AlgWindow::method()
 	{
 		return list_alg->currentIndex();
 	}
