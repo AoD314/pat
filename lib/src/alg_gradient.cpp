@@ -61,7 +61,6 @@ namespace pat
 
 		if (mode == params.dim())
 		{
-			log(QString("\n\nrecalc new point(params)\n\n"));
 			params = params_point;
 			std::string name;
 
@@ -84,8 +83,6 @@ namespace pat
 				name = list.at(i);
 				params.modify_add(name, (-lambda) * (res.at(i + 1) - res.at(0)) / params.get_step<double>(name));
 			}
-
-			log(QString("end ====== point(params)"));
 
 			publish(params);
 

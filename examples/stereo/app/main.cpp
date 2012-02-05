@@ -33,13 +33,13 @@ int main(int argc, const char ** argv)
 	pat::PAT_System pat;
 
 	pat.init("max_disp", 80, 96, 16, 80);
-	pat.init("iter",  3, 11, 1, 7);
-	pat.init("level", 3, 7, 1, 5);
+	pat.init("iter",  3, 5, 1, 4);
+	pat.init("level", 3, 5, 1, 4);
 
-	pat.init("max_data_term",    8.0, 12.0,  0.1, 10.0);
+	pat.init("max_data_term",    9.0, 11.0,  0.1, 10.0);
 	pat.init("data_weight",      0.01, 0.1, 0.01, 0.05);
-	pat.init("max_disc_term",    0.7,  2.7,  0.1, 1.5);
-	pat.init("disc_single_jump", 0.0,  2.0,  0.1, 1.0);
+	pat.init("max_disc_term",    1.4,  2.0,  0.1, 1.7);
+	pat.init("disc_single_jump", 0.5,  1.5,  0.1, 1.0);
 
 	max_disparity = pat.get_params<int>("max_disp");
 	iteration     = pat.get_params<int>("iter");

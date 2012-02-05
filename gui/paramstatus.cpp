@@ -55,7 +55,7 @@ namespace pat
 		std::vector<std::string> list = p.get_list_params();
 		if (p.dim() > 0)
 		{
-			for (int i = 0; i < p.dim(); i++)
+			for (size_t i = 0; i < p.dim(); i++)
 			{
 				points_in_dims *= p.get_points(list[i]);
 				lst << QString(list[i].c_str());
@@ -65,7 +65,7 @@ namespace pat
 			table->setRowCount(p.dim());
 			table->setVerticalHeaderLabels(lst);
 
-			for (int i = 0; i < p.dim(); i++)
+			for (size_t i = 0; i < p.dim(); i++)
 			{
 				table->setItem(0, i, new QTableWidgetItem(lst_value[i]));
 			}

@@ -230,23 +230,27 @@ endif()
 # ----------------------------------------------------------------------------
 # INSTALL
 # ----------------------------------------------------------------------------
+
 if(UNIX)
 	install(TARGETS ${target} DESTINATION "/usr/lib")
 	find_path(LIB_INCLUDE_PATH string.h)
 	install(FILES ${inc_lib} DESTINATION "${LIB_INCLUDE_PATH}/pat")
 endif()
+
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
 # STATUS
 # ----------------------------------------------------------------------------
+
 message("")
 message("General configuration for pat ${pat_version} =====================================")
 message("")
-message("    Configuration type : " ${CMAKE_BUILD_TYPE})
+message("    Configuration type : " ${CMAKE_BUILD_TYPE} )
 message("")
-message("    C++ flags (Release): " ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELEASE})
-message("    C++ flags (Debug)  : " ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG})
+message("    C++ flags (common) : " ${CMAKE_CXX_FLAGS} )
+message("    C++ flags (Release): " ${CMAKE_CXX_FLAGS_RELEASE})
+message("    C++ flags (Debug)  : " ${CMAKE_CXX_FLAGS_DEBUG} )
 message("")
 
 # ----------------------------------------------------------------------------

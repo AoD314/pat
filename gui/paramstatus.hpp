@@ -5,6 +5,8 @@
 #include <QtCore>
 #include <QtGui>
 
+#include <stdint.h>
+
 #include "pat/pat_params.hpp"
 
 namespace pat
