@@ -30,7 +30,7 @@ namespace pat
 
 			virtual void answer() = 0;
 
-			void set_max_iters(size_t max_it);
+			virtual void set_max_iters(size_t max_it);
 
 			virtual ~PAT_Algorithm();
 
