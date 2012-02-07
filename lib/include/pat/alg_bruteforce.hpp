@@ -4,13 +4,14 @@
 
 #include <QtCore>
 
+#include "patconfig.hpp"
 #include "pat/pat_params.hpp"
 #include "pat/algorithm.hpp"
 #include "pat/pat_strparam.hpp"
 
 namespace pat
 {	
-	class PAT_BruteForce : public PAT_Algorithm
+	class PAT_EXPORTS PAT_BruteForce : public PAT_Algorithm
 	{
 		Q_OBJECT
 
@@ -21,6 +22,8 @@ namespace pat
 			void next_step(double value);
 			bool is_done();
 			void answer();
+
+			~PAT_BruteForce();
 
 		protected:
 			void logging(QString msg);

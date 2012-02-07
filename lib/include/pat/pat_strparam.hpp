@@ -4,9 +4,11 @@
 
 #include <QtCore>
 
+#include "patconfig.hpp"
+
 namespace pat
 {
-	class StrParams
+	class PAT_EXPORTS StrParams
 	{
 		public:
 			QString name;

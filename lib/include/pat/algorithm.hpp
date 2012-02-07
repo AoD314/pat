@@ -6,12 +6,13 @@
 
 #include <limits>
 
+#include "patconfig.hpp"
 #include "pat/pat_params.hpp"
 #include "pat/pat_strparam.hpp"
 
 namespace pat
 {	
-	class PAT_Algorithm : public QObject
+	class PAT_EXPORTS PAT_Algorithm : public QObject
 	{
 		Q_OBJECT
 

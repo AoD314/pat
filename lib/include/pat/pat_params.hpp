@@ -8,7 +8,7 @@
 #include <limits>
 #include <exception>
 
-#include <inttypes.h>
+#include <stdint.h>
 
 #include "pat/pat_record_params.hpp"
 #include "patconfig.hpp"

@@ -105,6 +105,8 @@ namespace pat
 		send(QString(n.c_str()));
 	}
 
+	PAT_BruteForce::~PAT_BruteForce(){}
+
 	void PAT_BruteForce::init(StrParams sp)
 	{
 		log(QString("PAT_BruteForce::init(" + sp.name + ")"));

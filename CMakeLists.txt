@@ -120,9 +120,6 @@ set(lib_mocs "lib/include/pat/algorithm.hpp"
     )
 ### COMMON ###
 
-set(common_hdrs "common/settings.hpp")
-set(common_srcs "common/settings.cpp")
-
 ### GUI ###
 
 set(gui_srcs 
@@ -173,8 +170,8 @@ add_custom_command( TARGET translations COMMAND ${QT_LRELEASE_EXECUTABLE} ${TRAN
 
 ################
 
-set(gui_hdrs ${gui_hdrs} ${gui_mocs} ${common_hdrs})
-set(lib_hdrs ${lib_hdrs} ${lib_mocs} ${common_hdrs})
+set(gui_hdrs ${gui_hdrs} ${gui_mocs})
+set(lib_hdrs ${lib_hdrs} ${lib_mocs})
 
 qt4_wrap_cpp(gui_mocs_obj ${gui_mocs})
 qt4_wrap_cpp(lib_mocs_obj ${lib_mocs})
@@ -187,18 +184,8 @@ ADD_DEFINITIONS(${QT_DEFINITIONS})
 ADD_DEFINITIONS(-DQT_PLUGIN)
 ADD_DEFINITIONS(-DQT_SHARED)
 
-if(WIN32)
-    add_definitions(-DPATAPI_EXPORTS)
-endif()
-
-add_library( ${target_lib} SHARED ${lib_srcs} ${lib_hdrs} ${lib_mocs_obj})
-target_link_libraries( ${target_lib} ${QT_LIBRARIES})
-
-add_executable( ${target_gui} ${gui_srcs} ${gui_hdrs} ${gui_mocs_obj} ${qrc_sources} ${translations})
-target_link_libraries( ${target_gui} ${QT_LIBRARIES} ${target_lib})
-
-
-
+include(pat_gui.cmake)
+include(pat_lib.cmake)
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/PATConfig.cmake.in" "${CMAKE_BINARY_DIR}/PATConfig.cmake" IMMEDIATE @ONLY)
 

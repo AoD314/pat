@@ -4,6 +4,7 @@
 
 #include <QtCore>
 
+#include "patconfig.hpp"
 #include "pat/pat_params.hpp"
 #include "pat/algorithm.hpp"
 
@@ -11,7 +12,7 @@
 
 namespace pat
 {
-	class PAT_Gradient : public PAT_Algorithm
+	class PAT_EXPORTS PAT_Gradient : public PAT_Algorithm
 	{
 		Q_OBJECT
 

@@ -1,4 +1,6 @@
 
+#define QWT_DLL
+
 #include "mainwindow.hpp"
 #include "settingswindow.hpp"
 #include "algwindow.hpp"
@@ -105,7 +107,7 @@ namespace pat
 		if (win->push_create())
 		{
 			size_t max_iter = win->max_iter();
-			int meth = win->method();
+			size_t meth = win->method();
 			QString app = win->app();
 
 			text_log->append(QString("Max iteration : " + QString::number(max_iter)));

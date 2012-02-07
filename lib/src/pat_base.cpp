@@ -102,4 +102,5 @@ namespace pat
 		return !(shift && it == list.end());
 	}
 
+	PAT_BASE::~PAT_BASE(){}
 }
