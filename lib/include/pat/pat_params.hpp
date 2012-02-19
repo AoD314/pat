@@ -26,6 +26,9 @@ namespace pat
 			typedef int64_t   r_int;
 			typedef double    r_float;
 
+			void operator+=(Params & p);
+			void operator/=(double val);
+
 			template <typename T>
 			void add(std::string name, T min, T max, T step, T def)
 			{

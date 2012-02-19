@@ -9,7 +9,7 @@
 namespace pat
 {
 	template <typename T>
-	class PAT_EXPORTS RecordParams
+	class RecordParams
 	{
 		public:
 			RecordParams(std::string name_var, T min_value, T max_value, T step_value, T def_value)

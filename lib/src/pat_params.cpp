@@ -9,6 +9,39 @@ namespace pat
 
 	Params::~Params() {}
 
+	void Params::operator /= (double val)
+	{
+		std::vector<std::string> list = get_list_params();
+
+		for (int i = 0; i < list.size(); i++)
+		{
+			std::string name = list.at(i);
+
+			if (find_record_float(name))
+				get_record_float(name).value /= val;
+
+			if (find_record_int(name))
+				get_record_int(name).value = static_cast<r_int>(static_cast<r_float>(get_record_int(name).value) / static_cast<r_float>(val));
+		}
+	}
+
+	void Params::operator += (Params & p)
+	{
+		std::vector<std::string> list = p.get_list_params();
+
+		for (int i = 0; i < list.size(); i++)
+		{
+			std::string name = list.at(i);
+
+			if (find_record_float(name))
+				get_record_float(name).value += p.get_record_float(name).value;
+
+			if (find_record_int(name))
+				get_record_int(name).value += p.get_record_int(name).value;
+		}
+
+	}
+
 	bool Params::find(std::string name)
 	{
 		if (find_record_int(name))   return true;

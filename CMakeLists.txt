@@ -61,8 +61,8 @@ set(pat_version "${PAT_VERSION_MAJOR}.${PAT_VERSION_MINOR}.${PAT_VERSION_PATCH}"
 
 set(PAT_CONFIG_FILE_INCLUDE_DIR "${CMAKE_BINARY_DIR}/" CACHE PATH "Where to create the platform-dependant patconfig.hpp")
 
-message(STATUS "Parsing 'patconfig.h.cmake'")
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/patconfig.h.cmake" "${PAT_CONFIG_FILE_INCLUDE_DIR}/patconfig.hpp")
+#message(STATUS "Parsing 'patconfig.h.cmake'")
+#configure_file("${CMAKE_CURRENT_SOURCE_DIR}/patconfig.h.cmake" "${PAT_CONFIG_FILE_INCLUDE_DIR}/patconfig.hpp")
 
 # ---------------------------------------------------------------------------
 # The C+//0 include & link directories:
@@ -99,6 +99,7 @@ set(lib_srcs "lib/src/pat_base.cpp"
              "lib/src/pat_params.cpp"
              "lib/src/alg_bruteforce.cpp"
              "lib/src/alg_gradient.cpp"
+             "lib/src/alg_downhill_simplex.cpp"
              "lib/src/algorithm.cpp"
              "lib/src/pat_strparam.cpp"
              "lib/src/pat_system.cpp"
@@ -117,6 +118,7 @@ set(lib_hdrs "lib/include/pat/pat.hpp"
 set(lib_mocs "lib/include/pat/algorithm.hpp"
              "lib/include/pat/alg_bruteforce.hpp"
              "lib/include/pat/alg_gradient.hpp"
+             "lib/include/pat/alg_downhill_simplex.hpp"
     )
 ### COMMON ###
 
