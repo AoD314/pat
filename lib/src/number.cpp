@@ -101,17 +101,29 @@ namespace pat
         return num;
     }
 
-    bool Number::operator == ( const Number & num )
+    bool operator==(const Number& left, const Number& right)
     {
-        if (num.type_v == float_t)
-            return num.value_f == value_f;
+        if (left.type_v == right.type_v)
+        {
+            if (left.type_v == float_t)
+                return left.value_f == right.value_f;
 
-        if (num.type_v == int_t)
-            return num.value_i == value_i;
+            if (left.type_v == int_t)
+                return left.value_i == right.value_i;
+        }
+        else
+        {
+            return left.to_float() == right.to_float();
+        }
     }
 
     Number& Number::operator = (const Number & num)
     {
+        if (this == &num)
+        {
+            return *this;
+        }
+
         value_f = num.value_f;
         value_i = num.value_i;
         type_v  = num.type_v;
@@ -240,113 +252,114 @@ namespace pat
     }
 
 
-    Number  Number::operator + ( const Number & num)
+    const Number operator + (const Number& left, const Number& right)
     {
         Number n(0);
 
-        if (type_v == num.type_v)
+        if (left.type_v == right.type_v)
         {
-            n.type_v = num.type_v;
+            n.type_v = left.type_v;
 
-            if (type_v == int_t)
+            if (left.type_v == int_t)
             {
-                n.value_i = this->value_i + num.value_i;
+                n.value_i = left.value_i + right.value_i;
             }
 
-            if (type_v == float_t)
+            if (left.type_v == float_t)
             {
-                n.value_f = this->value_f + num.value_f;
+                n.value_f = left.value_f + right.value_f;
             }
         }
         else
         {
             n.type_v = float_t;
-            n.value_f = to_float() + num.to_float();
+            n.value_f = left.to_float() + right.to_float();
         }
 
         return n;
     }
 
-    Number  Number::operator - ( const Number & num)
+    const Number operator - (const Number& left, const Number& right)
     {
         Number n(0);
 
-        if (type_v == num.type_v)
+        if (left.type_v == right.type_v)
         {
-            n.type_v = num.type_v;
+            n.type_v = left.type_v;
 
-            if (type_v == int_t)
+            if (left.type_v == int_t)
             {
-                n.value_i = this->value_i - num.value_i;
+                n.value_i = left.value_i - right.value_i;
             }
 
-            if (type_v == float_t)
+            if (left.type_v == float_t)
             {
-                n.value_f = this->value_f - num.value_f;
+                n.value_f = left.value_f - right.value_f;
             }
         }
         else
         {
             n.type_v = float_t;
-            n.value_f = to_float() - num.to_float();
+            n.value_f = left.to_float() - right.to_float();
         }
 
         return n;
     }
 
-    Number  Number::operator * ( const Number & num)
+    const Number operator * (const Number& left, const Number& right)
     {
         Number n(0);
 
-        if (type_v == num.type_v)
+        if (left.type_v == right.type_v)
         {
-            n.type_v = num.type_v;
+            n.type_v = left.type_v;
 
-            if (type_v == int_t)
+            if (left.type_v == int_t)
             {
-                n.value_i = this->value_i * num.value_i;
+                n.value_i = left.value_i * right.value_i;
             }
 
-            if (type_v == float_t)
+            if (left.type_v == float_t)
             {
-                n.value_f = this->value_f * num.value_f;
+                n.value_f = left.value_f * right.value_f;
             }
         }
         else
         {
             n.type_v = float_t;
-            n.value_f = to_float() * num.to_float();
+            n.value_f = left.to_float() * right.to_float();
         }
 
         return n;
     }
 
-    Number  Number::operator / ( const Number & num)
+    const Number operator / (const Number& left, const Number& right)
     {
         Number n(0);
 
-        if (type_v == num.type_v)
+        if (left.type_v == right.type_v)
         {
-            n.type_v = num.type_v;
+            n.type_v = left.type_v;
 
-            if (type_v == int_t)
+            if (left.type_v == int_t)
             {
-                n.value_i = this->value_i / num.value_i;
+                n.value_i = left.value_i / right.value_i;
             }
 
-            if (type_v == float_t)
+            if (left.type_v == float_t)
             {
-                n.value_f = this->value_f / num.value_f;
+                n.value_f = left.value_f / right.value_f;
             }
         }
         else
         {
             n.type_v = float_t;
-            n.value_f = to_float() / num.to_float();
+            n.value_f = left.to_float() / right.to_float();
         }
 
         return n;
     }
+
 
     std::ostream& operator << (std::ostream& out, const Number& n)
     {

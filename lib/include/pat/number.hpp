@@ -30,23 +30,24 @@ namespace pat
 
                  Number& operator++();
             const Number operator++(int);
-            bool operator == ( const Number & );
 
             Number& operator  = ( const Number & );
+
             Number& operator += ( const Number & );
             Number& operator -= ( const Number & );
             Number& operator *= ( const Number & );
             Number& operator /= ( const Number & );
 
-            Number  operator + ( const Number & );
-            Number  operator - ( const Number & );
-            Number  operator * ( const Number & );
-            Number  operator / ( const Number & );
-
             double to_float() const ;
             long long int to_int() const ;
 
 
+            friend const Number operator+(const Number& left, const Number& right);
+            friend const Number operator-(const Number& left, const Number& right);
+            friend const Number operator*(const Number& left, const Number& right);
+            friend const Number operator/(const Number& left, const Number& right);
+
+            friend bool operator==(const Number& left, const Number& right);
             friend std::ostream& operator << (std::ostream&, const Number&);
 
         private:
