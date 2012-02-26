@@ -17,7 +17,7 @@ if(DEFINED CMAKE_BUILD_TYPE)
 endif()
 
 #set(CMAKE_BUILD_TYPE "Release")
-#set(CMAKE_BUILD_TYPE "Debug")
+set(CMAKE_BUILD_TYPE "Debug")
 
 # ----------------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ endif()
 
 set(ENABLE_DOCS OFF CACHE BOOL "Enable build documentation")
 if(ENABLE_DOCS)
-		add_subdirectory(doc)
+    add_subdirectory(doc)
 endif()
 
 # ----------------------------------------------------------------------------
@@ -101,6 +101,7 @@ set(lib_srcs "lib/src/pat_base.cpp"
              "lib/src/alg_gradient.cpp"
              "lib/src/alg_downhill_simplex.cpp"
              "lib/src/algorithm.cpp"
+             "lib/src/number.cpp"
              "lib/src/pat_strparam.cpp"
              "lib/src/pat_system.cpp"
     )
@@ -113,6 +114,7 @@ set(lib_hdrs "lib/include/pat/pat.hpp"
              "lib/include/pat/pat_system.hpp"
              "lib/include/pat/pat_strparam.hpp"
              "lib/include/pat/version.hpp"
+             "lib/include/pat/number.hpp"
     )
 
 set(lib_mocs "lib/include/pat/algorithm.hpp"
@@ -186,8 +188,11 @@ ADD_DEFINITIONS(${QT_DEFINITIONS})
 ADD_DEFINITIONS(-DQT_PLUGIN)
 ADD_DEFINITIONS(-DQT_SHARED)
 
-include(pat_gui.cmake)
-include(pat_lib.cmake)
+add_library( ${target_lib} SHARED ${lib_srcs} ${lib_hdrs} ${lib_mocs_obj})
+target_link_libraries( ${target_lib} ${QT_LIBRARIES})
+
+add_executable(patgui ${gui_srcs} ${gui_hdrs} ${gui_mocs_obj} ${qrc_sources} ${translations})
+target_link_libraries(patgui ${QT_LIBRARIES} ${target_lib})
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/PATConfig.cmake.in" "${CMAKE_BINARY_DIR}/PATConfig.cmake" IMMEDIATE @ONLY)
 
@@ -205,7 +210,9 @@ foreach(LANGUAGE ${LANGUAGES})
         ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations/${LANGUAGE}.qm ${CMAKE_BINARY_DIR}/trans)
     add_custom_command( TARGET ${target_gui} POST_BUILD COMMAND
         ${CMAKE_COMMAND} -E copy
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations/${LANGUAGE}.qm
+        ${CMAKE_CURRENT_SOURCE_DIR}/resoADD_DEFINITIONS(${QT_DEFINITIONS})
+ADD_DEFINITIONS(-DQT_PLUGIN)
+ADD_DEFINITIONS(-DQT_SHARED)urces/translations/${LANGUAGE}.qm
         ${CMAKE_BINARY_DIR}/bin/trans)
 endforeach()
 
