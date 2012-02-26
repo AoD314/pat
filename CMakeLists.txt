@@ -102,6 +102,8 @@ set(lib_srcs "lib/src/pat_base.cpp"
              "lib/src/alg_downhill_simplex.cpp"
              "lib/src/algorithm.cpp"
              "lib/src/number.cpp"
+             "lib/src/point.cpp"
+             "lib/src/function_nd.cpp"
              "lib/src/pat_strparam.cpp"
              "lib/src/pat_system.cpp"
     )
@@ -115,6 +117,8 @@ set(lib_hdrs "lib/include/pat/pat.hpp"
              "lib/include/pat/pat_strparam.hpp"
              "lib/include/pat/version.hpp"
              "lib/include/pat/number.hpp"
+             "lib/include/pat/point.hpp"
+             "lib/include/pat/function_nd.hpp"
     )
 
 set(lib_mocs "lib/include/pat/algorithm.hpp"
