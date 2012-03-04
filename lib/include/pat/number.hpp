@@ -25,6 +25,8 @@ namespace pat
 
             Number(const Number & );
 
+			Number delta();
+
             // operators
             const Number operator-() const;
 
@@ -38,16 +40,21 @@ namespace pat
             Number& operator *= ( const Number & );
             Number& operator /= ( const Number & );
 
+			friend bool operator <  (const Number& left, const Number& right);
+			friend bool operator >  (const Number& left, const Number& right);
+			friend bool operator <= (const Number& left, const Number& right);
+			friend bool operator >= (const Number& left, const Number& right);
+			friend bool operator == (const Number& left, const Number& right);
+			friend bool operator != (const Number& left, const Number& right);
+
             double to_float() const ;
             long long int to_int() const ;
 
+			friend const Number operator + (const Number& left, const Number& right);
+			friend const Number operator - (const Number& left, const Number& right);
+			friend const Number operator * (const Number& left, const Number& right);
+			friend const Number operator / (const Number& left, const Number& right);
 
-            friend const Number operator+(const Number& left, const Number& right);
-            friend const Number operator-(const Number& left, const Number& right);
-            friend const Number operator*(const Number& left, const Number& right);
-            friend const Number operator/(const Number& left, const Number& right);
-
-            friend bool operator==(const Number& left, const Number& right);
             friend std::ostream& operator << (std::ostream&, const Number&);
 
         private:

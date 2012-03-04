@@ -16,6 +16,13 @@ namespace pat
             Point& add(const Number & );
 
 
+			Number& operator[](int n);
+			Number  operator[](int n) const;
+
+			Number  delta(int i);
+
+			size_t dim() const;
+
             const Point operator-() const;
 
             Point& operator += ( const Point & );
@@ -29,7 +36,6 @@ namespace pat
 
             Point& operator /= ( const Point & );
             Point& operator /= ( const Number & );
-
 
             friend const Point operator + (const Point& left,  const Point& right);
             friend const Point operator + (const Point& left,  const Number& right);

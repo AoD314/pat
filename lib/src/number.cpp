@@ -61,6 +61,15 @@ namespace pat
             return static_cast<long long int>(value_f);
     }
 
+	Number Number::delta()
+	{
+		Number n;
+		if (type_v == int_t)
+			n = 1;
+		if (type_v == float_t)
+			n = 0.00025;
+		return n;
+	}
 
     const Number Number::operator-() const
     {
@@ -101,7 +110,76 @@ namespace pat
         return num;
     }
 
-    bool operator==(const Number& left, const Number& right)
+	bool operator <  (const Number& left, const Number& right)
+	{
+		if (left.type_v == right.type_v)
+		{
+			if (left.type_v == float_t)
+				return left.value_f < right.value_f;
+
+			if (left.type_v == int_t)
+				return left.value_i < right.value_i;
+		}
+		else
+		{
+			return left.to_float() < right.to_float();
+		}
+	}
+
+	bool operator >  (const Number& left, const Number& right)
+	{
+		if (left.type_v == right.type_v)
+		{
+			if (left.type_v == float_t)
+				return left.value_f > right.value_f;
+
+			if (left.type_v == int_t)
+				return left.value_i > right.value_i;
+		}
+		else
+		{
+			return left.to_float() > right.to_float();
+		}
+	}
+
+	bool operator <= (const Number& left, const Number& right)
+	{
+		if (left.type_v == right.type_v)
+		{
+			if (left.type_v == float_t)
+				return left.value_f <= right.value_f;
+
+			if (left.type_v == int_t)
+				return left.value_i <= right.value_i;
+		}
+		else
+		{
+			return left.to_float() <= right.to_float();
+		}
+	}
+
+	bool operator >= (const Number& left, const Number& right)
+	{
+		if (left.type_v == right.type_v)
+		{
+			if (left.type_v == float_t)
+				return left.value_f >= right.value_f;
+
+			if (left.type_v == int_t)
+				return left.value_i >= right.value_i;
+		}
+		else
+		{
+			return left.to_float() >= right.to_float();
+		}
+	}
+
+	bool operator != (const Number& left, const Number& right)
+	{
+		return !operator == (left, right);
+	}
+
+	bool operator == (const Number& left, const Number& right)
     {
         if (left.type_v == right.type_v)
         {
@@ -146,8 +224,6 @@ namespace pat
         }
         else
         {
-            type_v = float_t;
-
             double v;
             if (type_v == float_t)
                 v = value_f;
@@ -155,7 +231,8 @@ namespace pat
                 v = static_cast<double>(value_i);
 
             value_f = v + num.to_float();
-        }
+			type_v = float_t;
+		}
 
         return *this;
     }
@@ -176,8 +253,6 @@ namespace pat
         }
         else
         {
-            type_v = float_t;
-
             double v;
             if (type_v == float_t)
                 v = value_f;
@@ -185,7 +260,8 @@ namespace pat
                 v = static_cast<double>(value_i);
 
             value_f = v - num.to_float();
-        }
+			type_v = float_t;
+		}
 
         return *this;
     }
@@ -207,16 +283,15 @@ namespace pat
         }
         else
         {
-            type_v = float_t;
-
             double v;
             if (type_v == float_t)
                 v = value_f;
             if (type_v == int_t)
                 v = static_cast<double>(value_i);
 
-            value_f = v * num.to_float();
-        }
+			value_f = v * num.to_float();
+			type_v = float_t;
+		}
 
         return *this;
     }
@@ -237,8 +312,6 @@ namespace pat
         }
         else
         {
-            type_v = float_t;
-
             double v;
             if (type_v == float_t)
                 v = value_f;
@@ -246,7 +319,8 @@ namespace pat
                 v = static_cast<double>(value_i);
 
             value_f = v / num.to_float();
-        }
+			type_v = float_t;
+		}
 
         return *this;
     }

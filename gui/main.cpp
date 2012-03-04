@@ -26,6 +26,8 @@ int main(int argc, char ** argv)
     cout << "n1 : " << n1 << endl;
     cout << "n2 : " << n2 << endl;
 
+	cout << n1 << " < " << n2 << " is " << ((n1 < n2)?"true":"false") << endl;
+
     Point p1, p2, p3;
 
     p1.add(n1).add(n2);
@@ -34,8 +36,18 @@ int main(int argc, char ** argv)
     p3 = 11 - (p1 + p2);
 
     cout << "p1 : " << p1 << endl;
+	for (int i = 0; i < p1.dim(); i++)
+	{
+		cout << "delta(" << i << ") = " << p1.delta(i) << endl;
+	}
+
     cout << "p2 : " << p2 << endl;
+
     cout << "p3 : " << p3 << endl;
+	cout << "p3.dim() : " << p3.dim() << endl;
+	p3[0] = 777.0;
+	p3[1] = -101;
+	cout << "p3 : " << p3 << endl;
 
     p3 -= 1.5;
     cout << "p3 : " << p3 << endl;

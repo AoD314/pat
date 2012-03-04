@@ -11,6 +11,26 @@ namespace pat
         return *this;
     }
 
+	Number& Point::operator[](int n)
+	{
+		return point.at(n);
+	}
+
+	Number  Point::operator[](int n) const
+	{
+		return point.at(n);
+	}
+
+	size_t Point::dim() const
+	{
+		return point.size();
+	}
+
+	Number Point::delta(int i)
+	{
+		return point.at(i).delta();
+	}
+
     const Point Point::operator-() const
     {
         Point pnt;
