@@ -22,14 +22,14 @@ namespace pat
 			template <typename T>
 			T get_params(const std::string & name)
 			{
-				send_message_to_server("get", name, "", "", "", "", "");
+				send_message_to_server("get", name, "", "", "");
 				return from_str<T>(receive_message_from_server());
 			}
 
 			template <typename T>
-			void init(const std::string & name, T min_value, T max_value, T step, T start_value)
+			void init(const std::string & name, T min_value, T max_value, T def_value)
 			{
-				send_message_to_server("init", name, to_str(start_value), to_str(min_value), to_str(max_value), to_str(step), typeid(step).name());
+				send_message_to_server("init", name, to_str(min_value), to_str(max_value), to_str(def_value));
 			}
 
 			void send_result(double result);
@@ -40,7 +40,7 @@ namespace pat
 			QTcpSocket * socket;
 			quint32 block_size;
 
-			void send_message_to_server(std::string cmd, std::string var_name, std::string value, std::string value_from, std::string value_to, std::string value_step, std::string value_type);
+			void send_message_to_server(std::string cmd, std::string var_name, std::string value_min, std::string value_max, std::string value_def);
 			std::string receive_message_from_server();
 	};
 

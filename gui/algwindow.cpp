@@ -16,6 +16,7 @@ namespace pat
 		list_alg = new QComboBox;
 		list_alg->addItem(tr("brute force"));
 		list_alg->addItem(tr("gradient"));
+		list_alg->addItem(tr("downhill simplex"));
 
 		lbl_app = new QLabel(tr("Application") + ":");
 		text_edit = new QLineEdit;
@@ -28,7 +29,7 @@ namespace pat
 		spin_count = new QSpinBox;
 		spin_count->setMinimum(1);
 		spin_count->setMaximum(2000000000);
-		spin_count->setValue(5);
+		spin_count->setValue(32);
 
 		btn_create = new QPushButton(tr("Create"));
 		btn_cancel = new QPushButton(tr("Cancel"));
@@ -60,7 +61,7 @@ namespace pat
 		is_create = false;
 		setWindowTitle(tr("Optimize of the new application"));
 		setLayout(box_v);
-		resize(350, 200);
+		resize(420, 210);
 		center_qwidget(this);
 	}
 

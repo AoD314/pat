@@ -19,7 +19,7 @@ namespace pat
 			Number& operator[](int n);
 			Number  operator[](int n) const;
 
-			Number  delta(int i);
+			Number  delta(size_t i) const;
 
 			size_t dim() const;
 

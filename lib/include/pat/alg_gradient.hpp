@@ -17,32 +17,11 @@ namespace pat
 		Q_OBJECT
 
 		public:
-			PAT_Gradient();
-
-			void init();
-			void next_step(double value);
-			bool is_done();
-			void answer();
+			PAT_Gradient(SpaceParam * sp);
+			void run();
 
 		protected:
-			void logging(QString msg);
-
-		private:
-			Params params_min;
-			Params params_point;
-			double MIN;
-			bool isdone;
-			bool is_need_first_pass;
-			std::string testsystem;
-			double lambda;
-			size_t mode;
-			std::vector<double> res;
-			std::vector<std::string> list;
-
-		public slots:
-			void result(double val);
-			void get(QString name);
-			void init(StrParams sp);
+			Point gradient(const Point & point);
 	};
 
 }

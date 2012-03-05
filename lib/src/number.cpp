@@ -1,6 +1,10 @@
 
-#include "pat/number.hpp"
 #include <iomanip>
+#include <cmath>
+
+#include "pat/pat_convert.hpp"
+#include "pat/number.hpp"
+
 
 namespace pat
 {
@@ -34,6 +38,23 @@ namespace pat
         value_f = num;
     }
 
+	Number::Number(std::string num)
+	{
+		double d = from_str<double>(num);
+		long long int l = from_str<long long int>(num);
+
+		if (fabs(d - static_cast<double>(l)) > 0.000000025)
+		{
+			type_v = float_t;
+			value_f = d;
+		}
+		else
+		{
+			type_v = int_t;
+			value_f = l;
+		}
+	}
+
     Number::Number(const Number & num)
     {
         value_f = num.value_f;
@@ -61,7 +82,7 @@ namespace pat
             return static_cast<long long int>(value_f);
     }
 
-	Number Number::delta()
+	Number Number::delta() const
 	{
 		Number n;
 		if (type_v == int_t)

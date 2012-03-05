@@ -49,16 +49,23 @@ namespace pat
 
 
 			PAT_Algorithm * alg;
-			QString path_to_testsystem;
+
 			QString path;
 			QString program;
 			QStringList arguments;
 
+			SpaceParam * space_param;
+
 		signals:
-			void add_text(QString msg);
+			void send_to_client(QString value);
 
 		private slots:
-			void next_step(double result);
+			void publish_result(FunctionND fnc);
+			void run_app(Point p);
+
+			void process_get(QString name);
+			void process_init(StrParams params);
+
 			void about_application();
 			void about_qt();
 			void settings_window();

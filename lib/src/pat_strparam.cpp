@@ -4,20 +4,18 @@
 namespace pat
 {
 
-	StrParams::StrParams(QString name, QString value, QString value_from, QString value_to, QString step, QString type):
-	name(name), value(value), value_from(value_from),  value_to(value_to), step(step), type(type) { }
+	StrParams::StrParams(QString name, QString value_def, QString value_min, QString value_max):
+	name(name), value_min(value_min),  value_max(value_max), value_def(value_def) { }
 
-	StrParams::StrParams():name(""), value(""), value_from(""),  value_to(""), step(""), type(""){}
+	StrParams::StrParams():name(""), value_def(""), value_min(""),  value_max("") {}
 
 	QString StrParams::to_str()
 	{
 		QString out;
 		out += "name:{" + name + "}; ";
-		out += "value:{" + value + "}; ";
-		out += "from:{" + value_from + "}; ";
-		out += "to:{" + value_to + "}; ";
-		out += "step:{" + step + "}; ";
-		out += "type:{" + type + "}";
+		out += "min:{" + value_min + "}; ";
+		out += "max:{" + value_max + "}; ";
+		out += "def:{" + value_def + "}; ";
 
 		return out;
 

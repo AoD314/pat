@@ -20,6 +20,10 @@ namespace pat
 		connect(this, SIGNAL(newConnection()), this, SLOT(new_connection()));
 	}
 
+	void PAT_Server::change_state(Point p)
+	{
+	}
+
 	void PAT_Server::send_value_to_client(QTcpSocket * socket, QString value)
 	{
 		log(QString("send to client : " + value));
@@ -65,11 +69,9 @@ namespace pat
 
 			in >> cmd;
 			in >> sp.name;
-			in >> sp.value;
-			in >> sp.value_from;
-			in >> sp.value_to;
-			in >> sp.step;
-			in >> sp.type;
+			in >> sp.value_min;
+			in >> sp.value_max;
+			in >> sp.value_def;
 
 			log(QString("server read: [command : " +  cmd + "] " + sp.to_str()));
 
@@ -87,7 +89,7 @@ namespace pat
 			}
 			else if (cmd.compare("result") == 0)
 			{
-				result(from_str<double>(sp.value.toStdString()));
+				result(from_str<double>(sp.name.toStdString()));
 			}
 
 		}
@@ -105,8 +107,4 @@ namespace pat
 		connect(client, SIGNAL(disconnected()), client, SLOT(deleteLater()));
 		connect(client, SIGNAL(readyRead()),    this,   SLOT(read()));
 	}
-
-	void PAT_Server::operator=(const pat::PAT_Server&){}
-
 }
-

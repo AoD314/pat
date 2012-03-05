@@ -5,9 +5,9 @@
 #include <QtCore>
 
 #include "patconfig.hpp"
-#include "pat/pat_params.hpp"
 #include "pat/algorithm.hpp"
-#include "pat/pat_strparam.hpp"
+#include "pat/function_nd.hpp"
+#include "pat/space_param.hpp"
 
 namespace pat
 {	
@@ -16,28 +16,11 @@ namespace pat
 		Q_OBJECT
 
 		public:
-			PAT_BruteForce();
-
-			void init();
-			void next_step(double value);
-			bool is_done();
-			void answer();
-
-			~PAT_BruteForce();
-
-		protected:
-			void logging(QString msg);
+			PAT_BruteForce(SpaceParam * sp);
+			void run();
 
 		private:
-			Params params_min;
-			bool isdone;
-			bool is_need_first_pass;
-			std::string testsystem;
-
-		public slots:
-			void result(double val);
-			void get(QString name);
-			void init(StrParams sp);
+			FunctionND minimum;
 	};
 
 }

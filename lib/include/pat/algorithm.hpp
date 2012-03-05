@@ -7,8 +7,10 @@
 #include <limits>
 
 #include "patconfig.hpp"
-#include "pat/pat_params.hpp"
-#include "pat/pat_strparam.hpp"
+
+#include "pat/point.hpp"
+#include "pat/function_nd.hpp"
+#include "pat/space_param.hpp"
 
 namespace pat
 {	
@@ -17,33 +19,26 @@ namespace pat
 		Q_OBJECT
 
 		protected:
-			Params params;
-			virtual void logging(QString msg) = 0;
+			FunctionND function(const Point & point);
 
-			size_t iter_number;
-			size_t max_iters;
+			volatile mutable int * lock;
+
+			SpaceParam * space_param;
+
+			FunctionND function_nd;
+
 
 		public:
-			PAT_Algorithm();
-			virtual void init() = 0;
-			virtual void next_step(double value) = 0;
-			virtual bool is_done() = 0;
-
-			virtual void answer() = 0;
-
-			virtual void set_max_iters(size_t max_it);
-
+			PAT_Algorithm(SpaceParam * sp);
+			virtual void run() = 0;
 			virtual ~PAT_Algorithm();
 
 		signals:
-			void send(QString val);
-			void log(QString msg);
-			void publish(Params params);
+			void run_application(const Point & p);
+			void publish_result(FunctionND res);
 
 		public slots:
-			virtual void result(double val) = 0;
-			virtual void get(QString name) = 0;
-			virtual void init(StrParams sp) = 0;
+			void result(double val);
 	};
 
 }

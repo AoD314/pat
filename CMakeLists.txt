@@ -61,8 +61,8 @@ set(pat_version "${PAT_VERSION_MAJOR}.${PAT_VERSION_MINOR}.${PAT_VERSION_PATCH}"
 
 set(PAT_CONFIG_FILE_INCLUDE_DIR "${CMAKE_BINARY_DIR}/" CACHE PATH "Where to create the platform-dependant patconfig.hpp")
 
-#message(STATUS "Parsing 'patconfig.h.cmake'")
-#configure_file("${CMAKE_CURRENT_SOURCE_DIR}/patconfig.h.cmake" "${PAT_CONFIG_FILE_INCLUDE_DIR}/patconfig.hpp")
+message(STATUS "Parsing 'patconfig.h.cmake'")
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/patconfig.h.cmake" "${PAT_CONFIG_FILE_INCLUDE_DIR}/patconfig.hpp")
 
 # ---------------------------------------------------------------------------
 # The C+//0 include & link directories:
@@ -76,8 +76,6 @@ include_directories("." "${PAT_CONFIG_FILE_INCLUDE_DIR}" "${CMAKE_CURRENT_SOURCE
 set(CMAKE_INCLUDE_DIRS_CONFIGCMAKE "\"${PAT_CONFIG_FILE_INCLUDE_DIR}\" \"${CMAKE_CURRENT_SOURCE_DIR}/include\" \"${CMAKE_CURRENT_SOURCE_DIR}/lib/include\" \"${CMAKE_CURRENT_SOURCE_DIR}/common\"")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Output directory for libraries" )
 set(CMAKE_LIB_DIRS_CONFIGCMAKE "${LIBRARY_OUTPUT_PATH}")
-
-
 
 
 
@@ -104,6 +102,8 @@ set(lib_srcs "lib/src/pat_base.cpp"
              "lib/src/number.cpp"
              "lib/src/point.cpp"
              "lib/src/function_nd.cpp"
+             "lib/src/space_param.cpp"
+             "lib/src/range.cpp"
              "lib/src/pat_strparam.cpp"
              "lib/src/pat_system.cpp"
     )
@@ -118,7 +118,9 @@ set(lib_hdrs "lib/include/pat/pat.hpp"
              "lib/include/pat/version.hpp"
              "lib/include/pat/number.hpp"
              "lib/include/pat/point.hpp"
+             "lib/include/pat/range.hpp"
              "lib/include/pat/function_nd.hpp"
+             "lib/include/pat/space_param.hpp"
     )
 
 set(lib_mocs "lib/include/pat/algorithm.hpp"

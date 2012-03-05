@@ -7,6 +7,8 @@
 
 #include "pat/alg_bruteforce.hpp"
 #include "pat/alg_gradient.hpp"
+#include "pat/alg_downhill_simplex.hpp"
+#include "pat/pat_convert.hpp"
 
 namespace pat
 {
@@ -71,10 +73,10 @@ namespace pat
 		server = new pat::PAT_Server(port);
 
 		connect(server, SIGNAL(log(QString)),   text_log, SLOT(append(QString)));
-		connect(server, SIGNAL(result(double)), this,     SLOT(next_step(double)));
 
 		setGeometry(settings->get_geometry_window());
 		setWindowTitle("PAT System (GUI)");
+		resize(QSize(800, 600));
 	}
 
 	MainWindow::~MainWindow()
@@ -99,6 +101,24 @@ namespace pat
 		win->exec();
 	}
 
+	void MainWindow::run_app(Point p)
+	{
+		space_param->set_current_point(p);
+		try
+		{
+			QProcess * application = new QProcess(this);
+			text_log->append(QString("set working directory : " + path));
+			application->setWorkingDirectory(path);
+			text_log->append(QString("start program : " + program));
+			application->start(program, arguments);
+			application->waitForFinished();
+		}
+		catch(...)
+		{
+			text_log->append("Exception with run application : " + program);
+		}
+	}
+
 	void MainWindow::new_opt()
 	{
 		AlgWindow * win = new AlgWindow();
@@ -115,63 +135,65 @@ namespace pat
 			if (alg != 0)
 				delete alg;
 
+			space_param = new SpaceParam(max_iter);
+
 			switch (meth)
 			{
 				case 0:
-					alg = new pat::PAT_BruteForce();
-					alg->set_max_iters(max_iter);
+					alg = new pat::PAT_BruteForce(space_param);
 					break;
 
 				case 1:
-					alg = new pat::PAT_Gradient();
-					alg->set_max_iters(max_iter);
+					alg = new pat::PAT_Gradient(space_param);
 					break;
+
+				case 2:
+					alg = new pat::PAT_Downhill_Simplex(space_param);
+					break;
+
 			}
 
-			alg->init();
-			connect(alg, SIGNAL(log(QString)),  text_log, SLOT(append(QString)));
-			connect(alg, SIGNAL(publish(Params)), status, SLOT(update(Params)));
-			connect(alg, SIGNAL(send(QString)),   server, SLOT(send_to_client(QString)));
+			connect(alg, SIGNAL(publish_result(FunctionND)), this, SLOT(publish_result(FunctionND)));
+			connect(alg, SIGNAL(run_application(Point)),     this, SLOT(run_app(Point)));
 
-			connect(server, SIGNAL(init(StrParams)), alg, SLOT(init(StrParams)));
-			connect(server, SIGNAL(get(QString)),    alg, SLOT(get(QString)));
+			connect(server, SIGNAL(result(double)), alg,  SLOT(result(double)));
+			connect(server, SIGNAL(get(QString)),    this, SLOT(process_get(QString)));
+			connect(server, SIGNAL(init(StrParams)), this, SLOT(process_init(StrParams)));
+
+			connect(this, SIGNAL(send_to_client(QString)), server, SLOT(send_to_client(QString)));
+
 
 			QStringList folders = app.split("/");
 			folders.removeLast();
-			path = folders.join("/");
 
+			path = folders.join("/");
 			program = app;
 
-			try
-			{
-				QProcess * application = new QProcess(this);
-				text_log->append(QString("set working directory : " + path));
-				application->setWorkingDirectory(path);
-				text_log->append(QString("start program : " + app));
-				application->start(app, arguments);
-			}
-			catch(...)
-			{
-				text_log->append("Exception with run application : " + app);
-			}
-
+			alg->run();
 		}
 	}
 
-	void MainWindow::next_step(double result)
+	void MainWindow::process_init(StrParams params)
 	{
-		text_log->append("MainWindow::next_step(" + QString::number(result) + ")");
-		alg->next_step(result);
-		if (!alg->is_done())
-		{
-			text_log->append("\nRun process again : " + program);
-			QProcess * app = new QProcess(this);
-			app->setWorkingDirectory(path);
-			app->start(program, arguments);
-		}
-		else
-		{
-			alg->answer();
-		}
+		Range r;
+		r.min = params.value_min.toStdString();
+		r.max = params.value_max.toStdString();
+
+		space_param->add(params.name.toStdString(), r, Number(params.value_def.toStdString()));
 	}
+
+	void MainWindow::process_get(QString name)
+	{
+		std::string value = space_param->get(name.toStdString());
+		emit send_to_client(value.c_str());
+	}
+
+	void MainWindow::publish_result(FunctionND fnc)
+	{
+		text_log->append(QString("minimum = "));
+		text_log->append(to_str(fnc.value).c_str());
+		text_log->append("in point : ");
+		text_log->append(to_str(fnc.point).c_str());
+	}
+
 }

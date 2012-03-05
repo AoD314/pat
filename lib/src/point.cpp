@@ -26,7 +26,7 @@ namespace pat
 		return point.size();
 	}
 
-	Number Point::delta(int i)
+	Number Point::delta(size_t i) const
 	{
 		return point.at(i).delta();
 	}
@@ -61,7 +61,7 @@ namespace pat
         return pnt;
     }
 
-    const Point operator+(const Number& left, const Point& right)
+	const Point operator + (const Number& left, const Point& right)
     {
         return operator +(right, left);
     }
@@ -69,6 +69,11 @@ namespace pat
 
     Point& Point::operator += ( const Point & p)
     {
+		while(point.size() < p.point.size())
+		{
+			point.push_back(Number(0));
+		}
+
         for (size_t i = 0; i < point.size(); ++i)
             point.at(i) += p.point.at(i);
 
@@ -77,6 +82,9 @@ namespace pat
 
     Point& Point::operator += ( const Number & num)
     {
+		if (point.size() == 0)
+			point.push_back(Number(0));
+
         for (size_t i = 0; i < point.size(); ++i)
             point.at(i) += num;
 
@@ -111,6 +119,11 @@ namespace pat
 
     Point& Point::operator -= ( const Point & p)
     {
+		while(point.size() < p.point.size())
+		{
+			point.push_back(Number(0));
+		}
+
         for (size_t i = 0; i < point.size(); ++i)
             point.at(i) -= p.point.at(i);
 
@@ -119,6 +132,9 @@ namespace pat
 
     Point& Point::operator -= ( const Number & num)
     {
+		if (point.size() == 0)
+			point.push_back(Number(0));
+
         for (size_t i = 0; i < point.size(); ++i)
             point.at(i) -= num;
 
@@ -152,6 +168,11 @@ namespace pat
 
     Point& Point::operator *= ( const Point & p)
     {
+		while(point.size() < p.point.size())
+		{
+			point.push_back(Number(1));
+		}
+
         for (size_t i = 0; i < point.size(); ++i)
             point.at(i) *= p.point.at(i);
 
@@ -160,6 +181,9 @@ namespace pat
 
     Point& Point::operator *= ( const Number & num)
     {
+		if (point.size() == 0)
+			point.push_back(Number(1));
+
         for (size_t i = 0; i < point.size(); ++i)
             point.at(i) *= num;
 
@@ -188,6 +212,11 @@ namespace pat
 
     Point& Point::operator /= ( const Point & p)
     {
+		while(point.size() < p.point.size())
+		{
+			point.push_back(Number(1));
+		}
+
         for (size_t i = 0; i < point.size(); ++i)
             point.at(i) /= p.point.at(i);
 
@@ -196,6 +225,9 @@ namespace pat
 
     Point& Point::operator /= ( const Number & num)
     {
+		if (point.size() == 0)
+			point.push_back(Number(1));
+
         for (size_t i = 0; i < point.size(); ++i)
             point.at(i) /= num;
 

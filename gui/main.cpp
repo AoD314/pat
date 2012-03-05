@@ -20,6 +20,7 @@ using std::endl;
 
 int main(int argc, char ** argv)
 {
+	/*
     Number n1 = 1;
     Number n2;
     n2 = (1 * 4 + n1) / 2.0;
@@ -52,8 +53,7 @@ int main(int argc, char ** argv)
     p3 -= 1.5;
     cout << "p3 : " << p3 << endl;
     cout << "new p : " << (p3 * 2) - 7 << endl;
-
-/*
+*/
 	QApplication app(argc, argv);
 
 	Settings * settings = new Settings(argc, argv);
@@ -62,7 +62,4 @@ int main(int argc, char ** argv)
 	main_windows.show();
 
 	return app.exec();
-    */
-
-    return 0;
 }

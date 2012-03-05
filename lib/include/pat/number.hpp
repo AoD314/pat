@@ -23,9 +23,11 @@ namespace pat
             Number(float num);
             Number(double num);
 
+			Number(std::string num);
+
             Number(const Number & );
 
-			Number delta();
+			Number delta() const;
 
             // operators
             const Number operator-() const;
