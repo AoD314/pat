@@ -38,7 +38,7 @@ namespace pat
 
 		socket->write(arr_block);
 
-		socket->waitForBytesWritten();
+        socket->waitForBytesWritten();
 	}
 
 	void PAT_Server::read()
@@ -71,7 +71,6 @@ namespace pat
 			in >> sp.name;
 			in >> sp.value_min;
 			in >> sp.value_max;
-			in >> sp.value_def;
 
 			log(QString("server read: [command : " +  cmd + "] " + sp.to_str()));
 

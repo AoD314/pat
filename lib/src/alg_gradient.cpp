@@ -13,6 +13,8 @@ namespace pat
 
 	void PAT_Gradient::run()
 	{
+        init();
+
 		size_t N = space_param->max_iter();
 		double e = space_param->epsilon();
 		size_t iter = 0;

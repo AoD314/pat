@@ -12,30 +12,35 @@ namespace pat
     {
         type_v = int_t;
         value_i = 0;
+        value_f = 0.0;
     }
 
     Number::Number(int num)
     {
         type_v = int_t;
         value_i = static_cast<long long int>(num);
+        value_f = 0.0;
     }
 
     Number::Number(long long int num)
     {
         type_v = int_t;
         value_i = num;
+        value_f = 0.0;
     }
 
     Number::Number(float num)
     {
         type_v = float_t;
         value_f = static_cast<double>(num);
+        value_i = 0;
     }
 
     Number::Number(double num)
     {
         type_v = float_t;
         value_f = num;
+        value_i = 0;
     }
 
 	Number::Number(std::string num)

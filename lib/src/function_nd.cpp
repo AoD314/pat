@@ -14,6 +14,12 @@ namespace pat
 		return (left.value - right.value);
 	}
 
+    std::ostream& operator << (std::ostream& out, const FunctionND& fnc)
+    {
+        out << "f(" << fnc.point << ") = " << fnc.value;
+        return out;
+    }
+
 	void sort(std::vector<FunctionND>& vec)
 	{
 		for (size_t i = 0; i < vec.size(); i++)

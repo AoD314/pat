@@ -14,7 +14,7 @@
 
 namespace pat
 {	
-	class PAT_EXPORTS PAT_Algorithm : public QObject
+    class PAT_EXPORTS PAT_Algorithm : public QThread
 	{
 		Q_OBJECT
 
@@ -26,6 +26,8 @@ namespace pat
 			SpaceParam * space_param;
 
 			FunctionND function_nd;
+
+            virtual void init();
 
 
 		public:

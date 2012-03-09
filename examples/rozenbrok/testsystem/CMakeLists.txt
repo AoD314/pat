@@ -16,5 +16,5 @@ file(GLOB hdrs "*.hpp")
 
 add_executable( ${target} ${srcs} ${hdrs} )
 
-target_link_libraries( ${target} ${OpenCV_LIBS} ${PAT_LIBS})
+target_link_libraries( ${target} ${PAT_LIBS})
 

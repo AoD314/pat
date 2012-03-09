@@ -11,11 +11,16 @@ namespace pat
 
 		emit run_application(point);
 
-		while (*lock != 0){}
+        while (*lock != 0){ }
 
 		function_nd.point = point;
 		return function_nd;
 	}
+
+    void PAT_Algorithm::init()
+    {
+        function(Point());
+    }
 
 	void PAT_Algorithm::result(double val)
 	{

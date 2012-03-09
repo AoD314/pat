@@ -1,6 +1,8 @@
 
 #define QWT_DLL
 
+#include <iostream>
+
 #include "mainwindow.hpp"
 #include "settingswindow.hpp"
 #include "algwindow.hpp"
@@ -101,8 +103,17 @@ namespace pat
 		win->exec();
 	}
 
+    void MainWindow::add_msg(QString msg)
+    {
+        msg = QTime::currentTime().toString("hh:mm:ss.zzz") + " : " + msg;
+        text_log->append(msg);
+        text_log->update();
+    }
+
 	void MainWindow::run_app(Point p)
 	{
+        add_msg(" - - - run application --- run  ");
+
 		space_param->set_current_point(p);
 		try
 		{
@@ -115,8 +126,9 @@ namespace pat
 		}
 		catch(...)
 		{
-			text_log->append("Exception with run application : " + program);
+            add_msg("Exception with run application : " + program);
 		}
+        add_msg(" - - - run application --- exit "); text_log->update();
 	}
 
 	void MainWindow::new_opt()
@@ -126,9 +138,9 @@ namespace pat
 
 		if (win->push_create())
 		{
-			size_t max_iter = win->max_iter();
+            size_t max_iter = 32; //win->max_iter();
 			size_t meth = win->method();
-			QString app = win->app();
+            QString app = "/home/aod314/work/pat/examples/build/rozenbrok/testsystem/testsystem"; //win->app();
 
 			text_log->append(QString("Max iteration : " + QString::number(max_iter)));
 
@@ -153,10 +165,13 @@ namespace pat
 
 			}
 
+            qRegisterMetaType<Point>("Point");
+            qRegisterMetaType<FunctionND>("FunctionND");
+
 			connect(alg, SIGNAL(publish_result(FunctionND)), this, SLOT(publish_result(FunctionND)));
 			connect(alg, SIGNAL(run_application(Point)),     this, SLOT(run_app(Point)));
 
-			connect(server, SIGNAL(result(double)), alg,  SLOT(result(double)));
+            connect(server, SIGNAL(result(double)),  alg,  SLOT(result(double)));
 			connect(server, SIGNAL(get(QString)),    this, SLOT(process_get(QString)));
 			connect(server, SIGNAL(init(StrParams)), this, SLOT(process_init(StrParams)));
 
@@ -169,31 +184,35 @@ namespace pat
 			path = folders.join("/");
 			program = app;
 
-			alg->run();
+            alg->start();
 		}
 	}
 
 	void MainWindow::process_init(StrParams params)
 	{
+        add_msg("process init");
 		Range r;
 		r.min = params.value_min.toStdString();
 		r.max = params.value_max.toStdString();
 
-		space_param->add(params.name.toStdString(), r, Number(params.value_def.toStdString()));
+        space_param->add(params.name.toStdString(), r);
 	}
 
 	void MainWindow::process_get(QString name)
 	{
+        add_msg("process get");
 		std::string value = space_param->get(name.toStdString());
 		emit send_to_client(value.c_str());
 	}
 
-	void MainWindow::publish_result(FunctionND fnc)
+    void MainWindow::publish_result(FunctionND fnc)
 	{
-		text_log->append(QString("minimum = "));
-		text_log->append(to_str(fnc.value).c_str());
-		text_log->append("in point : ");
-		text_log->append(to_str(fnc.point).c_str());
+        add_msg("publish");
+        std::cout << fnc << std::endl;
+
+        add_msg(QString("minimum = ") + QString(to_str(fnc.value).c_str()));
+        add_msg("in point : ");
+        add_msg(to_str(fnc.point).c_str());
 	}
 
 }

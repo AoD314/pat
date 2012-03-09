@@ -8,12 +8,13 @@
 using std::cout;
 using std::cin;
 using std::endl;
+using pat::PAT_System;
 
 int main(int argc, const char ** argv)
 {
 	double total_err = 0;
 
-    pat::PAT_System pat;
+    PAT_System pat;
 
 	pat.init("x", -100.0, 100.0);
 	pat.init("y", -100.0, 100.0);

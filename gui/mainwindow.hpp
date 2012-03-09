@@ -56,6 +56,8 @@ namespace pat
 
 			SpaceParam * space_param;
 
+            void add_msg(QString msg);
+
 		signals:
 			void send_to_client(QString value);
 

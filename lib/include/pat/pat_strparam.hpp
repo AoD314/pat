@@ -12,11 +12,10 @@ namespace pat
 	{
 		public:
 			QString name;
-			QString value_def;
 			QString value_min;
 			QString value_max;
 
-			StrParams(QString name, QString value_def, QString value_min, QString value_max);
+            StrParams(QString name, QString value_min, QString value_max);
 			StrParams();
 
 			QString to_str();
