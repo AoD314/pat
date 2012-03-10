@@ -45,18 +45,15 @@ namespace pat
 
 	Number::Number(std::string num)
 	{
-		double d = from_str<double>(num);
-		long long int l = from_str<long long int>(num);
-
-		if (fabs(d - static_cast<double>(l)) > 0.000000025)
+		if (num.find(".") == std::string::npos && num.find(".") == std::string::npos)
 		{
-			type_v = float_t;
-			value_f = d;
+			type_v  = int_t;
+			value_i = from_str<long long int>(num);
 		}
 		else
 		{
-			type_v = int_t;
-			value_f = l;
+			type_v  = float_t;
+			value_f = from_str<double>(num);
 		}
 	}
 
