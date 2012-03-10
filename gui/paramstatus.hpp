@@ -8,6 +8,7 @@
 #include <stdint.h>
 
 #include "pat/pat_params.hpp"
+#include "pat/status.hpp"
 
 namespace pat
 {
@@ -33,7 +34,8 @@ namespace pat
 			QGridLayout * lay;
 
 		public slots:
-			void update(Params params);
+			//void update(Params params);
+			void update(Status st);
 	};
 }
 

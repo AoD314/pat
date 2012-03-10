@@ -44,6 +44,22 @@ namespace pat
 		setLayout(lay);
 	}
 
+	void ParamStatus::update(Status st)
+	{
+		Point p = st.fnc.point;
+		table->setRowCount(p.dim());
+		for (size_t i = 0; i < p.dim(); i++)
+		{
+			table->setItem(0, i, new QTableWidgetItem(QString::number(p[i].to_float())));
+		}
+
+		lbl_points->setText(QString::number(st.N));
+		lbl_iter->setText(QString::number(st.iter));
+		progress->setValue(static_cast<int>(100.0 * st.iter / static_cast<double>(st.N)));
+		lbl_result->setText(QString::number(st.fnc.value.to_float()));
+	}
+
+	/*
 	void ParamStatus::update(Params params)
 	{
 		p = params;
@@ -78,5 +94,6 @@ namespace pat
 		progress->setValue(static_cast<int>(100.0 * iter / static_cast<double>(points_in_dims)));
 		lbl_result->setText(QString::number(p.minvalue));
 	}
+	*/
 
 }

@@ -112,23 +112,17 @@ namespace pat
 
 	void MainWindow::run_app(Point p)
 	{
-        add_msg(" - - - run application --- run  ");
-
 		space_param->set_current_point(p);
 		try
 		{
 			QProcess * application = new QProcess(this);
-			text_log->append(QString("set working directory : " + path));
 			application->setWorkingDirectory(path);
-			text_log->append(QString("start program : " + program));
 			application->start(program, arguments);
-			application->waitForFinished();
 		}
 		catch(...)
 		{
             add_msg("Exception with run application : " + program);
 		}
-        add_msg(" - - - run application --- exit "); text_log->update();
 	}
 
 	void MainWindow::new_opt()
@@ -138,9 +132,9 @@ namespace pat
 
 		if (win->push_create())
 		{
-            size_t max_iter = 32; //win->max_iter();
+			size_t max_iter = win->max_iter();
 			size_t meth = win->method();
-            QString app = "/home/aod314/work/pat/examples/build/rozenbrok/testsystem/testsystem"; //win->app();
+			QString app = "/work/projects/pat/pat/examples/build/rozenbrok/testsystem/testsystem"; //win->app();
 
 			text_log->append(QString("Max iteration : " + QString::number(max_iter)));
 
@@ -167,7 +161,9 @@ namespace pat
 
             qRegisterMetaType<Point>("Point");
             qRegisterMetaType<FunctionND>("FunctionND");
+			qRegisterMetaType<Status>("Status");
 
+			connect(alg, SIGNAL(update_status(Status)),    status, SLOT(update(Status)));
 			connect(alg, SIGNAL(publish_result(FunctionND)), this, SLOT(publish_result(FunctionND)));
 			connect(alg, SIGNAL(run_application(Point)),     this, SLOT(run_app(Point)));
 
@@ -190,7 +186,6 @@ namespace pat
 
 	void MainWindow::process_init(StrParams params)
 	{
-        add_msg("process init");
 		Range r;
 		r.min = params.value_min.toStdString();
 		r.max = params.value_max.toStdString();
@@ -200,19 +195,14 @@ namespace pat
 
 	void MainWindow::process_get(QString name)
 	{
-        add_msg("process get");
 		std::string value = space_param->get(name.toStdString());
 		emit send_to_client(value.c_str());
 	}
 
     void MainWindow::publish_result(FunctionND fnc)
 	{
-        add_msg("publish");
-        std::cout << fnc << std::endl;
-
-        add_msg(QString("minimum = ") + QString(to_str(fnc.value).c_str()));
-        add_msg("in point : ");
-        add_msg(to_str(fnc.point).c_str());
+		add_msg(QString("minimum  = ") + QString(to_str(fnc.value).c_str()));
+		add_msg(QString("in point : ") + QString(to_str(fnc.point).c_str()));
 	}
 
 }

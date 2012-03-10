@@ -12,7 +12,6 @@ namespace pat
 		if (!this->listen(QHostAddress::Any, port))
 		{
 			QMessageBox::critical(0, "Server Error", "Unable to start the server : " + this->errorString());
-			log(QString("Unable to start the server : " + this->errorString()));
 			this->close();
 			return;
 		}
@@ -26,8 +25,6 @@ namespace pat
 
 	void PAT_Server::send_value_to_client(QTcpSocket * socket, QString value)
 	{
-		log(QString("send to client : " + value));
-
 		QByteArray arr_block;
 		QDataStream out(&arr_block, QIODevice::WriteOnly);
 		out.setVersion(QDataStream::Qt_4_7);
@@ -72,8 +69,6 @@ namespace pat
 			in >> sp.value_min;
 			in >> sp.value_max;
 
-			log(QString("server read: [command : " +  cmd + "] " + sp.to_str()));
-
 			block_size = 0;
 
 			// process
@@ -101,7 +96,6 @@ namespace pat
 
 	void PAT_Server::new_connection()
 	{
-		log("new connection");
 		QTcpSocket * client = this->nextPendingConnection();
 		connect(client, SIGNAL(disconnected()), client, SLOT(deleteLater()));
 		connect(client, SIGNAL(readyRead()),    this,   SLOT(read()));

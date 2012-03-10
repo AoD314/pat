@@ -13,7 +13,7 @@ namespace pat
 	class SpaceParam
 	{
 		public:
-			SpaceParam(size_t N = 64, double eps = 0.25);
+			SpaceParam(size_t N = 64, double eps = 0.025);
 
             void add(std::string name, Range r);
 

@@ -22,6 +22,7 @@ namespace pat
 
 		protected:
 			Point gradient(const Point & point);
+			Point norm(const Point & point);
 	};
 
 }

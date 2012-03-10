@@ -11,6 +11,7 @@
 #include "pat/point.hpp"
 #include "pat/function_nd.hpp"
 #include "pat/space_param.hpp"
+#include "pat/status.hpp"
 
 namespace pat
 {	
@@ -38,6 +39,7 @@ namespace pat
 		signals:
 			void run_application(const Point & p);
 			void publish_result(FunctionND res);
+			void update_status(Status status);
 
 		public slots:
 			void result(double val);

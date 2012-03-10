@@ -25,25 +25,29 @@ namespace pat
 
 		while(true)
 		{
-			x1 = x0 - lamda * gradient(x0);
+			x1 = x0 - lamda * norm(gradient(x0));
 
-			lamda *= 0.5;
+			lamda *= 0.35;
 
 			FunctionND f0 = function(x0);
 			FunctionND f1 = function(x1);
 
-			if (iter > N || ((f1 - f0) < e))
+			double eps = fabs((f1 - f0).to_float());
+			if (iter > N || eps < e)
 			{
-				if (f0 < f1)
-				{
-					emit publish_result(f0);
-				}
-				else
-				{
-					emit publish_result(f1);
-				}
+				qDebug() << "iter:" << iter << " eps:" << eps;
+				emit publish_result(((f0 < f1) ? f0 : f1));
 				break;
 			}
+
+			Status st;
+			st.cur_eps = eps;
+			st.eps = e;
+			st.iter = iter;
+			st.N = N;
+			st.fnc = f1;
+
+			emit update_status(st);
 
 			iter++;
 			x0 = x1;
@@ -62,6 +66,27 @@ namespace pat
 		}
 
 		return grad;
+	}
+
+	Point PAT_Gradient::norm(const Point & point)
+	{
+		Point p(point);
+		Number n(0);
+
+		for (size_t i = 0; i < p.dim(); ++i)
+		{
+			if (p[i] > n ||  p[i] < (-n))
+			{
+				n = p[i];
+			}
+		}
+
+		for (size_t i = 0; i < p.dim(); ++i)
+		{
+			p[i] /= n;
+		}
+
+		return p;
 	}
 
 }

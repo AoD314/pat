@@ -49,8 +49,8 @@ namespace pat
 			}
 		}
 
-        if (current_point.dim() == 0)
-            initialize();
+		if (current_point.dim() == 0)
+			initialize();
 
 		return to_str(current_point[index]);
 	}
@@ -95,7 +95,7 @@ namespace pat
 			for (size_t i = 0; i < space.size(); ++i)
 			{
 				Range r(space[i]);
-				point.add((r.max - r.min) / 2);
+				point.add((r.min + r.max) / 2);
 			}
 
 			return point;
