@@ -103,12 +103,12 @@ namespace pat
 		win->exec();
 	}
 
-    void MainWindow::add_msg(QString msg)
-    {
-        msg = QTime::currentTime().toString("hh:mm:ss.zzz") + " : " + msg;
-        text_log->append(msg);
-        text_log->update();
-    }
+	void MainWindow::add_msg(QString msg)
+	{
+		msg = QTime::currentTime().toString("hh:mm:ss.zzz") + " : " + msg;
+		text_log->append(msg);
+		text_log->update();
+	}
 
 	void MainWindow::run_app(Point p)
 	{
@@ -118,10 +118,11 @@ namespace pat
 			QProcess * application = new QProcess(this);
 			application->setWorkingDirectory(path);
 			application->start(program, arguments);
+			//add_msg("RUN application : " + QString(to_str(p).c_str()));
 		}
 		catch(...)
 		{
-            add_msg("Exception with run application : " + program);
+			add_msg("Exception with run application : " + program);
 		}
 	}
 
@@ -159,15 +160,16 @@ namespace pat
 
 			}
 
-            qRegisterMetaType<Point>("Point");
-            qRegisterMetaType<FunctionND>("FunctionND");
+			qRegisterMetaType<Point>("Point");
+			qRegisterMetaType<FunctionND>("FunctionND");
 			qRegisterMetaType<Status>("Status");
 
 			connect(alg, SIGNAL(update_status(Status)),    status, SLOT(update(Status)));
+			connect(alg, SIGNAL(update_status(Status)),      this, SLOT(update(Status)));
 			connect(alg, SIGNAL(publish_result(FunctionND)), this, SLOT(publish_result(FunctionND)));
 			connect(alg, SIGNAL(run_application(Point)),     this, SLOT(run_app(Point)));
 
-            connect(server, SIGNAL(result(double)),  alg,  SLOT(result(double)));
+			connect(server, SIGNAL(result(double)),  alg,  SLOT(result(double)));
 			connect(server, SIGNAL(get(QString)),    this, SLOT(process_get(QString)));
 			connect(server, SIGNAL(init(StrParams)), this, SLOT(process_init(StrParams)));
 
@@ -180,8 +182,17 @@ namespace pat
 			path = folders.join("/");
 			program = app;
 
-            alg->start();
+			alg->start();
 		}
+	}
+
+	void MainWindow::update(Status st)
+	{
+		QString msg;
+
+		msg = QString::number(st.iter + 1) + " / " + QString::number(st.N) + " : " + QString(to_str(st.fnc).c_str());
+
+		add_msg(msg);
 	}
 
 	void MainWindow::process_init(StrParams params)
@@ -190,7 +201,7 @@ namespace pat
 		r.min = params.value_min.toStdString();
 		r.max = params.value_max.toStdString();
 
-        space_param->add(params.name.toStdString(), r);
+		space_param->add(params.name.toStdString(), r);
 	}
 
 	void MainWindow::process_get(QString name)
@@ -199,7 +210,7 @@ namespace pat
 		emit send_to_client(value.c_str());
 	}
 
-    void MainWindow::publish_result(FunctionND fnc)
+	void MainWindow::publish_result(FunctionND fnc)
 	{
 		add_msg(QString("minimum  = ") + QString(to_str(fnc.value).c_str()));
 		add_msg(QString("in point : ") + QString(to_str(fnc.point).c_str()));

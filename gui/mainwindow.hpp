@@ -56,7 +56,7 @@ namespace pat
 
 			SpaceParam * space_param;
 
-            void add_msg(QString msg);
+			void add_msg(QString msg);
 
 		signals:
 			void send_to_client(QString value);
@@ -64,6 +64,7 @@ namespace pat
 		private slots:
 			void publish_result(FunctionND fnc);
 			void run_app(Point p);
+			void update(Status st);
 
 			void process_get(QString name);
 			void process_init(StrParams params);

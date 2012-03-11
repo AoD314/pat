@@ -18,7 +18,8 @@ namespace pat
 
 		for (size_t i = 0; i < x0.dim(); ++i)
 		{
-			Point dx = x0 + 2 * x0.delta(i);
+			Point dx = x0;
+			dx[i] += 2 * x0.delta(i);
 			v_fnc.push_back(function(dx));
 		}
 

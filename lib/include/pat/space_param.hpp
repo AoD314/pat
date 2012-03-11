@@ -13,9 +13,9 @@ namespace pat
 	class SpaceParam
 	{
 		public:
-			SpaceParam(size_t N = 64, double eps = 0.025);
+			SpaceParam(size_t N = 64, double eps = 0.000025);
 
-            void add(std::string name, Range r);
+			void add(std::string name, Range r);
 
 			void set_current_point(Point p);
 
@@ -35,7 +35,7 @@ namespace pat
 			size_t n;
 			double e;
 
-            void initialize();
+			void initialize();
 			Point def_point;
 			Point current_point;
 			std::vector<Range>       space;

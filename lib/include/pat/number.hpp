@@ -7,40 +7,40 @@
 
 namespace pat
 {
-    enum TypeValue
-    {
-        int_t,
-        float_t
-    };
+	enum TypeValue
+	{
+		int_t,
+		float_t
+	};
 
-    class Number
-    {
-        public:
-            Number();
-            Number(int num);
-            Number(long long int num);
+	class Number
+	{
+		public:
+			Number();
+			Number(int num);
+			Number(long long int num);
 
-            Number(float num);
-            Number(double num);
+			Number(float num);
+			Number(double num);
 
 			Number(std::string num);
 
-            Number(const Number & );
+			Number(const Number & );
 
 			Number delta() const;
 
-            // operators
-            const Number operator-() const;
+			// operators
+			const Number operator-() const;
 
-                 Number& operator++();
-            const Number operator++(int);
+				 Number& operator++();
+			const Number operator++(int);
 
-            Number& operator  = ( const Number & );
+			Number& operator  = ( const Number & );
 
-            Number& operator += ( const Number & );
-            Number& operator -= ( const Number & );
-            Number& operator *= ( const Number & );
-            Number& operator /= ( const Number & );
+			Number& operator += ( const Number & );
+			Number& operator -= ( const Number & );
+			Number& operator *= ( const Number & );
+			Number& operator /= ( const Number & );
 
 			friend bool operator <  (const Number& left, const Number& right);
 			friend bool operator >  (const Number& left, const Number& right);
@@ -49,23 +49,25 @@ namespace pat
 			friend bool operator == (const Number& left, const Number& right);
 			friend bool operator != (const Number& left, const Number& right);
 
-            double to_float() const ;
-            long long int to_int() const ;
+			double to_float() const ;
+			long long int to_int() const ;
 
 			friend const Number operator + (const Number& left, const Number& right);
 			friend const Number operator - (const Number& left, const Number& right);
 			friend const Number operator * (const Number& left, const Number& right);
 			friend const Number operator / (const Number& left, const Number& right);
 
-            friend std::ostream& operator << (std::ostream&, const Number&);
+			friend std::ostream& operator << (std::ostream&, const Number&);
 
-        private:
+		private:
 
-            TypeValue type_v;
+			TypeValue type_v;
 
-            double        value_f;
-            long long int value_i;
-    };
+			double        value_f;
+			long long int value_i;
+	};
+
+	Number abs(const Number & num);
 }
 
 #endif

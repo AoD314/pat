@@ -24,6 +24,14 @@ namespace pat
 			{
 				minimum = cur;
 			}
+
+			Status st;
+			st.cur_eps = space_param->epsilon();
+			st.eps = 0;
+			st.iter = i;
+			st.N = N;
+			st.fnc = cur;
+			emit update_status(st);
 		}
 
 		emit publish_result(minimum);

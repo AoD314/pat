@@ -14,13 +14,13 @@ namespace pat
 		space.clear();
 	}
 
-    void SpaceParam::initialize()
-    {
-        for (size_t i = 0; i < names.size(); ++i)
-        {
-            current_point.add(space.at(i).min);
-        }
-    }
+	void SpaceParam::initialize()
+	{
+		for (size_t i = 0; i < names.size(); ++i)
+		{
+			current_point.add(space.at(i).min);
+		}
+	}
 
 	void SpaceParam::add(std::string name, Range r)
 	{
@@ -45,7 +45,7 @@ namespace pat
 			if (name.compare(names.at(i)) == 0)
 			{
 				index = i;
-                break;
+				break;
 			}
 		}
 
