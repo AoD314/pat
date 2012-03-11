@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <limits>
 #include <stdlib.h>
 
 #include "pat/pat.hpp"
@@ -14,19 +15,24 @@ int main(int argc, const char ** argv)
 {
 	double total_err = 0;
 
-    PAT_System pat;
+	PAT_System pat;
 
-	pat.init("x", -100.0, 100.0);
-	pat.init("y", -100.0, 100.0);
+	pat.init("x", -10.5, 11.0);
+	pat.init("y", -10.0, 12.0);
 
-	double x = pat.get_params<double>("x");
-	double y = pat.get_params<double>("y");
+	try
+	{
+		double x = pat.get_params<double>("x");
+		double y = pat.get_params<double>("y");
 
-    ///////////////////////////////////////////////
+		total_err = (1 - x) * (1 - x) + 100.0 * (y - x * x) * (y - x * x);
+	}
+	catch(...)
+	{
+		total_err = std::numeric_limits<double>::max();
+	}
 
-    total_err = (1 - x) * (1 - x) + 100.0 * (y - x * x) * (y - x * x);
-
-    ///////////////////////////////////////////////
+	///////////////////////////////////////////////
 
 	cout << "total error is : " << total_err << endl;
 
