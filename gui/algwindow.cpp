@@ -31,6 +31,13 @@ namespace pat
 		spin_count->setMaximum(1024*1024*1024);
 		spin_count->setValue(32);
 
+		lbl_eps = new QLabel(tr("Epsilon") + ":");
+		spin_eps = new QDoubleSpinBox;
+		spin_eps->setDecimals(10);
+		spin_eps->setMaximum(1000.0);
+		spin_eps->setSingleStep(0.0000000001);
+		spin_eps->setValue(0.0000000250);
+
 		btn_create = new QPushButton(tr("Create"));
 		btn_cancel = new QPushButton(tr("Cancel"));
 
@@ -49,7 +56,10 @@ namespace pat
 		box_h->addWidget(lbl_count);
 		box_h->addStretch(1);
 		box_h->addWidget(spin_count);
-
+		box_h->addStretch(5);
+		box_h->addWidget(lbl_eps);
+		box_h->addStretch(1);
+		box_h->addWidget(spin_eps);
 		box_h_b->addWidget(btn_create);
 		box_h_b->addStretch(1);
 		box_h_b->addWidget(btn_cancel);
@@ -80,6 +90,11 @@ namespace pat
 	bool AlgWindow::push_create()
 	{
 		return is_create;
+	}
+
+	double AlgWindow::eps()
+	{
+		return spin_eps->value();
 	}
 
 	size_t AlgWindow::max_iter()

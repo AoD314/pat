@@ -1,6 +1,8 @@
 
 #include "pat/alg_downhill_simplex.hpp"
 
+#include <iostream>
+
 namespace pat
 {
 	PAT_Downhill_Simplex::PAT_Downhill_Simplex(SpaceParam *sp) : PAT_Algorithm(sp), alpha(1.0), beta(0.5), gamma(2.0) {} // central symmetry (alpha = 1)
@@ -46,8 +48,9 @@ namespace pat
 			x_c /= Number(n);
 
 			// step 4
-			Point x_r = (1.0 - alpha) * x_c - alpha * (f_h.point);
+			Point x_r = (1.0 + alpha) * x_c - alpha * (f_h.point);
 			FunctionND f_r = function(x_r);
+
 
 			// step 5
 			if (f_r < f_l)
@@ -99,26 +102,44 @@ namespace pat
 				}
 			}
 
+			x_c = v_fnc.at(1).point;
+			for (size_t i = 2; i < n+1; ++i)
+			{
+				x_c += v_fnc.at(i).point;
+			}
+			x_c /= Number(n);
+			FunctionND f_c = function(x_c);
+
+			double eps = abs(f_c - v_fnc.at(n)).to_float();
+
+			// step 9
+			// ...
+			if (iter >= N || eps < e)
+			{
+				break;
+			}
+
 			Status st;
 			st.cur_eps = 0.0;
 			st.eps = 0.0;
 			st.iter = iter;
 			st.N = N;
-			st.fnc = v_fnc.at(n);
+			st.fnc = f_c;
 
 			emit update_status(st);
 
-			// step 9
-			// ...
 			iter++;
-			if (iter > N)
-			{
-				break;
-			}
-
 		}
 
-		emit publish_result(v_fnc.at(n));
+		Point x_c = v_fnc.at(1).point;
+		for (size_t i = 2; i < n+1; ++i)
+		{
+			x_c += v_fnc.at(i).point;
+		}
+		x_c /= Number(n);
+		FunctionND result = function(x_c);
+
+		emit publish_result(result);
 	}
 
 }

@@ -17,8 +17,8 @@ int main(int argc, const char ** argv)
 
 	PAT_System pat;
 
-	pat.init("x", -10.5, 11.0);
-	pat.init("y", -10.0, 12.0);
+	pat.init("x", -10.5, 7.0);
+	pat.init("y", -10.0, 18.0);
 
 	try
 	{
@@ -26,6 +26,7 @@ int main(int argc, const char ** argv)
 		double y = pat.get_params<double>("y");
 
 		total_err = (1 - x) * (1 - x) + 100.0 * (y - x * x) * (y - x * x);
+		//total_err = x*x + y*y;
 	}
 	catch(...)
 	{

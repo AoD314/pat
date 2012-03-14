@@ -16,12 +16,18 @@ namespace pat
 	std::string PAT_EXPORTS to_str(const T & t, int align = 0, int precision = 0, char c = ' ')
 	{
 		std::stringstream ss;
-		ss	<< std::setiosflags(std::ios::fixed)
-			<< std::setw(align)
-			<< std::setfill(c);
+
+		if (align != 0)
+		{
+			ss << std::setw(align);
+			ss << std::setfill(c);
+		}
 
 		if (precision != 0)
+		{
+			ss << std::setiosflags(std::ios::fixed);
 			ss << std::setprecision(precision);
+		}
 
 		ss << t;
 

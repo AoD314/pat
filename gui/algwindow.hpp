@@ -16,6 +16,7 @@ namespace pat
 			AlgWindow(QWidget * parent = 0);
 
 			size_t max_iter();
+			double eps();
 			size_t method();
 			QString app();
 			bool push_create();
@@ -36,6 +37,9 @@ namespace pat
 
 			QLabel * lbl_count;
 			QSpinBox * spin_count;
+
+			QLabel * lbl_eps;
+			QDoubleSpinBox * spin_eps;
 
 			QPushButton * btn_create;
 			QPushButton * btn_cancel;

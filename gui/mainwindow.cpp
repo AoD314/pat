@@ -105,7 +105,7 @@ namespace pat
 
 	void MainWindow::add_msg(QString msg)
 	{
-		msg = QTime::currentTime().toString("hh:mm:ss.zzz") + " : " + msg;
+		msg = QTime::currentTime().toString("hh:mm:ss.zzz") + "     :   " + msg;
 		text_log->append(msg);
 		text_log->update();
 	}
@@ -133,16 +133,18 @@ namespace pat
 
 		if (win->push_create())
 		{
+			double eps      = win->eps();
 			size_t max_iter = win->max_iter();
 			size_t meth = win->method();
 			QString app = "/work/projects/pat/pat/examples/build/rozenbrok/testsystem/testsystem"; //win->app();
+
 
 			text_log->append(QString("Max iteration : " + QString::number(max_iter)));
 
 			if (alg != 0)
 				delete alg;
 
-			space_param = new SpaceParam(max_iter);
+			space_param = new SpaceParam(max_iter, eps);
 
 			switch (meth)
 			{
@@ -184,6 +186,7 @@ namespace pat
 
 			alg->start();
 		}
+		delete win;
 	}
 
 	void MainWindow::update(Status st)

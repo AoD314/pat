@@ -20,13 +20,13 @@ namespace pat
 		delete socket;
 	}
 
-    void PAT_System::send_message_to_server(std::string cmd, std::string var_name, std::string value_min, std::string value_max)
+	void PAT_System::send_message_to_server(std::string cmd, std::string var_name, std::string value_min, std::string value_max)
 	{
 		QByteArray arr_block;
 		QDataStream out(&arr_block, QIODevice::WriteOnly);
 		out.setVersion(QDataStream::Qt_4_7);
 
-        out << quint32(0) << QString(cmd.c_str()) << QString(var_name.c_str()) << QString(value_min.c_str()) << QString(value_max.c_str());
+		out << quint32(0) << QString(cmd.c_str()) << QString(var_name.c_str()) << QString(value_min.c_str()) << QString(value_max.c_str());
 		out.device()->seek(0);
 		out << quint32(arr_block.size() - sizeof(quint32));
 
@@ -37,7 +37,7 @@ namespace pat
 
 	void PAT_System::send_result(double result)
 	{
-        send_message_to_server("result", to_str(result), "", "");
+		send_message_to_server("result", to_str(result, 0, 32), "", "");
 	}
 
 	std::string PAT_System::receive_message_from_server()

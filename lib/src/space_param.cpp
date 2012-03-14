@@ -52,7 +52,7 @@ namespace pat
 		if (current_point.dim() == 0)
 			initialize();
 
-		return to_str(current_point[index]);
+		return to_str(current_point[index], 0, 32);
 	}
 
 	double SpaceParam::epsilon()

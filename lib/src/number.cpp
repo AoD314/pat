@@ -105,7 +105,7 @@ namespace pat
 		if (type_v == int_t)
 			n = 1;
 		if (type_v == float_t)
-			n = 0.0000025;
+			n = 0.00000025;
 		return n;
 	}
 
@@ -476,7 +476,7 @@ namespace pat
 	std::ostream& operator << (std::ostream& out, const Number& n)
 	{
 		if (n.type_v == float_t)
-			out << std::fixed << std::setprecision(16) << n.value_f;
+			out << n.value_f;
 
 		if (n.type_v == int_t)
 			out << n.value_i;

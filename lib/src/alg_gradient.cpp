@@ -53,7 +53,7 @@ namespace pat
 
 			double eps = fabs((m - f0).to_float());
 
-			if (iter > N || eps < e)
+			if (iter >= N || eps < e)
 			{
 				//qDebug() << "iter:" << iter << " eps:" << eps << " lamda:" << lamda << " koeff:" << koeff;
 				emit publish_result(m);
