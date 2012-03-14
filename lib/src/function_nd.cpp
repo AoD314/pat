@@ -9,16 +9,21 @@ namespace pat
 		return left.value < right.value;
 	}
 
+	bool operator > (const FunctionND& left, const FunctionND& right)
+	{
+		return left.value > right.value;
+	}
+
 	Number operator - (const FunctionND& left, const FunctionND& right)
 	{
 		return (left.value - right.value);
 	}
 
-    std::ostream& operator << (std::ostream& out, const FunctionND& fnc)
-    {
-        out << "f(" << fnc.point << ") = " << fnc.value;
-        return out;
-    }
+	std::ostream& operator << (std::ostream& out, const FunctionND& fnc)
+	{
+		out << "f(" << fnc.point << ") = " << fnc.value;
+		return out;
+	}
 
 	void sort(std::vector<FunctionND>& vec)
 	{

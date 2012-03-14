@@ -29,7 +29,7 @@ namespace pat
 		spin_count = new QSpinBox;
 		spin_count->setMinimum(8);
 		spin_count->setMaximum(1024*1024*1024);
-		spin_count->setValue(512);
+		spin_count->setValue(32);
 
 		btn_create = new QPushButton(tr("Create"));
 		btn_cancel = new QPushButton(tr("Cancel"));

@@ -14,6 +14,8 @@ namespace pat
 
 	void PAT_BruteForce::run()
 	{
+		init();
+
 		size_t N = space_param->max_iter();
 
 		for (size_t i = 0; i < N; i++)

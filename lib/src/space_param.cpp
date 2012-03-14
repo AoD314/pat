@@ -112,6 +112,32 @@ namespace pat
 		return point;
 	}
 
+	Point SpaceParam::get_simplex(size_t index)
+	{
+		if (index == 0)
+		{
+			Point p;
+			for (size_t i = 0; i < space.size(); i++)
+			{
+				p.add(space.at(i).min);
+			}
+			return p;
+		}
+		else
+		{
+			Point p;
+			for (size_t i = 0; i < index; i++)
+			{
+				p.add(space.at(i).max);
+			}
+			for (size_t i = index; i < space.size(); i++)
+			{
+				p.add(space.at(i).min);
+			}
+			return p;
+		}
+	}
+
 
 }
 

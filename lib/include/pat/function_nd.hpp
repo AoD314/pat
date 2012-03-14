@@ -9,18 +9,19 @@
 
 namespace pat
 {
-    class FunctionND
-    {
-        public:
-            Point point;
-            Number value;
+	class FunctionND
+	{
+		public:
+			Point point;
+			Number value;
 
 			friend bool operator < (const FunctionND&, const FunctionND&);
+			friend bool operator > (const FunctionND&, const FunctionND&);
 			friend Number operator - (const FunctionND&, const FunctionND&);
 
-            friend std::ostream& operator << (std::ostream&, const FunctionND&);
+			friend std::ostream& operator << (std::ostream&, const FunctionND&);
 
-    };
+	};
 
 	void sort(std::vector<FunctionND>& vec);
 }

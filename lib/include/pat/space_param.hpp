@@ -22,6 +22,7 @@ namespace pat
 			Point get_def();
 
 			Point get(size_t i);
+			Point get_simplex(size_t index);
 			std::string get(std::string name);
 
 			bool exist(std::string name);

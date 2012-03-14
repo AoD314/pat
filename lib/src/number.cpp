@@ -29,6 +29,13 @@ namespace pat
 		value_f = 0.0;
 	}
 
+	Number::Number(size_t num)
+	{
+		type_v = int_t;
+		value_i = static_cast<long long int>(num);
+		value_f = 0.0;
+	}
+
 	Number::Number(float num)
 	{
 		type_v = float_t;

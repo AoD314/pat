@@ -19,6 +19,7 @@ namespace pat
 			Number();
 			Number(int num);
 			Number(long long int num);
+			Number(size_t num);
 
 			Number(float num);
 			Number(double num);

@@ -18,6 +18,11 @@ namespace pat
 		public:
 			PAT_Downhill_Simplex(SpaceParam * sp);
 			void run();
+
+		private:
+			double alpha;
+			double beta;
+			double gamma;
 	};
 
 }
