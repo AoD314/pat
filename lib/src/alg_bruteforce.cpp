@@ -18,10 +18,11 @@ namespace pat
 
 		size_t N = space_param->max_iter();
 
-		for (size_t i = 0; i < N; i++)
+		minimum = function(space_param->get(0));
+
+		for (size_t i = 1; i < N; i++)
 		{
-			Point p = space_param->get(i);
-			FunctionND cur = function(p);
+			FunctionND cur = function(space_param->get(i));
 			if (cur < minimum)
 			{
 				minimum = cur;

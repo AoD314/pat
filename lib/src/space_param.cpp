@@ -1,6 +1,11 @@
 
+#include <cmath>
+
 #include "pat/space_param.hpp"
 #include "pat/pat_convert.hpp"
+
+#include <iostream>
+
 
 namespace pat
 {
@@ -9,9 +14,40 @@ namespace pat
 	{
 		n = N;
 		e = eps;
-
-		div_points.clear();
 		space.clear();
+	}
+
+	std::vector<int> SpaceParam::factorize(size_t num)
+	{
+		std::vector<int> mn;
+		size_t M = sqrt(num) + 1;
+		size_t j = 0;
+
+		for (size_t i = 2; i < M;)
+		{
+			if (num % i == 0)
+			{
+				if (mn.size() < space.size())
+				{
+					mn.push_back(i);
+					j++;
+				}
+				else
+				{
+					j = (j + 1) % space.size();
+					mn[j] *= i;
+				}
+
+				num /= i;
+			}
+			else
+			{
+				i++;
+			}
+			if (num <= 1)  break;
+		}
+
+		return mn;
 	}
 
 	void SpaceParam::initialize()
@@ -106,9 +142,29 @@ namespace pat
 		}
 	}
 
-	Point SpaceParam::get(size_t i)
+	Point SpaceParam::get(size_t index)
 	{
+		if (div_points.empty())
+		{
+			div_points = factorize(n);
+
+			while (space.size() > div_points.size())
+			{
+				div_points.push_back(1);
+			}
+		}
+
 		Point point;
+
+		for (size_t i = 0; i < space.size(); i++)
+		{
+			size_t j = index % div_points[i];
+			index /= div_points[i];
+
+			Number num;
+			num = space[i].min + j * (space[i].max - space[i].min) / (div_points[i] - 1);
+			point.add(num);
+		}
 		return point;
 	}
 

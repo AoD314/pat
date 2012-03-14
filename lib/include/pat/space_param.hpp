@@ -21,7 +21,7 @@ namespace pat
 
 			Point get_def();
 
-			Point get(size_t i);
+			Point get(size_t index);
 			Point get_simplex(size_t index);
 			std::string get(std::string name);
 
@@ -43,6 +43,9 @@ namespace pat
 			std::vector<std::string> names;
 
 			std::vector<int>    div_points;
+
+			std::vector<int> factorize(size_t num);
+
 	};
 
 
