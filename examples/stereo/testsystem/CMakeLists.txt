@@ -1,18 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
-set(target "testsystem" )
+
+set(target "ts_stereo" )
 project( ${target} )
 
-set(CMAKE_BUILD_TYPE "Debug")
-if(UNIX)
-	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb")
-	set(CMAKE_CXX_FLAGS "-O0 -ggdb")
-endif()
-
 find_package( OpenCV REQUIRED )
-if(WIN32)
-	link_directories("${OPENCV_LIB_DIR}/${CMAKE_BUILD_TYPE}")
-endif()
-
 find_package( PAT REQUIRED )
 
 file(GLOB srcs "*.cpp")
@@ -31,7 +22,7 @@ add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E make
 if (UNIX)
 	add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/stereo/testsystem/${target} ${CMAKE_BINARY_DIR}/bin)
 else()
-	add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/stereo/testsystem/$(ConfigurationName)/testsystem.exe ${CMAKE_BINARY_DIR}/bin)
+	add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/stereo/testsystem/$(ConfigurationName)/{target}.exe ${CMAKE_BINARY_DIR}/bin)
 endif()
 
 add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/aloe_gl.png ${CMAKE_BINARY_DIR}/bin)
@@ -43,6 +34,4 @@ add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
 add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/baby_gr.png ${CMAKE_BINARY_DIR}/bin)
 add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/baby_l.png ${CMAKE_BINARY_DIR}/bin)
 add_custom_command( TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/stereo/dataset/baby_r.png ${CMAKE_BINARY_DIR}/bin)
-
-
 # ----------------------------------------------------------------------------

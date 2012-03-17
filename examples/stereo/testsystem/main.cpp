@@ -85,7 +85,7 @@ double calc_err(cv::Mat gt, cv::Mat disp)
 
 	for (int i = 0; i < ratio.cols; i++)
 		for (int j = 0; j < ratio.rows; j++)
-		{			
+		{
 			ratio.at<float>(j, i) = static_cast<float>(gt.at<char>(j, i)) / ((static_cast<float>(disp.at<char>(j, i)) == 0) ? 1 : static_cast<float>(disp.at<char>(j, i)));
 		}
 
@@ -97,7 +97,7 @@ double calc_err(cv::Mat gt, cv::Mat disp)
 			M += ratio.at<float>(j, i);
 		}
 
-	M /= (ratio.cols * ratio.rows); 
+	M /= (ratio.cols * ratio.rows);
 
 	float D = 0;
 
@@ -107,7 +107,7 @@ double calc_err(cv::Mat gt, cv::Mat disp)
 			D += (ratio.at<float>(j, i) - M);
 		}
 
-	D /= (ratio.cols * ratio.rows); 
+	D /= (ratio.cols * ratio.rows);
 
 	cout << "M : " << M << endl;
 	cout << "D : " << D << endl;
@@ -143,10 +143,10 @@ int main(int argc, const char ** argv)
 	std::cout << "start  test_system" << std::endl;
 
 	std::vector<std::string> list;
-
 	//list = cv::Directory::GetListFiles(settings.get_gt(), ".png");
 	list.push_back("aloe_l.png");
 	list.push_back("baby_l.png");
+	list.push_back("bowling_l.png");
 
 	get_list_name_dataset(list);
 
@@ -160,7 +160,7 @@ int main(int argc, const char ** argv)
 
 		cout << "run : " << "stereobp " << args << endl;
 		rum_cmd("stereobp", args);
-		
+
 		// analyze
 
 		// load ground truth
@@ -174,7 +174,7 @@ int main(int argc, const char ** argv)
 
 		// load result (disparity)
 		cv::Mat disp = cv::imread("res.png", 0);
-		
+
 		double current_err = calc_err(gt, disp);
 		std::cout << "current error is : " << current_err << std::endl;
 		total_err += current_err;

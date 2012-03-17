@@ -162,7 +162,16 @@ namespace pat
 			index /= div_points[i];
 
 			Number num;
-			num = space[i].min + j * (space[i].max - space[i].min) / (div_points[i] - 1);
+
+			if (div_points[i] == 1)
+			{
+				num = space[i].min;
+			}
+			else
+			{
+				num = space[i].min + j * (space[i].max - space[i].min) / (div_points[i] - 1);
+			}
+
 			point.add(num);
 		}
 		return point;
