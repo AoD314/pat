@@ -29,11 +29,11 @@ namespace pat
 			}
 
 			Status st;
-			st.cur_eps = space_param->epsilon();
+			st.cur_eps = 0.0;
 			st.eps = 0;
-			st.iter = i;
+			st.iter = i + 1;
 			st.N = N;
-			st.fnc = cur;
+			st.fnc = minimum;
 			emit update_status(st);
 		}
 

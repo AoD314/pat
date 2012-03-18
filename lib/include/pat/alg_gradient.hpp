@@ -20,6 +20,8 @@ namespace pat
 			PAT_Gradient(SpaceParam * sp);
 			void run();
 
+		private:
+			FunctionND minimum;
 		protected:
 			Point gradient(const Point & point);
 			Point norm(const Point & point);

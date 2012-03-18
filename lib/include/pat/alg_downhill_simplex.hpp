@@ -23,6 +23,8 @@ namespace pat
 			double alpha;
 			double beta;
 			double gamma;
+
+			FunctionND minimum;
 	};
 
 }

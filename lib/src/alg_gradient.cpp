@@ -25,6 +25,8 @@ namespace pat
 
 		Point x1, x2, x3, x4, x5;
 
+		minimum = function(x0);
+
 		while(true)
 		{
 			Point grad = norm(gradient(x0));
@@ -53,24 +55,29 @@ namespace pat
 
 			double eps = fabs((m - f0).to_float());
 
-			if (iter >= N || eps < e)
+			if (m < minimum)
 			{
-				//qDebug() << "iter:" << iter << " eps:" << eps << " lamda:" << lamda << " koeff:" << koeff;
-				emit publish_result(m);
-				break;
+				minimum = m;
 			}
+
+			iter++;
 
 			Status st;
 			st.cur_eps = eps;
 			st.eps = e;
 			st.iter = iter;
 			st.N = N;
-			st.fnc = f1;
+			st.fnc = minimum;
 
 			emit update_status(st);
 
-			iter++;
+			if (iter >= N || eps < e)
+			{
+				break;
+			}
 		}
+
+		emit publish_result(minimum);
 	}
 
 	Point PAT_Gradient::gradient(const Point & point)

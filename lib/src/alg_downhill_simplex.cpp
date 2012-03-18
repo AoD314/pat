@@ -27,6 +27,8 @@ namespace pat
 			v_fnc.push_back(function(space_param->get_simplex(i+1)));
 		}
 
+		minimum = v_fnc.at(0);
+
 		// start alg
 		while(true)
 		{
@@ -112,23 +114,28 @@ namespace pat
 
 			double eps = abs(f_c - v_fnc.at(n)).to_float();
 
+			if (f_c < minimum)
+			{
+				minimum = f_c;
+			}
+
+			iter++;
+
+			Status st;
+			st.cur_eps = eps;
+			st.eps = 0.0;
+			st.iter = iter;
+			st.N = N;
+			st.fnc = minimum;
+
+			emit update_status(st);
+
 			// step 9
 			// ...
 			if (iter >= N || eps < e)
 			{
 				break;
 			}
-
-			Status st;
-			st.cur_eps = 0.0;
-			st.eps = 0.0;
-			st.iter = iter;
-			st.N = N;
-			st.fnc = f_c;
-
-			emit update_status(st);
-
-			iter++;
 		}
 
 		Point x_c = v_fnc.at(1).point;
@@ -137,9 +144,9 @@ namespace pat
 			x_c += v_fnc.at(i).point;
 		}
 		x_c /= Number(n);
-		FunctionND result = function(x_c);
+		minimum = function(x_c);
 
-		emit publish_result(result);
+		emit publish_result(minimum);
 	}
 
 }

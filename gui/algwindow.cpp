@@ -29,7 +29,7 @@ namespace pat
 		lbl_count = new QLabel(tr("Max count of iterations") + ":");
 		spin_count = new QSpinBox;
 		spin_count->setMinimum(8);
-		spin_count->setMaximum(1024*1024*1024);
+		spin_count->setMaximum(1024 * 1024 * 1024);
 		spin_count->setValue(32);
 
 		lbl_time = new QLabel(tr("Time (in sec)") + ":");

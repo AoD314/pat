@@ -194,7 +194,7 @@ namespace pat
 	{
 		QString msg;
 
-		msg = QString::number(st.iter + 1) + " / " + QString::number(st.N) + " : " + QString(to_str(st.fnc).c_str());
+		msg = QString::number(st.iter) + " / " + QString::number(st.N) + " : " + QString(to_str(st.fnc).c_str());
 
 		add_msg(msg);
 	}
