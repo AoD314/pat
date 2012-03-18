@@ -20,13 +20,16 @@ int main(int argc, const char ** argv)
 	Mat r = cv::imread(settings.right(), 0);
 	Mat l = cv::imread(settings.left() , 0);
 
-	int max_disparity = 80;
-	int iteration = 3;
+	int max_disparity = 96;
+	int iteration = 9;
 	int level = 5;
+
+	//*/
 	float max_data_term = 10.0f;
 	float data_weight = 0.07f;
 	float max_disc_term = 1.7f;
 	float disc_single_jump = 1.0f;
+	//*/
 
 #ifdef use_pat_system
 

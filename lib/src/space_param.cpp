@@ -5,7 +5,7 @@
 #include "pat/pat_convert.hpp"
 
 #include <iostream>
-
+#include <cstdlib>
 
 namespace pat
 {
@@ -95,6 +95,23 @@ namespace pat
 			initialize();
 
 		return to_str(current_point[index], 0, 32);
+	}
+
+	Point SpaceParam::get_rnd()
+	{
+		Point p;
+
+		for (size_t i = 0; i < names.size(); ++i)
+		{
+			Number n = space.at(i).max - space.at(i).min;
+			Number del = (space.at(i).max.delta() < space.at(i).min.delta()) ? space.at(i).max.delta(): space.at(i).min.delta();
+			size_t count = static_cast<size_t>((n / del).to_int());
+			size_t r = rand() % count;
+			n = space.at(i).min + r * del;
+			p.add(n);
+		}
+
+		return p;
 	}
 
 	double SpaceParam::epsilon()

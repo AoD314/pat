@@ -7,6 +7,7 @@
 #include "settingswindow.hpp"
 #include "algwindow.hpp"
 
+#include "pat/alg_rnd.hpp"
 #include "pat/alg_bruteforce.hpp"
 #include "pat/alg_gradient.hpp"
 #include "pat/alg_downhill_simplex.hpp"
@@ -161,14 +162,18 @@ namespace pat
 			switch (meth)
 			{
 				case 0:
-					alg = new pat::PAT_BruteForce(space_param);
+					alg = new pat::PAT_RND(space_param);
 					break;
 
 				case 1:
-					alg = new pat::PAT_Gradient(space_param);
+					alg = new pat::PAT_BruteForce(space_param);
 					break;
 
 				case 2:
+					alg = new pat::PAT_Gradient(space_param);
+					break;
+
+				case 3:
 					alg = new pat::PAT_Downhill_Simplex(space_param);
 					break;
 

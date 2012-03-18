@@ -13,7 +13,7 @@ project( ${target_lib} )
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
 if(DEFINED CMAKE_BUILD_TYPE)
-	set_property( CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${CMAKE_CONFIGURATION_TYPES} )
+    set_property( CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${CMAKE_CONFIGURATION_TYPES} )
 endif()
 
 #set(CMAKE_BUILD_TYPE "Release")
@@ -96,6 +96,7 @@ set(lib_srcs "lib/src/pat_base.cpp"
              "lib/src/pat_convert.cpp"
              "lib/src/pat_params.cpp"
              "lib/src/alg_bruteforce.cpp"
+             "lib/src/alg_rnd.cpp"
              "lib/src/alg_gradient.cpp"
              "lib/src/alg_downhill_simplex.cpp"
              "lib/src/algorithm.cpp"
@@ -128,13 +129,14 @@ set(lib_hdrs "lib/include/pat/pat.hpp"
 set(lib_mocs "lib/include/pat/algorithm.hpp"
              "lib/include/pat/alg_bruteforce.hpp"
              "lib/include/pat/alg_gradient.hpp"
+             "lib/include/pat/alg_rnd.hpp"
              "lib/include/pat/alg_downhill_simplex.hpp"
     )
 ### COMMON ###
 
 ### GUI ###
 
-set(gui_srcs 
+set(gui_srcs
              "gui/main.cpp"
              "gui/mainwindow.cpp"
              "gui/settingswindow.cpp"
@@ -142,13 +144,13 @@ set(gui_srcs
              "gui/server.cpp"
              "gui/common.cpp"
              "gui/paramstatus.cpp"
-             "common/settings.cpp" 
+             "common/settings.cpp"
     )
 
 set(gui_hdrs "common/settings.hpp"
              "gui/common.hpp")
 
-set(gui_mocs 
+set(gui_mocs
              "gui/mainwindow.hpp"
              "gui/settingswindow.hpp"
              "gui/algwindow.hpp"
@@ -245,9 +247,9 @@ endif()
 # ----------------------------------------------------------------------------
 
 if(UNIX)
-	install(TARGETS ${target} DESTINATION "/usr/lib")
-	find_path(LIB_INCLUDE_PATH string.h)
-	install(FILES ${inc_lib} DESTINATION "${LIB_INCLUDE_PATH}/pat")
+    install(TARGETS ${target} DESTINATION "/usr/lib")
+    find_path(LIB_INCLUDE_PATH string.h)
+    install(FILES ${inc_lib} DESTINATION "${LIB_INCLUDE_PATH}/pat")
 endif()
 
 # ----------------------------------------------------------------------------

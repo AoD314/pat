@@ -21,6 +21,7 @@ namespace pat
 			void set_current_point(Point p);
 
 			Point get_def();
+			Point get_rnd();
 
 			Point get(size_t index);
 			Point get_simplex(size_t index);

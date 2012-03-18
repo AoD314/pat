@@ -14,6 +14,7 @@ namespace pat
 
 		lbl_alg = new QLabel(tr("Algorithm") + ":");
 		list_alg = new QComboBox;
+		list_alg->addItem(tr("rnd"));
 		list_alg->addItem(tr("brute force"));
 		list_alg->addItem(tr("gradient"));
 		list_alg->addItem(tr("downhill simplex"));
