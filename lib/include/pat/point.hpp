@@ -4,16 +4,17 @@
 
 #include <vector>
 
+#include "patconfig.hpp"
 #include "pat/number.hpp"
 
 namespace pat
 {
-    class Point
-    {
-        public:
-            Point();
+	class PAT_EXPORTS Point
+	{
+		public:
+			Point();
 
-            Point& add(const Number & );
+			Point& add(const Number & );
 
 
 			Number& operator[](int n);
@@ -23,40 +24,40 @@ namespace pat
 
 			size_t dim() const;
 
-            const Point operator-() const;
+			const Point operator-() const;
 
-            Point& operator += ( const Point & );
-            Point& operator += ( const Number & );
+			Point& operator += ( const Point & );
+			Point& operator += ( const Number & );
 
-            Point& operator -= ( const Point & );
-            Point& operator -= ( const Number & );
+			Point& operator -= ( const Point & );
+			Point& operator -= ( const Number & );
 
-            Point& operator *= ( const Point & );
-            Point& operator *= ( const Number & );
+			Point& operator *= ( const Point & );
+			Point& operator *= ( const Number & );
 
-            Point& operator /= ( const Point & );
-            Point& operator /= ( const Number & );
+			Point& operator /= ( const Point & );
+			Point& operator /= ( const Number & );
 
-            friend const Point operator + (const Point& left,  const Point& right);
-            friend const Point operator + (const Point& left,  const Number& right);
-            friend const Point operator + (const Number& left, const Point& right);
+			friend const Point operator + (const Point& left,  const Point& right);
+			friend const Point operator + (const Point& left,  const Number& right);
+			friend const Point operator + (const Number& left, const Point& right);
 
-            friend const Point operator - (const Point& left,  const Point& right);
-            friend const Point operator - (const Point& left,  const Number& right);
-            friend const Point operator - (const Number& left, const Point& right);
+			friend const Point operator - (const Point& left,  const Point& right);
+			friend const Point operator - (const Point& left,  const Number& right);
+			friend const Point operator - (const Number& left, const Point& right);
 
-            friend const Point operator * (const Point& left,  const Point& right);
-            friend const Point operator * (const Point& left,  const Number& right);
-            friend const Point operator * (const Number& left, const Point& right);
+			friend const Point operator * (const Point& left,  const Point& right);
+			friend const Point operator * (const Point& left,  const Number& right);
+			friend const Point operator * (const Number& left, const Point& right);
 
-            friend const Point operator / (const Point& left,  const Point& right);
-            friend const Point operator / (const Point& left,  const Number& right);
+			friend const Point operator / (const Point& left,  const Point& right);
+			friend const Point operator / (const Point& left,  const Number& right);
 
-            friend std::ostream& operator << (std::ostream&, const Point&);
+			friend std::ostream& operator << (std::ostream&, const Point&);
 
-        private:
-            std::vector<Number> point;
-    };
+		private:
+			std::vector<Number> point;
+	};
 
 }
 

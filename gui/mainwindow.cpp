@@ -136,9 +136,9 @@ namespace pat
 			double eps      = win->eps();
 			size_t max_iter = win->max_iter();
 			size_t meth = win->method();
-			//QString app = win->app();
+			QString app = win->app();
 			//QString app = "/work/projects/pat/pat/examples/build/rozenbrok/testsystem/testsystem";
-			QString app = "/work/projects/pat/pat/examples/build/bin/ts_stereo";
+			//QString app = "/work/projects/pat/pat/examples/build/bin/ts_stereo";
 
 			text_log->append(QString("Max iteration : " + QString::number(max_iter)));
 

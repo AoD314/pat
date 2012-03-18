@@ -15,10 +15,12 @@ namespace pat
 		public:
 			AlgWindow(QWidget * parent = 0);
 
-			size_t max_iter();
-			double eps();
-			size_t method();
+			size_t  max_iter();
+			double  eps();
+			int     max_time();
+			size_t  method();
 			QString app();
+
 			bool push_create();
 
 		private:
@@ -38,6 +40,9 @@ namespace pat
 			QLabel * lbl_count;
 			QSpinBox * spin_count;
 
+			QLabel * lbl_time;
+			QSpinBox * spin_time;
+
 			QLabel * lbl_eps;
 			QDoubleSpinBox * spin_eps;
 
@@ -50,6 +55,8 @@ namespace pat
 			void cancel();
 			void create();
 			void choose_app();
+
+			void update_time(int sec);
 	};
 
 }

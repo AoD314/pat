@@ -5,12 +5,13 @@
 
 #include <string>
 
+#include "patconfig.hpp"
 #include "pat/point.hpp"
 #include "pat/range.hpp"
 
 namespace pat
 {
-	class SpaceParam
+	class PAT_EXPORTS SpaceParam
 	{
 		public:
 			SpaceParam(size_t N = 64, double eps = 0.000025);

@@ -2,6 +2,8 @@
 #ifndef __NUMBER_HPP__
 #define __NUMBER_HPP__
 
+#include "patconfig.hpp"
+
 #include <string>
 #include <ostream>
 
@@ -13,7 +15,7 @@ namespace pat
 		float_t
 	};
 
-	class Number
+	class PAT_EXPORTS Number
 	{
 		public:
 			Number();

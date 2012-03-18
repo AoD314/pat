@@ -21,6 +21,7 @@ namespace pat
 		lbl_app = new QLabel(tr("Application") + ":");
 		text_edit = new QLineEdit;
 		btn_choose = new QPushButton(tr("..."));
+		btn_choose->setMaximumSize(24, 24);
 
 		box_h_l->addWidget(text_edit);
 		box_h_l->addWidget(btn_choose);
@@ -30,6 +31,14 @@ namespace pat
 		spin_count->setMinimum(8);
 		spin_count->setMaximum(1024*1024*1024);
 		spin_count->setValue(32);
+
+		lbl_time = new QLabel(tr("Time (in sec)") + ":");
+		spin_time = new QSpinBox;
+		spin_time->setMinimum(3);
+		spin_time->setMaximum(53049600);
+		spin_time->setValue(314);
+		update_time(314);
+		connect(spin_time, SIGNAL(valueChanged(int)), this, SLOT(update_time(int)));
 
 		lbl_eps = new QLabel(tr("Epsilon") + ":");
 		spin_eps = new QDoubleSpinBox;
@@ -57,6 +66,12 @@ namespace pat
 		box_h->addStretch(1);
 		box_h->addWidget(spin_count);
 		box_h->addStretch(5);
+
+		box_h->addWidget(lbl_time);
+		box_h->addStretch(1);
+		box_h->addWidget(spin_time);
+		box_h->addStretch(5);
+
 		box_h->addWidget(lbl_eps);
 		box_h->addStretch(1);
 		box_h->addWidget(spin_eps);
@@ -71,8 +86,19 @@ namespace pat
 		is_create = false;
 		setWindowTitle(tr("Optimize of the new application"));
 		setLayout(box_v);
-		resize(420, 210);
+		resize(450, 210);
 		center_qwidget(this);
+	}
+
+	void AlgWindow::update_time(int sec)
+	{
+		const int sec_in_day = 24 * 60 * 60;
+		QTime t(0,0,0,0);
+		int d = sec / sec_in_day;
+		sec -= d * sec_in_day;
+		t = t.addSecs(sec);
+		lbl_time->setText(tr("Time (in sec)") + ": " + QString::number(d) + " days " + t.toString("hh:mm:ss"));
+		lbl_time->update();
 	}
 
 	void AlgWindow::cancel()
@@ -95,6 +121,11 @@ namespace pat
 	double AlgWindow::eps()
 	{
 		return spin_eps->value();
+	}
+
+	int AlgWindow::max_time()
+	{
+		return spin_time->value();
 	}
 
 	size_t AlgWindow::max_iter()

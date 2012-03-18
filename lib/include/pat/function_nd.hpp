@@ -4,12 +4,13 @@
 
 #include <vector>
 
+#include "patconfig.hpp"
 #include "pat/point.hpp"
 #include "pat/number.hpp"
 
 namespace pat
 {
-	class FunctionND
+	class PAT_EXPORTS FunctionND
 	{
 		public:
 			Point point;

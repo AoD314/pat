@@ -2,11 +2,12 @@
 #ifndef __STATUS_HPP__
 #define __STATUS_HPP__
 
+#include "patconfig.hpp"
 #include "pat/function_nd.hpp"
 
 namespace pat
 {
-	class Status
+	class PAT_EXPORTS Status
 	{
 		public:
 			FunctionND fnc; // point, value
