@@ -37,7 +37,6 @@ namespace pat
 			void init(StrParams sp);
 
 		public slots:
-			void change_state(Point p);
 			void read();
 			void new_connection();
 			void send_to_client(QString value);

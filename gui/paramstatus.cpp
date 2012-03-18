@@ -58,42 +58,4 @@ namespace pat
 		progress->setValue(static_cast<int>(100.0 * st.iter / static_cast<double>(st.N)));
 		lbl_result->setText(QString::number(st.minimum.value.to_float()));
 	}
-
-	/*
-	void ParamStatus::update(Params params)
-	{
-		p = params;
-
-		QStringList lst;
-		QStringList lst_value;
-
-		points_in_dims = 1;
-		std::vector<std::string> list = p.get_list_params();
-		if (p.dim() > 0)
-		{
-			for (size_t i = 0; i < p.dim(); i++)
-			{
-				points_in_dims *= p.get_points(list[i]);
-				lst << QString(list[i].c_str());
-				lst_value << QString(p.get_str(list[i]).c_str());
-			}
-
-			table->setRowCount(p.dim());
-			table->setVerticalHeaderLabels(lst);
-
-			for (size_t i = 0; i < p.dim(); i++)
-			{
-				table->setItem(0, i, new QTableWidgetItem(lst_value[i]));
-			}
-
-			iter++;
-		}
-
-		lbl_points->setText(QString::number(points_in_dims));
-		lbl_iter->setText(QString::number(iter));
-		progress->setValue(static_cast<int>(100.0 * iter / static_cast<double>(points_in_dims)));
-		lbl_result->setText(QString::number(p.minvalue));
-	}
-	*/
-
 }

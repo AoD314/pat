@@ -14,8 +14,8 @@
 #include "pat/status.hpp"
 
 namespace pat
-{	
-    class PAT_EXPORTS PAT_Algorithm : public QThread
+{
+	class PAT_EXPORTS PAT_Algorithm : public QThread
 	{
 		Q_OBJECT
 
@@ -28,7 +28,7 @@ namespace pat
 
 			FunctionND function_nd;
 
-            virtual void init();
+			virtual void init();
 
 
 		public:
@@ -46,6 +46,6 @@ namespace pat
 	};
 
 }
-	
+
 #endif
-	
+

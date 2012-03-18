@@ -19,10 +19,6 @@ namespace pat
 		connect(this, SIGNAL(newConnection()), this, SLOT(new_connection()));
 	}
 
-	void PAT_Server::change_state(Point p)
-	{
-	}
-
 	void PAT_Server::send_value_to_client(QTcpSocket * socket, QString value)
 	{
 		QByteArray arr_block;

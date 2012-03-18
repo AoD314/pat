@@ -141,10 +141,20 @@ namespace pat
 			//QString app = "/work/projects/pat/pat/examples/build/rozenbrok/testsystem/testsystem";
 			//QString app = "/work/projects/pat/pat/examples/build/bin/ts_stereo";
 
-			text_log->append(QString("Max iteration : " + QString::number(max_iter)));
+			text_log->clear();
+			text_log->append(QString("Max iteration     : " + QString::number(max_iter)));
+			text_log->append(QString("Max time (in sec) : " + QString::number(max_time)));
+			text_log->append(QString("Epsilon           : " + QString::number(eps)));
+			text_log->append(QString("Application       : " + app));
 
 			if (alg != 0)
+			{
+				disconnect(server);
+				disconnect(alg);
+				disconnect(this);
 				delete alg;
+				delete space_param;
+			}
 
 			space_param = new SpaceParam(max_iter, eps, max_time);
 
