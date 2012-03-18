@@ -14,7 +14,7 @@ namespace pat
 	class PAT_EXPORTS SpaceParam
 	{
 		public:
-			SpaceParam(size_t N = 64, double eps = 0.000025);
+			SpaceParam(size_t N = 64, double eps = 0.000025, size_t time = 1000000000);
 
 			void add(std::string name, Range r);
 
@@ -30,10 +30,12 @@ namespace pat
 
 			size_t max_iter();
 			double epsilon();
+			size_t max_time();
 
 			bool have_points();
 
 		private:
+			size_t t;
 			size_t n;
 			double e;
 

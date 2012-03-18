@@ -46,7 +46,7 @@ namespace pat
 
 	void ParamStatus::update(Status st)
 	{
-		Point p = st.fnc.point;
+		Point p = st.minimum.point;
 		table->setRowCount(p.dim());
 		for (size_t i = 0; i < p.dim(); i++)
 		{
@@ -56,7 +56,7 @@ namespace pat
 		lbl_points->setText(QString::number(st.N));
 		lbl_iter->setText(QString::number(st.iter));
 		progress->setValue(static_cast<int>(100.0 * st.iter / static_cast<double>(st.N)));
-		lbl_result->setText(QString::number(st.fnc.value.to_float()));
+		lbl_result->setText(QString::number(st.minimum.value.to_float()));
 	}
 
 	/*

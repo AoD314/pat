@@ -11,6 +11,9 @@ namespace pat
 	{
 		init();
 
+		QElapsedTimer timer;
+		timer.start();
+
 		size_t N = space_param->max_iter();
 		double e = space_param->epsilon();
 		size_t iter = 0;
@@ -126,13 +129,14 @@ namespace pat
 			st.eps = 0.0;
 			st.iter = iter;
 			st.N = N;
-			st.fnc = minimum;
+			st.minimum = minimum;
+			st.current = f_c;
 
 			emit update_status(st);
 
 			// step 9
 			// ...
-			if (iter >= N || eps < e)
+			if (iter >= N || eps < e || timer.hasExpired(static_cast<qint64>(space_param->max_time()) * 1000))
 			{
 				break;
 			}

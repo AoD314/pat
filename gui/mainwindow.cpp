@@ -135,6 +135,7 @@ namespace pat
 		{
 			double eps      = win->eps();
 			size_t max_iter = win->max_iter();
+			size_t max_time = win->max_time();
 			size_t meth = win->method();
 			QString app = win->app();
 			//QString app = "/work/projects/pat/pat/examples/build/rozenbrok/testsystem/testsystem";
@@ -145,7 +146,7 @@ namespace pat
 			if (alg != 0)
 				delete alg;
 
-			space_param = new SpaceParam(max_iter, eps);
+			space_param = new SpaceParam(max_iter, eps, max_time);
 
 			switch (meth)
 			{
@@ -194,7 +195,7 @@ namespace pat
 	{
 		QString msg;
 
-		msg = QString::number(st.iter) + " / " + QString::number(st.N) + " : " + QString(to_str(st.fnc).c_str());
+		msg = QString::number(st.iter) + " / " + QString::number(st.N) + " : " + QString(to_str(st.current).c_str());
 
 		add_msg(msg);
 	}

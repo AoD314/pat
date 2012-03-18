@@ -10,7 +10,8 @@ namespace pat
 	class PAT_EXPORTS Status
 	{
 		public:
-			FunctionND fnc; // point, value
+			FunctionND current; // point, value
+			FunctionND minimum; // point, value
 			size_t iter;
 			size_t N;
 			double cur_eps;

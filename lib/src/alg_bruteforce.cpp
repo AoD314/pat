@@ -16,16 +16,19 @@ namespace pat
 	{
 		init();
 
+		QElapsedTimer timer;
+		timer.start();
+
 		size_t N = space_param->max_iter();
 
 		minimum = function(space_param->get(0));
 
-		for (size_t i = 1; i < N; i++)
+		for (size_t i = 1; (i < N) && (!timer.hasExpired(static_cast<qint64>(space_param->max_time()) * 1000)); ++i)
 		{
-			FunctionND cur = function(space_param->get(i));
-			if (cur < minimum)
+			FunctionND current = function(space_param->get(i));
+			if (current < minimum)
 			{
-				minimum = cur;
+				minimum = current;
 			}
 
 			Status st;
@@ -33,7 +36,8 @@ namespace pat
 			st.eps = 0;
 			st.iter = i + 1;
 			st.N = N;
-			st.fnc = minimum;
+			st.minimum = minimum;
+			st.current = current;
 			emit update_status(st);
 		}
 

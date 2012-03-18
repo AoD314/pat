@@ -10,11 +10,17 @@
 namespace pat
 {
 
-	SpaceParam::SpaceParam(size_t N, double eps)
+	SpaceParam::SpaceParam(size_t N, double eps, size_t time)
 	{
 		n = N;
 		e = eps;
+		t = time;
 		space.clear();
+	}
+
+	size_t SpaceParam::max_time()
+	{
+		return t;
 	}
 
 	std::vector<int> SpaceParam::factorize(size_t num)
