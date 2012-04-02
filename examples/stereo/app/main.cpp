@@ -20,11 +20,16 @@ int main(int argc, const char ** argv)
 	Mat r = cv::imread(settings.right(), 0);
 	Mat l = cv::imread(settings.left() , 0);
 
-	int max_disparity = 96;
-	int iteration = 9;
+	int max_disparity = 80;
+	int iteration = 3;
 	int level = 5;
 
-	//*/
+	float max_data_term = 10.8651f;
+	float data_weight = 0.0242832f;
+	float max_disc_term = 1.49189f;
+	float disc_single_jump = 2.26726f;
+
+	/*/
 	float max_data_term = 10.0f;
 	float data_weight = 0.07f;
 	float max_disc_term = 1.7f;
@@ -41,11 +46,10 @@ int main(int argc, const char ** argv)
 	pat.init("level", 3, 7);
 	//*/
 
-	//*/
-	pat.init("max_data_term",    7.00, 13.0);
-	pat.init("data_weight",      0.01, 00.5);
-	pat.init("max_disc_term",    1.00, 03.0);
-	pat.init("disc_single_jump", 0.01, 03.0);
+	pat.init("max_data_term",    6.50, 13.5);
+	pat.init("data_weight",      0.01, 00.8);
+	pat.init("max_disc_term",    0.05, 03.5);
+	pat.init("disc_single_jump", 0.01, 03.5);
 	//*/
 
 	/*/
@@ -73,6 +77,20 @@ int main(int argc, const char ** argv)
 
 	Mat disp;
 	disparity.download(disp);
+
+	unsigned char m = 0;
+	for (size_t i = 0; i < disp.size().area(); ++i)
+	{
+		if (m < disp.data[i])
+			m = disp.data[i];
+	}
+	if (m != 0)
+	{
+		for (size_t i = 0; i < disp.size().area(); ++i)
+		{
+			disp.data[i] = static_cast<unsigned char>(static_cast<float>(disp.data[i]) * 255.0 / static_cast<float>(m));
+		}
+	}
 
 	cv::imwrite(settings.result(), disp);
 

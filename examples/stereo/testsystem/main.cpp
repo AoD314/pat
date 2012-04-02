@@ -81,58 +81,39 @@ void get_list_name_dataset(std::vector<std::string> & list)
 
 double calc_err(cv::Mat gt, cv::Mat disp)
 {
-	cv::Mat ratio(gt.size(), CV_32FC1);
+	double err = 0;
+	size_t N = 0;
+	size_t good_pixels = 0;
 
-	for (int i = 0; i < ratio.cols; i++)
-		for (int j = 0; j < ratio.rows; j++)
+	//*/
+	// calculate total number of valid pixel
+	for (size_t i = 0; i < gt.total(); ++i)
+	{
+		if (gt.data[i] > 0)
 		{
-			ratio.at<float>(j, i) = static_cast<float>(gt.at<char>(j, i)) / ((static_cast<float>(disp.at<char>(j, i)) == 0) ? 1 : static_cast<float>(disp.at<char>(j, i)));
+			++N;
+			err += std::pow(disp.data[i] - gt.data[i], 2);
 		}
+	}
 
-	float M = 0;
+	err = std::sqrt(err / N);
+	//*/
 
-	for (int i = 0; i < ratio.cols; i++)
-		for (int j = 0; j < ratio.rows; j++)
+	/*/
+	for (size_t i = 0; i < gt.total(); ++i)
+	{
+		if (gt.data[i] > 0)
 		{
-			M += ratio.at<float>(j, i);
+			++N;
+			if (abs(disp.data[i] - gt.data[i]) > 1)
+				good_pixels += 1;
 		}
+	}
 
-	M /= (ratio.cols * ratio.rows);
+	err = static_cast<double>(good_pixels) / static_cast<double>(N);
+	//*/
 
-	float D = 0;
-
-	for (int i = 0; i < ratio.cols; i++)
-		for (int j = 0; j < ratio.rows; j++)
-		{
-			D += (ratio.at<float>(j, i) - M);
-		}
-
-	D /= (ratio.cols * ratio.rows);
-
-	cout << "M : " << M << endl;
-	cout << "D : " << D << endl;
-
-	for (int i = 0; i < ratio.cols; i++)
-		for (int j = 0; j < ratio.rows; j++)
-		{
-			float val = static_cast<float>(disp.at<char>(j, i));
-			val = ((val * M) > 255) ? 255 : (val * M);
-			disp.at<char>(j, i) = static_cast<char>(val);
-		}
-
-	disp = disp.colRange(35, disp.cols - 1);
-	gt   = gt.colRange  (35, gt.cols - 1);
-
-	disp = disp.rowRange(1, disp.rows - 1);
-	gt   = gt.rowRange  (1, gt.rows - 1);
-
-	/*
-	cv::imshow("disp", disp);
-	cv::imshow("gt", gt);
-	cv::waitKey();
-	*/
-
-	return cv::norm(disp, gt);
+	return err;
 }
 
 int main(int argc, const char ** argv)
@@ -144,9 +125,9 @@ int main(int argc, const char ** argv)
 
 	std::vector<std::string> list;
 	//list = cv::Directory::GetListFiles(settings.get_gt(), ".png");
-	list.push_back("aloe_l.png");
-	list.push_back("baby_l.png");
-	list.push_back("bowling_l.png");
+	//list.push_back("aloe_l.png");
+	//list.push_back("baby_l.png");
+	list.push_back("tsukuba_l.png");
 
 	get_list_name_dataset(list);
 
