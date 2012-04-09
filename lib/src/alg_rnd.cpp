@@ -47,5 +47,6 @@ namespace pat
 			}
 		}
 
-		emit publish_result(minimum);	}
+		emit publish_result(minimum);
+	}
 }

@@ -2,7 +2,7 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/gpu/gpu.hpp>
 
-#include "pat/pat.hpp"
+//#include "pat/pat.hpp"
 
 #include "settings.hpp"
 
@@ -24,10 +24,10 @@ int main(int argc, const char ** argv)
 	int iteration = 3;
 	int level = 5;
 
-	float max_data_term = 10.8651f;
-	float data_weight = 0.0242832f;
-	float max_disc_term = 1.49189f;
-	float disc_single_jump = 2.26726f;
+	float max_data_term = 8.92494f;
+	float data_weight = 0.0422628f;
+	float max_disc_term = 2.58139f;
+	float disc_single_jump = 0.118465f;
 
 	/*/
 	float max_data_term = 10.0f;
@@ -67,7 +67,8 @@ int main(int argc, const char ** argv)
 
 #endif
 
-	StereoBeliefPropagation csbp(max_disparity, iteration, level, max_data_term, data_weight, max_disc_term, disc_single_jump);
+	//StereoBeliefPropagation csbp(max_disparity, iteration, level, max_data_term, data_weight, max_disc_term, disc_single_jump);
+	StereoBeliefPropagation csbp;//max_disparity, iteration, level);
 
 	GpuMat disparity(l.size(), CV_8U);
 	GpuMat left  (l);
