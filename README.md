@@ -3,4 +3,5 @@ Classes
 -------
 
 * PAT
+* Examples
 
