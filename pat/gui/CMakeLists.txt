@@ -34,6 +34,5 @@ ADD_DEFINITIONS(${QT_DEFINITIONS})
 ADD_DEFINITIONS(-DQT_PLUGIN)
 ADD_DEFINITIONS(-DQT_SHARED)
 
-set(target_gui patgui)
-add_executable(${target_gui} ${gui_srcs} ${gui_hdrs} ${gui_mocs_obj} ${qrc_sources} ${translations})
-target_link_libraries(${target_gui} ${QT_LIBRARIES} ${target_lib})
+add_executable(pat_gui ${gui_srcs} ${gui_hdrs} ${gui_mocs_obj} ${qrc_sources} ${translations})
+target_link_libraries(pat_gui ${QT_LIBRARIES} patlib)
