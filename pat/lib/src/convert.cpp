@@ -7,7 +7,7 @@ namespace pat
 	{
 		if (size_in_byte < 1024)
 		{
-			return to_str(size_in_byte) + " byte";
+			return to_str(size_in_byte) + " bytes";
 		}
 
 		double kb = static_cast<double>(size_in_byte) / 1024.0;
