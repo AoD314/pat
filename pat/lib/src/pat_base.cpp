@@ -1,6 +1,6 @@
 
 #include "pat/pat_base.hpp"
-#include "pat/pat_convert.hpp"
+#include "pat/convert.hpp"
 
 #include <iostream>
 #include <string>

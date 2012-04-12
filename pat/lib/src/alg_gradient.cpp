@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "pat/alg_gradient.hpp"
-#include "pat/pat_convert.hpp"
+#include "pat/convert.hpp"
 
 namespace pat
 {

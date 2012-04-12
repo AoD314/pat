@@ -2,7 +2,7 @@
 #include <cmath>
 
 #include "pat/space_param.hpp"
-#include "pat/pat_convert.hpp"
+#include "pat/convert.hpp"
 
 #include <iostream>
 #include <cstdlib>

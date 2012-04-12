@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "pat/alg_bruteforce.hpp"
-#include "pat/pat_convert.hpp"
+#include "pat/convert.hpp"
 #include "pat/space_param.hpp"
 
 namespace pat

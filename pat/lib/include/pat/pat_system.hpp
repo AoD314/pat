@@ -7,7 +7,7 @@
 #include <QtNetwork/QTcpSocket>
 #include <QtNetwork/QTcpServer>
 
-#include "pat/pat_convert.hpp"
+#include "pat/convert.hpp"
 #include "patconfig.hpp"
 
 namespace pat
@@ -22,14 +22,14 @@ namespace pat
 			template <typename T>
 			T get_params(const std::string & name)
 			{
-                send_message_to_server("get", name, "", "");
+				send_message_to_server("get", name, "", "");
 				return from_str<T>(receive_message_from_server());
 			}
 
 			template <typename T>
-            void init(const std::string & name, T min_value, T max_value)
+			void init(const std::string & name, T min_value, T max_value)
 			{
-                send_message_to_server("init", name, to_str(min_value), to_str(max_value));
+				send_message_to_server("init", name, to_str(min_value), to_str(max_value));
 			}
 
 			void send_result(double result);
@@ -40,7 +40,7 @@ namespace pat
 			QTcpSocket * socket;
 			quint32 block_size;
 
-            void send_message_to_server(std::string cmd, std::string var_name, std::string value_min, std::string value_max);
+			void send_message_to_server(std::string cmd, std::string var_name, std::string value_min, std::string value_max);
 			std::string receive_message_from_server();
 	};
 

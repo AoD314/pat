@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <cmath>
 
-#include "pat/pat_convert.hpp"
+#include "pat/convert.hpp"
 #include "pat/number.hpp"
 
 
@@ -115,6 +115,8 @@ namespace pat
 			return Number(-value_i);
 		if (type_v == float_t)
 			return Number(-value_f);
+
+		throw std::exception();
 	}
 
 	Number& Number::operator++()
@@ -162,6 +164,7 @@ namespace pat
 		{
 			return left.to_float() < right.to_float();
 		}
+		throw std::exception();
 	}
 
 	bool operator >  (const Number& left, const Number& right)
@@ -178,6 +181,7 @@ namespace pat
 		{
 			return left.to_float() > right.to_float();
 		}
+		throw std::exception();
 	}
 
 	bool operator <= (const Number& left, const Number& right)
@@ -194,6 +198,7 @@ namespace pat
 		{
 			return left.to_float() <= right.to_float();
 		}
+		throw std::exception();
 	}
 
 	bool operator >= (const Number& left, const Number& right)
@@ -210,6 +215,7 @@ namespace pat
 		{
 			return left.to_float() >= right.to_float();
 		}
+		throw std::exception();
 	}
 
 	bool operator != (const Number& left, const Number& right)
@@ -231,6 +237,7 @@ namespace pat
 		{
 			return left.to_float() == right.to_float();
 		}
+		throw std::exception();
 	}
 
 	Number& Number::operator = (const Number & num)
