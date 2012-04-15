@@ -11,5 +11,5 @@ endif()
 
 add_subdirectory("rozenbrok")
 
-add_subdirectory("stereo")
+#add_subdirectory("stereo")
 

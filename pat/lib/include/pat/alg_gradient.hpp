@@ -5,7 +5,6 @@
 #include <QtCore>
 
 #include "patconfig.hpp"
-#include "pat/pat_params.hpp"
 #include "pat/algorithm.hpp"
 
 #include <vector>

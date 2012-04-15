@@ -1,6 +1,8 @@
 
 cmake_minimum_required(VERSION 2.8.4)
 
+project(pat)
+
 include(cmake/req.cmake)
 
 include(cmake/compilers.cmake)

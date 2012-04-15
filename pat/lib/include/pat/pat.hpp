@@ -3,7 +3,10 @@
 #define __PAT_HPP__
 #define use_pat_system
 
-#include "pat/pat_base.hpp"
-#include "pat/pat_system.hpp"
+#include "pat/system.hpp"
+#include "pat/application.hpp"
+
+#include "pat/rnd.hpp"
+#include "pat/gr.hpp"
 
 #endif

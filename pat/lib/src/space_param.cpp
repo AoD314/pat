@@ -9,7 +9,6 @@
 
 namespace pat
 {
-
 	SpaceParam::SpaceParam(size_t N, double eps, size_t time)
 	{
 		n = N;
@@ -121,7 +120,7 @@ namespace pat
 
 	bool SpaceParam::have_points()
 	{
-
+        return false;
 	}
 
 	bool SpaceParam::exist(std::string name)

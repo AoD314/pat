@@ -1,8 +1,14 @@
 
-#include <iostream>
+#include <QtGui>
+
+#include "pat/pat.hpp"
 
 int main(int argc, char ** argv)
 {
-    return 0;
+    QCoreApplication app(argc, argv);
+
+    pat::Application pat_app(argc, argv);
+
+    return app.exec();
 }
 

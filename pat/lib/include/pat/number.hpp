@@ -4,6 +4,8 @@
 
 #include "patconfig.hpp"
 
+#include <QtCore>
+
 #include <string>
 #include <ostream>
 
@@ -61,6 +63,9 @@ namespace pat
 			friend const Number operator / (const Number& left, const Number& right);
 
 			friend std::ostream& operator << (std::ostream&, const Number&);
+
+            friend QDataStream & operator << (QDataStream &stream, const Number &num);
+            friend QDataStream & operator >> (QDataStream &stream, Number &num);
 
 		private:
 

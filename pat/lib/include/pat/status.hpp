@@ -16,9 +16,7 @@ namespace pat
 			size_t N;
 			double cur_eps;
 			double eps;
-
 	};
-
 }
 
 #endif
