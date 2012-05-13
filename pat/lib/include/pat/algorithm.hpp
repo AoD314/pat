@@ -23,6 +23,7 @@ namespace pat
 			FunctionND function(const Point & point);
 
 			volatile mutable int * lock;
+			volatile bool is_run;
 
 			SpaceParam * space_param;
 
@@ -34,6 +35,7 @@ namespace pat
 		public:
 			PAT_Algorithm(SpaceParam * sp);
 			virtual void run() = 0;
+			bool isrun();
 			virtual ~PAT_Algorithm();
 
 		signals:

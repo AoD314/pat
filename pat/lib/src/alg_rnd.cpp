@@ -12,6 +12,7 @@ namespace pat
 
 	void PAT_RND::run()
 	{
+		is_run = true;
 		init();
 
 		QElapsedTimer timer;

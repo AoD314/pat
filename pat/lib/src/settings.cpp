@@ -4,13 +4,13 @@
 namespace pat
 {
 
-    Settings::Settings(int, char **)
-    {}
+	Settings::Settings(int, char **)
+	{}
 
-    int Settings::port()
-    {
-        return 13314;
-    }
+	int Settings::port()
+	{
+		return 13314;
+	}
 
 
 }

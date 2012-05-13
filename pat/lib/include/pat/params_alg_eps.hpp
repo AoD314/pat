@@ -6,13 +6,14 @@
 
 namespace pat
 {
-    class PAT_EXPORTS params_eps
-    {
-        protected:
-            double eps;
-        public:
-            void set_eps(double e);
-    };
+	class PAT_EXPORTS params_eps
+	{
+		protected:
+			double eps;
+		public:
+			params_eps();
+			void set_eps(double e);
+	};
 }
 
 #endif

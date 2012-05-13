@@ -7,13 +7,13 @@
 
 namespace pat
 {
-    class PAT_EXPORTS params_dx
-    {
-        protected:
-            std::vector<double> dx;
-        public:
-            void set_dx(std::vector<double> & v);
-    };
+	class PAT_EXPORTS params_dx
+	{
+		protected:
+			std::vector<double> dx;
+		public:
+			void set_dx(std::vector<double> & v);
+	};
 
 }
 

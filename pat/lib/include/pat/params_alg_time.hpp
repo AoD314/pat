@@ -7,13 +7,14 @@
 
 namespace pat
 {
-    class PAT_EXPORTS params_time
-    {
-        protected:
-            size_t time;
-        public:
-            void set_time(size_t t);
-    };
+	class PAT_EXPORTS params_time
+	{
+		protected:
+			size_t time;
+		public:
+			params_time();
+			void set_time(size_t t);
+	};
 
 }
 

@@ -6,13 +6,13 @@
 
 namespace pat
 {
-    class PAT_EXPORTS Settings
-    {
-        public:
-            Settings(int , char ** );
+	class PAT_EXPORTS Settings
+	{
+		public:
+			Settings(int , char ** );
 
-            int port();
-    };
+			int port();
+	};
 
 }
 #endif

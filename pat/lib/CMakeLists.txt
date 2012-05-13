@@ -1,6 +1,10 @@
 
 cmake_minimum_required(VERSION 2.8.4)
 
+set(target patlib)
+
+project(${target})
+
 file(GLOB lib_srcs "src/*.cpp")
 
 file(GLOB lib_hdrs "include/pat/*.hpp")
@@ -26,5 +30,5 @@ ADD_DEFINITIONS(${QT_DEFINITIONS})
 ADD_DEFINITIONS(-DQT_PLUGIN)
 ADD_DEFINITIONS(-DQT_SHARED)
 
-add_library(patlib SHARED ${lib_srcs} ${lib_hdrs} ${lib_mocs_obj})
-target_link_libraries(patlib ${QT_LIBRARIES})
+add_library(${target} SHARED ${lib_srcs} ${lib_hdrs} ${lib_mocs_obj})
+target_link_libraries(${target} ${QT_LIBRARIES})

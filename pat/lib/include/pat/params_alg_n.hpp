@@ -7,13 +7,14 @@
 
 namespace pat
 {
-    class PAT_EXPORTS params_n
-    {
-        protected:
-            size_t n;
-        public:
-            void set_n(size_t n);
-    };
+	class PAT_EXPORTS params_n
+	{
+		protected:
+			size_t n;
+		public:
+			params_n();
+			void set_n(size_t n);
+	};
 }
 
 #endif
