@@ -10,21 +10,25 @@
 
 namespace pat
 {
-    class PAT_EXPORTS Gen
-    {
-        private:
-            std::string type;
-            std::vector<Number> list;
+	class PAT_EXPORTS Gen
+	{
+		private:
+			std::string type;
+			std::vector<Number> list;
 
-        public:
-            Gen(){}
-            Gen(Number a, Number b);
-            Gen(Number a, Number b, Number step);
-            Gen(const std::vector<Number> & v);
+		public:
+			Gen(){}
+			Gen(Number a, Number b);
+			Gen(Number a, Number b, Number step);
+			Gen(const std::vector<Number> & v);
 
-            std::string get_type();
-            std::vector<Number> get_list();
-    };
+			Number min();
+			Number max();
+			Number middle();
+
+			std::string get_type();
+			std::vector<Number> get_list();
+	};
 }
 
 #endif

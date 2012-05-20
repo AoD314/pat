@@ -28,6 +28,7 @@ namespace pat
 		public slots:
 			void print_log(QString msg);
 			void algorithm(QString name);
+			void init(QString name, Gen gen);
 	};
 
 }

@@ -59,16 +59,16 @@ namespace pat
 	{
 		for (size_t i = 0; i < names.size(); ++i)
 		{
-			current_point.add(space.at(i).min);
+			current_point.add(space.at(i).min());
 		}
 	}
 
-	void SpaceParam::add(std::string name, Range r)
+	void SpaceParam::add(std::string name, Gen gen)
 	{
 		if (!exist(name))
 		{
 			names.push_back(name);
-			space.push_back(r);
+			space.push_back(gen);
 		}
 	}
 
@@ -102,11 +102,11 @@ namespace pat
 
 		for (size_t i = 0; i < names.size(); ++i)
 		{
-			Number n = space.at(i).max - space.at(i).min;
-			Number del = (space.at(i).max.delta() < space.at(i).min.delta()) ? space.at(i).max.delta(): space.at(i).min.delta();
+			Number n = space.at(i).max() - space.at(i).min();
+			Number del = (space.at(i).max().delta() < space.at(i).min().delta()) ? space.at(i).max().delta(): space.at(i).min().delta();
 			size_t count = static_cast<size_t>((n / del).to_int());
 			size_t r = rand() % count;
-			n = space.at(i).min + r * del;
+			n = space.at(i).min() + r * del;
 			p.add(n);
 		}
 
@@ -120,7 +120,7 @@ namespace pat
 
 	bool SpaceParam::have_points()
 	{
-        return false;
+		return false;
 	}
 
 	bool SpaceParam::exist(std::string name)
@@ -152,8 +152,7 @@ namespace pat
 
 			for (size_t i = 0; i < space.size(); ++i)
 			{
-				Range r(space[i]);
-				point.add((r.min + r.max) / 2);
+				point.add(space[i].middle());
 			}
 
 			return point;
@@ -187,11 +186,11 @@ namespace pat
 
 			if (div_points[i] == 1)
 			{
-				num = space[i].min;
+				num = space[i].min();
 			}
 			else
 			{
-				num = space[i].min + j * (space[i].max - space[i].min) / (div_points[i] - 1);
+				num = space[i].min() + j * (space[i].max() - space[i].min()) / (div_points[i] - 1);
 			}
 
 			point.add(num);
@@ -206,7 +205,7 @@ namespace pat
 			Point p;
 			for (size_t i = 0; i < space.size(); i++)
 			{
-				p.add(space.at(i).min);
+				p.add(space.at(i).min());
 			}
 			return p;
 		}
@@ -215,11 +214,11 @@ namespace pat
 			Point p;
 			for (size_t i = 0; i < index; i++)
 			{
-				p.add(space.at(i).max);
+				p.add(space.at(i).max());
 			}
 			for (size_t i = index; i < space.size(); i++)
 			{
-				p.add(space.at(i).min);
+				p.add(space.at(i).min());
 			}
 			return p;
 		}

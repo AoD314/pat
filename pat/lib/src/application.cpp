@@ -14,6 +14,7 @@ namespace pat
 	{
 		connect(&server, SIGNAL(log(QString)), this, SLOT(print_log(QString)));
 		connect(&server, SIGNAL(alg(QString)), this, SLOT(algorithm(QString)));
+		connect(&server, SIGNAL(init(QString,Gen)), this, SLOT(init(QString, Gen)));
 	}
 
 	void Application::print_log(QString msg)
@@ -26,19 +27,17 @@ namespace pat
 	{
 		if (name.compare("RND") == 0)
 		{
-			if (alg != 0)
+			if (alg == 0 && sp == 0)
 			{
-				delete alg;
+				sp = new SpaceParam();
+				alg = new PAT_RND(sp);
 			}
-
-			if (sp != 0)
-			{
-				delete sp;
-			}
-
-			sp = new SpaceParam();
-			alg = new PAT_RND(sp);
 		}
+	}
+
+	void Application::init(QString name, Gen gen)
+	{
+		sp->add(name.toStdString(), gen);
 	}
 
 }

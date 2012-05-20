@@ -7,7 +7,7 @@
 
 #include "patconfig.hpp"
 #include "pat/point.hpp"
-#include "pat/range.hpp"
+#include "pat/generator.hpp"
 
 namespace pat
 {
@@ -16,7 +16,7 @@ namespace pat
 		public:
 			SpaceParam(size_t N = 64, double eps = 0.000025, size_t time = 1000000000);
 
-			void add(std::string name, Range r);
+			void add(std::string name, Gen gen);
 
 			void set_current_point(Point p);
 
@@ -43,7 +43,7 @@ namespace pat
 			void initialize();
 			Point def_point;
 			Point current_point;
-			std::vector<Range>       space;
+			std::vector<Gen>       space;
 			std::vector<std::string> names;
 
 			std::vector<int>    div_points;
