@@ -21,14 +21,25 @@ namespace pat
 			Server server;
 			PAT_Algorithm * alg;
 			SpaceParam * sp;
+			QProcess * app;
 
 		public:
 			Application(int argc, char ** argv);
+
+
+		signals:
+			void quit(int);
 
 		public slots:
 			void print_log(QString msg);
 			void algorithm(QString name);
 			void init(QString name, Gen gen);
+			void get(QString name);
+			void result(double result);
+
+			void run_app(const Point & p);
+			void app_finished(int code);
+			void publish_result(FunctionND func);
 	};
 
 }

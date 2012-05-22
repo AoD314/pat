@@ -1,6 +1,8 @@
 
 cmake_minimum_required(VERSION 2.8.4)
 
+set(CMAKE_BUILD_TYPE "Debug")
+
 set(target patlib)
 
 project(${target})

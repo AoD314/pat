@@ -11,7 +11,11 @@ namespace pat
 
 		emit run_application(point);
 
-		while (*lock != 0){ }
+		QEventLoop loop;
+		while (*lock != 0)
+		{
+			loop.processEvents();
+		}
 
 		function_nd.point = point;
 		return function_nd;

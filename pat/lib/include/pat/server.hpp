@@ -16,6 +16,7 @@ namespace pat
 		Q_OBJECT
 
 		private:
+			quint64 count_connection;
 			quint32 block_size;
 			QTcpSocket * last_client;
 

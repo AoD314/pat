@@ -6,6 +6,7 @@ namespace pat
 	Server::Server(Settings settings)
 	{
 		block_size = 0;
+		count_connection = 0;
 
 		if (!this->listen(QHostAddress::Any, settings.port()))
 		{
@@ -18,25 +19,33 @@ namespace pat
 
 	void Server::read()
 	{
+		emit log(QString("sender() = ") + QString(sender()->staticMetaObject.className()));
+
 		QTcpSocket * client = (QTcpSocket *)sender();
+
 		last_client = client;
-		QDataStream in(client);
+		QDataStream in(last_client);
 		in.setVersion(QDataStream::Qt_4_7);
 
 		QString cmd;
 
 		for (;;)
 		{
+			emit log(QString("block size = ") +QString::number(block_size));
+			emit log(QString("client = ") + QString::number((size_t)last_client, 16));
+			emit log(QString("client->bytesAvailable() = ") + QString::number(last_client->bytesAvailable()));
+
 			if (!block_size)
 			{
-				if (static_cast<size_t>(client->bytesAvailable()) < sizeof(quint32))
+				if (static_cast<size_t>(last_client->bytesAvailable()) < sizeof(quint32))
 				{
 					break;
 				}
 				in >> block_size;
+				emit log(QString("block size = ") +QString::number(block_size) + QString("     client->bytesAvailable() = ") + QString::number(client->bytesAvailable()));
 			}
 
-			if (client->bytesAvailable() < block_size)
+			if (last_client->bytesAvailable() < block_size)
 			{
 				break;
 			}
@@ -45,7 +54,7 @@ namespace pat
 
 			block_size = 0;
 
-			if      (cmd.compare("init") == 0)
+			if (cmd.compare("init") == 0)
 			{
 				QString name, type, size_s;
 				in >> name;
@@ -82,7 +91,6 @@ namespace pat
 			{
 				QString name;
 				in >> name;
-
 
 				emit log(QString("read command : get " + name));
 				emit get(name);
@@ -130,8 +138,11 @@ namespace pat
 
 	void Server::new_connection()
 	{
-		emit log("new connection");
+		count_connection++;
+		emit log("\n ===================================================== \n");
+		emit log("new connection : " + QString::number(count_connection));
 		QTcpSocket * client = this->nextPendingConnection();
+		emit log(QString("new client = ") + QString::number((size_t)client, 16));
 		connect(client, SIGNAL(disconnected()), client, SLOT(deleteLater()));
 		connect(client, SIGNAL(readyRead()),    this,   SLOT(read()));
 	}
