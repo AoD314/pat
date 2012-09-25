@@ -64,8 +64,8 @@ namespace pat
 
 			friend std::ostream& operator << (std::ostream&, const Number&);
 
-            friend QDataStream & operator << (QDataStream &stream, const Number &num);
-            friend QDataStream & operator >> (QDataStream &stream, Number &num);
+			friend QDataStream & operator << (QDataStream &stream, const Number &num);
+			friend QDataStream & operator >> (QDataStream &stream, Number &num);
 
 		private:
 
@@ -75,7 +75,7 @@ namespace pat
 			long long int value_i;
 	};
 
-	Number abs(const Number & num);
+	Number abs(const Number &num);
 }
 
 #endif

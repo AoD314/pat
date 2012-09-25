@@ -491,44 +491,44 @@ namespace pat
 		return out;
 	}
 
-    QDataStream & operator << (QDataStream &stream, const Number & n)
-    {
-        QString type;
-        if (n.type_v == float_t)
-        {
-            type = "f";
-            stream << type << n.value_f;
-        }
+	QDataStream & operator << (QDataStream &stream, const Number & n)
+	{
+		QString type;
+		if (n.type_v == float_t)
+		{
+			type = "f";
+			stream << type << n.value_f;
+		}
 
-        if (n.type_v == int_t)
-        {
-            type = "l";
-            stream << type << n.value_i;
-        }
+		if (n.type_v == int_t)
+		{
+			type = "l";
+			stream << type << n.value_i;
+		}
 
-        return stream;
-    }
+		return stream;
+	}
 
-    QDataStream & operator >> (QDataStream &stream, Number & n)
-    {
-        QString type;
+	QDataStream & operator >> (QDataStream &stream, Number & n)
+	{
+		QString type;
 
-        stream >> type;
-        if (type.compare("f") == 0)
-        {
-            double d;
-            stream >> d;
-            n = Number(d);
-        }
-        else if (type.compare("l") == 0)
-        {
-            long long int l;
-            stream >> l;
-            n = Number(l);
-        }
+		stream >> type;
+		if (type.compare("f") == 0)
+		{
+			double d;
+			stream >> d;
+			n = Number(d);
+		}
+		else if (type.compare("l") == 0)
+		{
+			long long int l;
+			stream >> l;
+			n = Number(l);
+		}
 
-        return stream;
-    }
+		return stream;
+	}
 
 
 

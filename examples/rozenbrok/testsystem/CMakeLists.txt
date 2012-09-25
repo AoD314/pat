@@ -18,5 +18,5 @@ file(GLOB hdrs "*.hpp")
 
 add_executable( ${target} ${srcs} ${hdrs} )
 
-target_link_libraries( ${target} ${PAT_LIBS})
+target_link_libraries( ${target} ${PAT_LIBS} ${QT_LIBRARIES})
 

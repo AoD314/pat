@@ -102,22 +102,11 @@ namespace pat
 	Point PAT_Gradient::norm(const Point & point)
 	{
 		Point p(point);
-		Number n(0);
-
-		for (size_t i = 0; i < p.dim(); ++i)
-		{
-			if (abs(p[i]) > n)
-			{
-				n = abs(p[i]);
-			}
-		}
+		Number n = max(abs(point));
 
 		if (n < 1) n = 1;
 
-		for (size_t i = 0; i < p.dim(); ++i)
-		{
-			p[i] /= n;
-		}
+		p /= n;
 
 		return p;
 	}

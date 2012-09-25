@@ -19,6 +19,8 @@ int main(int, const char **)
 	alg.set_time(1000);
 	alg.set_n(500000);
 
+	// pat::RND_RND
+
 	std::cout << "init : X" << std::endl;
 	alg.init("x", pat::Gen(-8.25, 11.5));
 	std::cout << "init : Y" << std::endl;

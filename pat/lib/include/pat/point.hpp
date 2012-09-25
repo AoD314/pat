@@ -59,6 +59,12 @@ namespace pat
 			std::vector<Number> point;
 	};
 
+
+	Point abs(const Point & point);
+	Number max(const Point & p);
+	Number min(const Point & p);
+
+
 }
 
 #endif
