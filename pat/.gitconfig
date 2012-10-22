@@ -1,0 +1,5 @@
+alias.hist=log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
+alias.st=status
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
