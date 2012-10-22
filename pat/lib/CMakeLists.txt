@@ -1,5 +1,5 @@
 
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 2.8.9)
 
 set(CMAKE_BUILD_TYPE "Debug")
 
@@ -20,13 +20,9 @@ foreach(f ${lib_hdrs})
     endif()
 endforeach()
 
-#message(STATUS "srcs: ${lib_srcs}")
-#message(STATUS "hdrs: ${lib_hdrs}")
-#message(STATUS "mocs: ${lib_mocs}")
-
 qt4_wrap_cpp(lib_mocs_obj ${lib_mocs})
 
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 ADD_DEFINITIONS(${QT_DEFINITIONS})
 ADD_DEFINITIONS(-DQT_PLUGIN)

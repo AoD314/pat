@@ -1,5 +1,8 @@
 
 #include "pat/client.hpp"
+#include <QtNetwork/QTcpSocket>
+#include <QtNetwork/QTcpServer>
+
 
 namespace pat
 {
@@ -106,5 +109,17 @@ namespace pat
 		socket->waitForBytesWritten();
 	}
 
+	void client::init(const std::string & name, Gen gen)
+	{
+		std::vector<std::string> msgs;
+		msgs.push_back("init");
+		msgs.push_back(name);
+		msgs.push_back(gen.get_type());
+
+		std::vector<Number> l = gen.get_list();
+		msgs.push_back(QString::number(l.size()).toStdString());
+
+		send_message_to_server(msgs, l);
+	}
 
 }

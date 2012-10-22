@@ -2,16 +2,16 @@
 #ifndef __CLIENT_HPP__
 #define __CLIENT_HPP__
 
-#include <QtNetwork/QTcpSocket>
-#include <QtNetwork/QTcpServer>
-
 #include "patconfig.hpp"
 #include "pat/convert.hpp"
 #include "pat/generator.hpp"
 
+class QTcpSocket;
+class QString;
+typedef unsigned int quint32;
+
 namespace pat
 {
-
 	class PAT_EXPORTS client
 	{
 		private:
@@ -41,19 +41,7 @@ namespace pat
 				return from_str<T>(receive_message_from_server());
 			}
 
-			void init(const std::string & name, Gen gen)
-			{
-				std::vector<std::string> msgs;
-				msgs.push_back("init");
-				msgs.push_back(name);
-				msgs.push_back(gen.get_type());
-
-				std::vector<Number> l = gen.get_list();
-				msgs.push_back(QString::number(l.size()).toStdString());
-
-				send_message_to_server(msgs, l);
-			}
-
+			void init(const std::string & name, Gen gen);
 
 	};
 

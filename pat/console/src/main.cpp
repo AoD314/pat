@@ -1,7 +1,8 @@
 
 #include <QtGui>
 
-#include "pat/pat.hpp"
+#include <pat/pat.hpp>
+#include "pat/application.hpp"
 
 int main(int argc, char ** argv)
 {

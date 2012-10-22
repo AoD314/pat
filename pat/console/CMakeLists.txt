@@ -1,5 +1,5 @@
 
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 2.8.9)
 
 set(CMAKE_BUILD_TYPE "Debug")
 
@@ -20,5 +20,5 @@ ADD_DEFINITIONS(${QT_DEFINITIONS})
 ADD_DEFINITIONS(-DQT_PLUGIN)
 ADD_DEFINITIONS(-DQT_SHARED)
 
-add_executable(pat_console ${console_srcs} ${console_hdrs} ${console_mocs_obj} ${qrc_sources} ${translations})
+add_executable(pat_console ${console_srcs} ${console_hdrs} ${console_mocs_obj})
 target_link_libraries(pat_console ${QT_LIBRARIES} patlib)

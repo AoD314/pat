@@ -4,10 +4,10 @@
 
 #include "patconfig.hpp"
 
-#include <QtCore>
-
 #include <string>
 #include <ostream>
+
+class QDataStream;
 
 namespace pat
 {

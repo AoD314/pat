@@ -2,7 +2,7 @@
 #ifndef __APPLICATION_HPP__
 #define __APPLICATION_HPP__
 
-#include <QtCore>
+#include <Qt/QtCore>
 
 #include "patconfig.hpp"
 #include "pat/settings.hpp"

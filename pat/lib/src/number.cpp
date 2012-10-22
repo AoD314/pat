@@ -2,6 +2,8 @@
 #include <iomanip>
 #include <cmath>
 
+#include <QtCore>
+
 #include "pat/convert.hpp"
 #include "pat/number.hpp"
 
