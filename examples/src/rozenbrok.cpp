@@ -4,7 +4,7 @@
 #include <limits>
 #include <stdlib.h>
 
-#include "pat/pat.hpp"
+#include <pat/pat.hpp>
 
 using std::cout;
 using std::cin;
@@ -19,8 +19,6 @@ int main(int, const char **)
 	alg.set_time(1000);
 	alg.set_n(500000);
 
-	// pat::RND_RND
-
 	std::cout << "init : X" << std::endl;
 	alg.init("x", pat::Gen(-8.25, 11.5));
 	std::cout << "init : Y" << std::endl;
@@ -28,13 +26,18 @@ int main(int, const char **)
 
 	try
 	{
-		std::cout << "get : X" << std::endl;
+		std::cout << "get : X = ";
 		double x = alg.get<double>("x");
-		std::cout << "get : Y" << std::endl;
-		double y = alg.get<double>("y");
+		std::cout << x << std::endl;
 
-		std::cout << "calc error" << std::endl;
+		std::cout << "get : Y = ";
+		double y = alg.get<double>("y");
+		std::cout << y << std::endl;
+
+		std::cout << "calc error = ";
 		total_err = (1 - x) * (1 - x) + 100.0 * (y - x * x) * (y - x * x);
+		std::cout << total_err << std::endl;
+
 	}
 	catch(...)
 	{
@@ -42,8 +45,6 @@ int main(int, const char **)
 	}
 
 	///////////////////////////////////////////////
-
-	cout << "total error is : " << total_err << endl;
 
 	pat::System sys;
 	std::cout << "send result" << std::endl;
