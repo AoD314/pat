@@ -1,42 +1,21 @@
 
 cmake_minimum_required(VERSION 2.8.9)
 
-project(pat)
-
-include(cmake/req.cmake)
-
+# Add directory to CMake's module path
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+include(cmake/project_utils.cmake)
 include(cmake/compilers.cmake)
+include(cmake/pat_version.cmake)
+include(cmake/doc.cmake)
+
+set_project("pat")
+set_dependency("qt4")
 
 include(cmake/config.cmake)
 
-include(cmake/FindQt4.cmake)
-
-include(cmake/doc.cmake)
-
-
-## BUILD ##
-
 add_subdirectory(lib)
-add_subdirectory(console)
-
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/PATConfig.cmake.in" "${CMAKE_BINARY_DIR}/PATConfig.cmake" IMMEDIATE @ONLY)
+add_subdirectory(app)
 
 include(cmake/post_build.cmake)
-
 include(cmake/install.cmake)
-
-# ----------------------------------------------------------------------------
-# STATUS
-# ----------------------------------------------------------------------------
-
-message(STATUS "")
-message(STATUS "General configuration for pat ${pat_version} =====================================")
-message(STATUS "")
-message(STATUS "    Configuration type : " ${CMAKE_BUILD_TYPE} )
-message(STATUS "")
-message(STATUS "    C++ flags (common) : " ${CMAKE_CXX_FLAGS} )
-message(STATUS "    C++ flags (Release): " ${CMAKE_CXX_FLAGS_RELEASE})
-message(STATUS "    C++ flags (Debug)  : " ${CMAKE_CXX_FLAGS_DEBUG} )
-message(STATUS "")
-
-# ----------------------------------------------------------------------------
+include(cmake/status.cmake)
