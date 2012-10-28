@@ -1,0 +1,3 @@
+
+message("CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
+message("CMAKE_C_FLAGS   : ${CMAKE_C_FLAGS}")
