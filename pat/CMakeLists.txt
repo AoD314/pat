@@ -7,22 +7,17 @@ include(cmake/req.cmake)
 
 include(cmake/compilers.cmake)
 
-include(cmake/docs.cmake)
-
 include(cmake/config.cmake)
 
 include(cmake/FindQt4.cmake)
+
+include(cmake/doc.cmake)
+
 
 ## BUILD ##
 
 add_subdirectory(lib)
 add_subdirectory(console)
-
-#set(BUILD_GUI false CACHE BOOL "Build with GUI")
-
-#if(BUILD_GUI)
-#    add_subdirectory(gui)
-#endif()
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/PATConfig.cmake.in" "${CMAKE_BINARY_DIR}/PATConfig.cmake" IMMEDIATE @ONLY)
 
