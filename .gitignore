@@ -1,6 +1,5 @@
-/build
-/examples/build
+/build-*
 *.user
-result.png
 .*.un~
 pat/doc/html/
+pat/doc/latex/
