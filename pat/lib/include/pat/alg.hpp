@@ -5,7 +5,8 @@
 #include <vector>
 
 #include "patconfig.hpp"
-#include <pat/number.hpp>
+#include "pat/number.hpp"
+#include "pat/generator.hpp"
 
 namespace pat
 {
@@ -45,7 +46,18 @@ namespace pat
 			//! \param time - in seconds
 			void set_time(size_t time);
 
-		private:
+			template <typename T>
+			T get(const std::string & name)
+			{
+				//std::vector<std::string> msgs;
+				//msgs.push_back("get");
+				//msgs.push_back(name);
+				//send_message_to_server(msgs);
+
+				return from_str<T>(receive_message_from_server());
+			}
+
+			void init(const std::string & name, Gen gen);
 
 	};
 

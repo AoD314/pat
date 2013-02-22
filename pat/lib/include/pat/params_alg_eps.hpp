@@ -12,7 +12,7 @@ namespace pat
 			double eps;
 		public:
 			params_eps();
-			void set_eps(double e);
+
 	};
 }
 

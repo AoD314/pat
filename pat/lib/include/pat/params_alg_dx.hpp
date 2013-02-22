@@ -12,7 +12,7 @@ namespace pat
 		protected:
 			std::vector<double> dx;
 		public:
-			void set_dx(std::vector<double> & v);
+
 	};
 
 }
