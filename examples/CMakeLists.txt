@@ -1,5 +1,4 @@
-cmake_minimum_required(VERSION 2.8.9)
 
-project("examples")
+#set_dependency("pat")
 
-add_subdirectory(rosenbrok)
+add_application("rozenbrok" "rozenbrok")

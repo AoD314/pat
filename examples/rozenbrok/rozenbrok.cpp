@@ -37,7 +37,6 @@ int main(int, const char **)
 		std::cout << "calc error = ";
 		total_err = (1 - x) * (1 - x) + 100.0 * (y - x * x) * (y - x * x);
 		std::cout << total_err << std::endl;
-
 	}
 	catch(...)
 	{

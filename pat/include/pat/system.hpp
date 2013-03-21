@@ -4,7 +4,6 @@
 
 #include <typeinfo>
 
-
 #include "pat/convert.hpp"
 #include "patconfig.hpp"
 

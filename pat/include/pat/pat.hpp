@@ -1,6 +1,7 @@
 
 #ifndef __PAT_HPP__
 #define __PAT_HPP__
+
 #define use_pat_system
 
 #include "pat/alg.hpp"
