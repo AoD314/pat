@@ -12,8 +12,8 @@ if(CXX_GCC)
     endif()
 
     if(${ENABLE_C++11})
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 ")
-        set(CMAKE_C_FLAGS     "${CMAKE_C_FLAGS} -std=c++11 ")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x ")
+        set(CMAKE_C_FLAGS     "${CMAKE_C_FLAGS} -std=c++0x ")
     endif()
 
     if(${ENABLE_DEBUG_INFO})

@@ -19,7 +19,7 @@ namespace pat
 			std::vector<Number> list;
 
 		public:
-			Gen(){}
+            Gen();
 			Gen(Number a, Number b);
 			Gen(Number a, Number b, Number step);
 			Gen(const std::vector<Number> & v);

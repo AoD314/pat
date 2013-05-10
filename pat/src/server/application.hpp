@@ -27,6 +27,7 @@ namespace pat
 
 		public:
 			Application(int argc, char ** argv);
+            ~Application();
 
 
 		signals:

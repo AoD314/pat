@@ -23,6 +23,25 @@ namespace pat
 		emit run_app(Point());
 	}
 
+    Application::~Application()
+    {
+        if (sp != 0)
+        {
+            delete sp;
+        }
+
+        if (alg != 0)
+        {
+            delete alg;
+        }
+
+        if (app != 0)
+        {
+            app->waitForFinished();
+            delete app;
+        }
+    }
+
     void Application::update_status(const Status & status)
     {
         std::string minimum = to_str(status.minimum);
@@ -128,7 +147,7 @@ namespace pat
 			sp->set_current_point(p);
 		}
 
-		std::string path_to_app = settings.path_to_app();
+        QString path_to_app = QString::fromStdString(settings.path_to_app());
 
 		if (app != 0)
 		{
@@ -136,11 +155,11 @@ namespace pat
 			delete app;
 		}
 
-		app = new QProcess;
+        app = new QProcess;
 
 		connect(app, SIGNAL(finished(int)), this, SLOT(app_finished(int)));
         //emit print_log("run application : " + QString::fromStdString(path_to_app));
-		app->start(QString::fromStdString(path_to_app));
+        app->start(path_to_app);
 	}
 
 	void Application::app_finished(int code)

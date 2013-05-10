@@ -16,16 +16,16 @@ namespace pat
 		msgs.push_back("alg");
 		switch(alg)
 		{
-			case PAT_ALGORITHM::PAT_ALG_RND: 
+            case PAT_ALG_RND:
 				msgs.push_back("rnd");
 				break;
-			case PAT_ALGORITHM::PAT_ALG_BF: 
+            case PAT_ALG_BF:
 				msgs.push_back("bf");
 				break;
-			case PAT_ALGORITHM::PAT_ALG_GR: 
+            case PAT_ALG_GR:
 				msgs.push_back("gr");
 				break;
-			case PAT_ALGORITHM::PAT_ALG_DHS: 
+            case PAT_ALG_DHS:
 				msgs.push_back("dhs");
 				break;
 		}

@@ -15,10 +15,10 @@ int main(int, const char **)
 	double total_err = 0;
 
 	std::cout << "create alg ... ";
-	pat::Alg alg(pat::PAT_ALG_RND);
+    pat::Alg alg(pat::PAT_ALG_GR);
 	std::cout << "done.\n" 
 		      << "set_n(value) ... ";
-	alg.set_n(64);
+    alg.set_n(150);
 	std::cout << "done." << std::endl;
 
 	std::cout << "init : X" << std::endl;

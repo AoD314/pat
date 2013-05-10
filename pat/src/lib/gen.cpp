@@ -3,6 +3,7 @@
 
 namespace pat
 {
+    Gen::Gen() {}
 
 	Gen::Gen(Number a, Number b)
 	{
