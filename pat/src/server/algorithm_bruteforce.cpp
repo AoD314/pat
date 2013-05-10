@@ -15,6 +15,7 @@ namespace pat
 
 	void BruteForce::run()
 	{
+        is_run = true;
 		init();
 
 		QElapsedTimer timer;

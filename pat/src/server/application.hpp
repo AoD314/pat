@@ -10,6 +10,7 @@
 #include "server.hpp"
 #include "algorithm.hpp"
 #include "space_param.hpp"
+#include "status.hpp"
 
 namespace pat
 {
@@ -38,6 +39,8 @@ namespace pat
 			void init(QString name, Gen gen);
 			void get(QString name);
 			void result(double result);
+
+            void update_status(const Status & status);
 
 			void run_app(const Point & p);
 			void app_finished(int code);

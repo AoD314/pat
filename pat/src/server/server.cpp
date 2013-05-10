@@ -14,7 +14,7 @@ namespace pat
 		}
 
 		connect(this, SIGNAL(newConnection()), this, SLOT(new_connection()));
-		emit log(QString("start server on port: " + QString::number(settings.port())));
+//		emit log(QString("start server on port: " + QString::number(settings.port())));
 	}
 
 	void Server::read()
@@ -52,7 +52,7 @@ namespace pat
 
 			block_size = 0;
 
-			emit log (QString("read command : " + cmd ));
+            //emit log (QString("read command : " + cmd ));
 
 			if (cmd.compare("init") == 0)
 			{
@@ -61,7 +61,7 @@ namespace pat
 				in >> type;
 				in >> size_s;
 
-				emit log (QString("read command : init " + name + " " + type + " " + size_s ));
+                //emit log (QString("read command : init " + name + " " + type + " " + size_s ));
 
 				size_t size = from_str<size_t>(size_s.toStdString());
 				Number value;
@@ -75,23 +75,23 @@ namespace pat
 
 				if (type.compare("ab") == 0)
 				{
-					emit init(name, Gen(list.at(0), list.at(1)));
-					emit log (QString("read command : init " + name + " (" + 
-						QString::fromStdString(list.at(0).str()) + ", " + 
-						QString::fromStdString(list.at(1).str()) + ") "));
+                    emit init(name, Gen(list.at(0), list.at(1)));
+//					emit log (QString("read command : init " + name + " (" +
+//						QString::fromStdString(list.at(0).str()) + ", " +
+//						QString::fromStdString(list.at(1).str()) + ") "));
 				}
 				else if (type.compare("abs") == 0)
 				{
 					emit init(name, Gen(list.at(0), list.at(1), list.at(2)));
-					emit log (QString("read command : init " + name + " (" + 
-						QString::fromStdString(list.at(0).str()) + ", " + 
-						QString::fromStdString(list.at(1).str()) + ", " + 
-						QString::fromStdString(list.at(2).str()) + " ) "));
+//					emit log (QString("read command : init " + name + " (" +
+//						QString::fromStdString(list.at(0).str()) + ", " +
+//						QString::fromStdString(list.at(1).str()) + ", " +
+//						QString::fromStdString(list.at(2).str()) + " ) "));
 				}
 				else if (type.compare("vec") == 0)
 				{
 					emit init(name, Gen(list));
-					emit log (QString("read command : init " + name + " vec.size = " + QString::number(list.size())));
+//					emit log (QString("read command : init " + name + " vec.size = " + QString::number(list.size())));
 				}
 
 			}
@@ -100,7 +100,7 @@ namespace pat
 				QString name;
 				in >> name;
 
-				emit log(QString("read command : get " + name));
+//				emit log(QString("read command : get " + name));
 				emit get(name);
 			}
 			else if (cmd.compare("alg") == 0)
@@ -108,7 +108,7 @@ namespace pat
 				QString name;
 				in >> name;
 
-				emit log(QString("read command : alg " + name));
+//				emit log(QString("read command : alg " + name));
 				emit alg(name);
 			}
 			else if (cmd.compare("params") == 0)
@@ -118,7 +118,7 @@ namespace pat
 				in >> name;
 				in >> value;
 
-				emit log(QString("read params : " + name + " = " + value));
+//				emit log(QString("read params : " + name + " = " + value));
 				emit params(name, value);
 			}
 			else if (cmd.compare("result") == 0)
@@ -126,7 +126,7 @@ namespace pat
 				QString value;
 				in >> value;
 
-				emit log(QString("read command : result " + value));
+//				emit log(QString("read command : result " + value));
 				emit result(from_str<double>(value.toStdString()));
 			}
 		}
@@ -134,7 +134,7 @@ namespace pat
 
 	void Server::send_value_to_client(QTcpSocket * socket, QString value)
 	{
-		emit log(QString("send value(" + value + ") to client"));
+//		emit log(QString("send value(" + value + ") to client"));
 		QByteArray arr_block;
 		QDataStream out(&arr_block, QIODevice::WriteOnly);
 		out.setVersion(QDataStream::Qt_4_7);
@@ -150,14 +150,14 @@ namespace pat
 
 	void Server::send_to_client(QString value)
 	{
-		emit log(QString("send to client : " + value));
+//		emit log(QString("send to client : " + value));
 		send_value_to_client(last_client, value);
 	}
 
 	void Server::new_connection()
 	{
 		count_connection++;
-		emit log("\n ===================================================== \n");
+//		emit log("\n ===================================================== \n");
 		QTcpSocket * client = this->nextPendingConnection();
 		connect(client, SIGNAL(disconnected()), client, SLOT(deleteLater()));
 		connect(client, SIGNAL(readyRead()),    this,   SLOT(read()));

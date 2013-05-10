@@ -11,6 +11,7 @@ namespace pat
 
 	void Downhill_Simplex::run()
 	{
+        is_run = true;
 		init();
 
 		QElapsedTimer timer;

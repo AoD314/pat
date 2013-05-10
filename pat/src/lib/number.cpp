@@ -178,7 +178,7 @@ namespace pat
 		{
 			return left.to_float() < right.to_float();
 		}
-		throw std::exception();
+        throw std::exception();
 	}
 
 	bool operator >  (const Number& left, const Number& right)
@@ -195,7 +195,7 @@ namespace pat
 		{
 			return left.to_float() > right.to_float();
 		}
-		throw std::exception();
+        throw std::exception();
 	}
 
 	bool operator <= (const Number& left, const Number& right)
@@ -212,7 +212,7 @@ namespace pat
 		{
 			return left.to_float() <= right.to_float();
 		}
-		throw std::exception();
+        throw std::exception();
 	}
 
 	bool operator >= (const Number& left, const Number& right)
@@ -229,7 +229,7 @@ namespace pat
 		{
 			return left.to_float() >= right.to_float();
 		}
-		throw std::exception();
+        throw std::exception();
 	}
 
 	bool operator != (const Number& left, const Number& right)
@@ -251,7 +251,7 @@ namespace pat
 		{
 			return left.to_float() == right.to_float();
 		}
-		throw std::exception();
+        throw std::exception();
 	}
 
 	Number& Number::operator = (const Number & num)
@@ -283,7 +283,7 @@ namespace pat
 		}
 		else
 		{
-			double v;
+            double v = 0.0;
 			if (type_v == float_t)
 				v = value_f;
 			if (type_v == int_t)
@@ -312,7 +312,7 @@ namespace pat
 		}
 		else
 		{
-			double v;
+            double v = 0.0;
 			if (type_v == float_t)
 				v = value_f;
 			if (type_v == int_t)
@@ -342,7 +342,7 @@ namespace pat
 		}
 		else
 		{
-			double v;
+            double v = 0.0;
 			if (type_v == float_t)
 				v = value_f;
 			if (type_v == int_t)
@@ -371,7 +371,7 @@ namespace pat
 		}
 		else
 		{
-			double v;
+            double v = 0.0;
 			if (type_v == float_t)
 				v = value_f;
 			if (type_v == int_t)

@@ -13,6 +13,7 @@ namespace pat
 
 	void Gradient::run()
 	{
+        is_run = true;
 		init();
 
 		QElapsedTimer timer;
@@ -33,11 +34,11 @@ namespace pat
 		while(true)
 		{
 			Point grad = norm(gradient(x0));
-			x1 = x0 - 0.025 * lamda * grad;
-			x2 = x0 - 0.250 * lamda * grad;
-			x3 = x0 - 0.500 * lamda * grad;
-			x4 = x0 - 0.850 * lamda * grad;
-			x5 = x0 - 1.050 * lamda * grad;
+            x1 = x0 - 0.0025 * lamda * grad;
+            x2 = x0 - 0.0250 * lamda * grad;
+            x3 = x0 - 0.1250 * lamda * grad;
+            x4 = x0 - 0.5000 * lamda * grad;
+            x5 = x0 - 1.0500 * lamda * grad;
 
 			FunctionND f0 = function(x0);
 
@@ -48,11 +49,11 @@ namespace pat
 			FunctionND f5 = function(x5);
 
 			double koeff;
-			FunctionND    m = f1; x0 = x1; koeff = 0.025;
-			if (f2 < m)	{ m = f2; x0 = x2; koeff = 0.250; }
-			if (f3 < m)	{ m = f3; x0 = x3; koeff = 0.500; }
-			if (f4 < m)	{ m = f4; x0 = x4; koeff = 0.850; }
-			if (f5 < m)	{ m = f5; x0 = x5; koeff = 1.050; }
+            FunctionND    m = f1; x0 = x1; koeff = 0.0025;
+            if (f2 < m)	{ m = f2; x0 = x2; koeff = 0.0250; }
+            if (f3 < m)	{ m = f3; x0 = x3; koeff = 0.1250; }
+            if (f4 < m)	{ m = f4; x0 = x4; koeff = 0.5000; }
+            if (f5 < m)	{ m = f5; x0 = x5; koeff = 1.0500; }
 
 			lamda *= koeff;
 

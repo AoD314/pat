@@ -23,9 +23,18 @@ namespace pat
 		emit run_app(Point());
 	}
 
+    void Application::update_status(const Status & status)
+    {
+        std::string minimum = to_str(status.minimum);
+        emit print_log("progress : [" + QString::number(status.iter) + "/" + QString::number(status.N) + "] ~ " +
+                       QString::number(status.iter * 100.0 / static_cast<double>(status.N)) + "%        " +
+                       "eps: " + QString::number(status.cur_eps) + " (" + QString::number(status.eps) + ")            " +
+                       QString::fromStdString(minimum));
+    }
+
 	void Application::params(QString name, QString value)
 	{
-		emit print_log("set " + name + " = " + value);
+        //emit print_log("set " + name + " = " + value);
 
 		if (name.compare("n") == 0)
 		{
@@ -41,7 +50,7 @@ namespace pat
 
 	void Application::algorithm(QString name)
 	{
-		emit print_log("create algorithm : " + name);
+        //emit print_log("create algorithm : " + name);
 
 		if (name.compare("rnd") == 0)
 		{
@@ -51,6 +60,7 @@ namespace pat
 				alg = new RND(sp);
 				connect(alg, SIGNAL(run_application(Point)),     this, SLOT(run_app(Point)));
 				connect(alg, SIGNAL(publish_result(FunctionND)), this, SLOT(publish_result(FunctionND)));
+                connect(alg, SIGNAL(update_status(Status)),      this, SLOT(update_status(Status)));
 			}
 		}
 		else if (name.compare("bf") == 0)
@@ -61,7 +71,8 @@ namespace pat
 				alg = new BruteForce(sp);
 				connect(alg, SIGNAL(run_application(Point)),     this, SLOT(run_app(Point)));
 				connect(alg, SIGNAL(publish_result(FunctionND)), this, SLOT(publish_result(FunctionND)));
-			}
+                connect(alg, SIGNAL(update_status(Status)),      this, SLOT(update_status(Status)));
+            }
 		}
 		else if (name.compare("gr") == 0)
 		{
@@ -71,7 +82,8 @@ namespace pat
 				alg = new Gradient(sp);
 				connect(alg, SIGNAL(run_application(Point)),     this, SLOT(run_app(Point)));
 				connect(alg, SIGNAL(publish_result(FunctionND)), this, SLOT(publish_result(FunctionND)));
-			}
+                connect(alg, SIGNAL(update_status(Status)),      this, SLOT(update_status(Status)));
+            }
 		}			
 		else if (name.compare("dhs") == 0)
 		{
@@ -81,7 +93,8 @@ namespace pat
 				alg = new Downhill_Simplex(sp);
 				connect(alg, SIGNAL(run_application(Point)),     this, SLOT(run_app(Point)));
 				connect(alg, SIGNAL(publish_result(FunctionND)), this, SLOT(publish_result(FunctionND)));
-			}
+                connect(alg, SIGNAL(update_status(Status)),      this, SLOT(update_status(Status)));
+            }
 		}
 	}
 
@@ -97,7 +110,7 @@ namespace pat
 
 	void Application::result(double result)
 	{
-		emit print_log("Application::result() = " + QString::number(result));
+        //emit print_log("Application::result() = " + QString::number(result));
 		if (alg->isrun())
 		{
 			alg->result(result);
@@ -126,19 +139,20 @@ namespace pat
 		app = new QProcess;
 
 		connect(app, SIGNAL(finished(int)), this, SLOT(app_finished(int)));
-		emit print_log("run application : " + QString::fromStdString(path_to_app));
+        //emit print_log("run application : " + QString::fromStdString(path_to_app));
 		app->start(QString::fromStdString(path_to_app));
 	}
 
 	void Application::app_finished(int code)
 	{
-		emit print_log("application finished with code : " + QString::number(code));
+        //emit print_log("application finished with code : " + QString::number(code));
 	}
 
 	void Application::publish_result(FunctionND func)
 	{
 		emit print_log("\n\nRESULT: F(" + QString::fromStdString(to_str(func.point)) + ") = " + QString::number(func.value.to_float()) + "\n\n");
-		emit quit(0);
+        //emit quit(0);
+        emit qApp->quit();
 	}
 
 }
