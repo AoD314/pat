@@ -14,14 +14,19 @@ int main(int, const char **)
 {
 	double total_err = 0;
 
-	std::cout << "create alg" << std::endl;
-    pat::Alg alg(pat::PAT_ALG_RND);
-    alg.set_n(500);
+	std::cout << "create alg ... ";
+	pat::Alg alg(pat::PAT_ALG_RND);
+	std::cout << "done.\n" 
+		      << "set_n(value) ... ";
+	alg.set_n(64);
+	std::cout << "done." << std::endl;
 
-	//std::cout << "init : X" << std::endl;
+	std::cout << "init : X" << std::endl;
 	alg.init("x", pat::Gen(-8.25, 11.5));
-	//std::cout << "init : Y" << std::endl;
+	std::cout << "init : Y" << std::endl;
 	alg.init("y", pat::Gen(-10.0, 18.0));
+	std::cout << "done." << std::endl;
+
 
 	try
 	{

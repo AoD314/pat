@@ -34,8 +34,6 @@ namespace pat
 			double epsilon();
 			size_t max_time();
 
-			bool have_points();
-
 		private:
 			size_t t;
 			size_t n;

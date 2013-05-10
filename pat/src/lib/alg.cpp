@@ -94,7 +94,7 @@ namespace pat
 
 	std::string Alg::receive_message_from_server()
 	{
-				QDataStream in(socket);
+		QDataStream in(socket);
 		in.setVersion(QDataStream::Qt_4_7);
 		block_size = 0;
 

@@ -20,10 +20,13 @@ namespace pat
 		connect(&server, SIGNAL(get(QString)),       this, SLOT(get(QString)));
 		connect(&server, SIGNAL(result(double)),     this, SLOT(result(double)));
 
+		emit run_app(Point());
 	}
 
 	void Application::params(QString name, QString value)
 	{
+		emit print_log("set " + name + " = " + value);
+
 		if (name.compare("n") == 0)
 		{
 			sp->set_n(from_str<size_t>(value.toStdString()));
@@ -38,6 +41,8 @@ namespace pat
 
 	void Application::algorithm(QString name)
 	{
+		emit print_log("create algorithm : " + name);
+
 		if (name.compare("rnd") == 0)
 		{
 			if (alg == 0 && sp == 0)
@@ -105,7 +110,11 @@ namespace pat
 
 	void Application::run_app(const Point & p)
 	{
-		sp->set_current_point(p);
+		if (sp != 0)
+		{
+			sp->set_current_point(p);
+		}
+
 		std::string path_to_app = settings.path_to_app();
 
 		if (app != 0)
@@ -123,12 +132,12 @@ namespace pat
 
 	void Application::app_finished(int code)
 	{
-		emit print_log("application finished with code :" + QString::number(code));
+		emit print_log("application finished with code : " + QString::number(code));
 	}
 
 	void Application::publish_result(FunctionND func)
 	{
-		emit print_log("\n\tRESULT: F(" + QString::fromStdString(to_str(func.point)) + ") = " + QString::number(func.value.to_float()));
+		emit print_log("\n\nRESULT: F(" + QString::fromStdString(to_str(func.point)) + ") = " + QString::number(func.value.to_float()) + "\n\n");
 		emit quit(0);
 	}
 

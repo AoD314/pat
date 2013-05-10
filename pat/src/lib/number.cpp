@@ -17,6 +17,18 @@ namespace pat
 		value_f = 0.0;
 	}
 
+	std::string Number::str() const
+	{
+		if (type_v == float_t)
+		{
+			return to_str(value_f);
+		}
+		else
+		{
+			return to_str(value_i);
+		}
+	}
+
 	Number::Number(int num)
 	{
 		type_v = int_t;

@@ -54,8 +54,9 @@ namespace pat
 			friend bool operator == (const Number& left, const Number& right);
 			friend bool operator != (const Number& left, const Number& right);
 
-			double to_float() const ;
-			long long int to_int() const ;
+			double to_float() const;
+			long long int to_int() const;
+			std::string str() const;
 
 			friend const Number operator + (const Number& left, const Number& right);
 			friend const Number operator - (const Number& left, const Number& right);

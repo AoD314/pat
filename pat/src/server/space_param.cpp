@@ -8,13 +8,9 @@
 
 namespace pat
 {
-	SpaceParam::SpaceParam(size_t N, double eps, size_t time)
-	{
-		n = N;
-		e = eps;
-		t = time;
-		space.clear();
-	}
+	SpaceParam::SpaceParam(size_t N, double eps, size_t time) : 
+		n(N), e(eps), t(time), space(0)
+	{ }
 
 	void SpaceParam::set_n(size_t value)
 	{
@@ -122,11 +118,6 @@ namespace pat
 		return e;
 	}
 
-	bool SpaceParam::have_points()
-	{
-		return false;
-	}
-
 	bool SpaceParam::exist(std::string name)
 	{
 		bool ex = false;
@@ -142,7 +133,7 @@ namespace pat
 
 		return ex;
 	}
-
+	
 	void SpaceParam::set_current_point(Point p)
 	{
 		current_point = p;
