@@ -16,12 +16,16 @@
 #
 # list of global function 
 # * add_include
-# * add_application
-# * add_library
+# * add_app
+# * add_apps
+# * add_lib
 # * set_solution
 # * set_option
-# * set_dependency
-# 
+# * clear_dependency()
+# * add_dependency("name")
+# * create_cmake_module("module_name")
+# * 
+# * 
 ########################################
 
 
@@ -29,10 +33,9 @@
 #
 # cmake_minimum_required(VERSION 2.8.6)
 # set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
-# include(general.cmake)
+# include(cmake/general.cmake)
 # 
 ########################################
-
 
 macro(set_solution name)
   set(target_name ${name})
@@ -41,6 +44,8 @@ endmacro()
 
 include(project_utils REQUIRED)
 include(dependency REQUIRED)
+
+include(config REQUIRED)
 
 include(status REQUIRED)
 include(compiler REQUIRED)

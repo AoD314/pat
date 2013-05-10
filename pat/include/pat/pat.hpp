@@ -1,12 +1,12 @@
 
-#ifndef __PAT_HPP__
-#define __PAT_HPP__
+#ifndef __pat_hpp__
+#define __pat_hpp__
 
-#define use_pat_system
-
-#include "pat/alg.hpp"
-//#include "pat/rnd.hpp"
-//#include "pat/gr.hpp"
-#include "pat/system.hpp"
+#include "alg.hpp"
+#include "convert.hpp"
+#include "gen.hpp"
+#include "number.hpp"
+#include "pat.hpp"
+#include "system.hpp"
 
 #endif

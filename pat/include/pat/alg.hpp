@@ -3,10 +3,15 @@
 #define __alg_hpp__
 
 #include <vector>
+#include <string>
 
 #include "patconfig.hpp"
+
+#include "pat/gen.hpp"
 #include "pat/number.hpp"
-#include "pat/generator.hpp"
+#include "pat/convert.hpp"
+
+class QTcpSocket;
 
 namespace pat
 {
@@ -40,7 +45,7 @@ namespace pat
 
 			//! set limit by iterations of working of the algorithm
 			//! \param n - in iterations
-			void set_n(size_t n = 2000000000);
+			void set_n(size_t n = 1000);
 
 			//! set limit by time of working of the algorithm
 			//! \param time - in seconds
@@ -49,15 +54,25 @@ namespace pat
 			template <typename T>
 			T get(const std::string & name)
 			{
-				//std::vector<std::string> msgs;
-				//msgs.push_back("get");
-				//msgs.push_back(name);
-				//send_message_to_server(msgs);
+				std::vector<std::string> msgs;
+				msgs.push_back("get");
+				msgs.push_back(name);
+				send_message_to_server(msgs);
 
 				return from_str<T>(receive_message_from_server());
 			}
 
 			void init(const std::string & name, Gen gen);
+
+		private:
+			std::string  host;
+			unsigned int port;
+			QTcpSocket * socket;
+			unsigned int block_size;
+
+			void send_message_to_server(std::vector<std::string> msgs);
+			void send_message_to_server(std::vector<std::string> msgs, std::vector<Number> vec);
+			std::string receive_message_from_server();
 
 	};
 

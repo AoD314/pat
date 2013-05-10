@@ -1,10 +1,11 @@
 
-macro(set_dependency)
-
+macro(clear_dependency)
   unset(target_global_list_libs)
   set(target_global_list_libs)
-  
   set(target_use_qt FALSE)
+endmacro()
+
+macro(add_dependency)
   
   foreach(arg ${ARGV})
     if (arg STREQUAL "opencv")
@@ -23,14 +24,19 @@ macro(set_dependency)
 
 
     elseif(arg STREQUAL "pat")
+      status("find PAT")
       find_package(PAT REQUIRED)
-      list(APPEND target_global_list_libs ${PAT_LIBRARIES})
+      status("pat library: [${PAT_LIBS}]")
+      list(APPEND target_global_list_libs ${PAT_LIBS})
 
 
     elseif(arg STREQUAL "webp")
       find_package(WebP REQUIRED)
       list(APPEND target_global_list_libs ${WEBP_LIBRARIES})
 
+    elseif(arg STREQUAL "mlib")
+      find_package(mlib REQUIRED)
+      list(APPEND target_global_list_libs ${MLIB_LIBS})
 
     elseif(arg STREQUAL "sdl")
       find_package(SDL REQUIRED)
@@ -39,7 +45,7 @@ macro(set_dependency)
 
     elseif(arg STREQUAL "qt4")
       set(target_use_qt TRUE)
-      find_package(Qt4 4.8.0 COMPONENTS QtCore QtGui QtOpenGL QtScript QtNetwork REQUIRED)
+      find_package(Qt4 4.8.0 COMPONENTS QtCore QtGui QtNetwork REQUIRED)
       include(${QT_USE_FILE})
       include_directories( ${QT_INCLUDE_DIR} )
       list(APPEND target_global_list_libs ${QT_LIBRARIES})

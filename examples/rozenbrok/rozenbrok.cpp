@@ -15,9 +15,8 @@ int main(int, const char **)
 	double total_err = 0;
 
 	std::cout << "create alg" << std::endl;
-	pat::Alg alg(PAT_ALG_RND);
-	alg.set_time(1000);
-	alg.set_n(500000);
+    pat::Alg alg(pat::PAT_ALG_RND);
+    alg.set_n(500);
 
 	//std::cout << "init : X" << std::endl;
 	alg.init("x", pat::Gen(-8.25, 11.5));

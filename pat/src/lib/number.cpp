@@ -54,7 +54,7 @@ namespace pat
 
 	Number::Number(std::string num)
 	{
-		if (num.find(".") == std::string::npos && num.find(".") == std::string::npos)
+		if (num.find(".") == std::string::npos && num.find("f") == std::string::npos)
 		{
 			type_v  = int_t;
 			value_i = from_str<long long int>(num);

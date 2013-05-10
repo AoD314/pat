@@ -4,11 +4,11 @@
 
 #include <typeinfo>
 
-#include "pat/convert.hpp"
 #include "patconfig.hpp"
 
+#include "pat/convert.hpp"
+
 class QTcpSocket;
-typedef unsigned int quint32;
 
 namespace pat
 {
@@ -24,7 +24,7 @@ namespace pat
 			std::string  host;
 			unsigned int port;
 			QTcpSocket * socket;
-			quint32 block_size;
+			unsigned int block_size;
 
 			void send_message_to_server(std::string cmd, std::string res);
 			std::string receive_message_from_server();
