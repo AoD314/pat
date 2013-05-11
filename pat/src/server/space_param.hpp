@@ -16,7 +16,7 @@ namespace pat
 	class PAT_EXPORTS SpaceParam
 	{
 		public:
-			SpaceParam(size_t N = 64, double eps = 0.000025, size_t time = 1000000000);
+            SpaceParam(size_t N = 64, double eps = 1.0-10, size_t time = 1000000000);
 
 			void add(std::string name, Gen gen);
 

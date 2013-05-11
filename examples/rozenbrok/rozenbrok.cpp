@@ -15,7 +15,7 @@ int main(int, const char **)
 	double total_err = 0;
 
 	std::cout << "create alg ... ";
-    pat::Alg alg(pat::PAT_ALG_GR);
+    pat::Alg alg(pat::PAT_ALG_DHS);
 	std::cout << "done.\n" 
 		      << "set_n(value) ... ";
     alg.set_n(150);

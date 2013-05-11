@@ -28,7 +28,7 @@ namespace pat
 
 		while(true) {
 			super_counter++;
-			qDebug() << "client.iter #" << super_counter << ":" << last_client;
+            //qDebug() << "client.iter #" << super_counter << ":" << last_client;
 
 		QString cmd;
 
@@ -39,9 +39,9 @@ namespace pat
 				break;
 			}
 
-			emit log("try get bytesAvailable() #1");
+            //emit log("try get bytesAvailable() #1");
 			size_t ba = last_client->bytesAvailable();
-			emit log("bytesAvailable() = " + to_str(ba));
+            //emit log("bytesAvailable() = " + to_str(ba));
 
 			if (ba < sizeof(quint32))
 			{
@@ -49,12 +49,12 @@ namespace pat
 				//return;
 			}
 			in >> block_size;
-			emit log("block_size=" + to_str(block_size));
+            //emit log("block_size=" + to_str(block_size));
 		}
 
-		emit log("try get bytesAvailable() #2");
+        //emit log("try get bytesAvailable() #2");
 		size_t ba = last_client->bytesAvailable();
-		emit log("bytesAvailable() = " + to_str(ba));
+        //emit log("bytesAvailable() = " + to_str(ba));
 		if (ba < block_size)
 		{
 			break;
@@ -63,10 +63,10 @@ namespace pat
 
 		in >> cmd;
 
-		emit log(std::string(cmd.toAscii()));
+        //emit log(std::string(cmd.toAscii()));
 
 		block_size = 0;
-		qDebug() << "block_size=0; last_client:" << last_client;
+        //qDebug() << "block_size=0; last_client:" << last_client;
 
 		if (cmd.compare("init") == 0)
 		{
@@ -75,9 +75,9 @@ namespace pat
 			in >> qtype;
 			in >> qsize_s;
 
-			std::string name = qname.toAscii();
-			std::string type = qtype.toAscii();
-			std::string size_s = qsize_s.toAscii();
+			std::string name(qname.toAscii());
+			std::string type(qtype.toAscii());
+			std::string size_s(qsize_s.toAscii());
 
 			size_t size = from_str<size_t>(size_s);
 			Number value;
@@ -107,7 +107,7 @@ namespace pat
 		{
 			QString qname;
 			in >> qname;
-			std::string name = qname.toAscii();
+			std::string name(qname.toAscii());
 
 			emit get(name);
 		}
@@ -142,7 +142,7 @@ namespace pat
 
 			break;
 		}
-		qDebug() << "end of while() #" << last_client;
+        //qDebug() << "end of while() #" << last_client;
 		} // while
 		//qDebug() << "end of     READ       ===========================> #" << last_client;
 	}

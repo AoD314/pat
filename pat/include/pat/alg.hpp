@@ -41,7 +41,7 @@ namespace pat
 
 			//! set limit by epsilon of working of the algorithm
 			//! \param eps - it's different between two last results
-			void set_eps(double eps = 0.000000025);
+            void set_eps(double eps = 0.0000000025);
 
 			//! set limit by iterations of working of the algorithm
 			//! \param n - in iterations
