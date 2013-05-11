@@ -12,64 +12,62 @@ namespace pat
 {
 	Application::Application(int argc, char ** argv) : settings(argc, argv), server(settings), alg(0), sp(0), app(0)
 	{
-		connect(&server, SIGNAL(log(QString)), this, SLOT(print_log(QString)));
-		connect(&server, SIGNAL(alg(QString)), this, SLOT(algorithm(QString)));
-		connect(&server, SIGNAL(params(QString,QString)), this, SLOT(params(QString,QString)));
+		connect(&server, SIGNAL(log(std::string)), this, SLOT(print_log(std::string)));
+		connect(&server, SIGNAL(alg(std::string)), this, SLOT(algorithm(std::string)));
+		connect(&server, SIGNAL(params(std::string,std::string)), this, SLOT(params(std::string,std::string)));
 
-		connect(&server, SIGNAL(init(QString, Gen)), this, SLOT(init(QString, Gen)));
-		connect(&server, SIGNAL(get(QString)),       this, SLOT(get(QString)));
-		connect(&server, SIGNAL(result(double)),     this, SLOT(result(double)));
+		connect(&server, SIGNAL(init(std::string, Gen)), this, SLOT(init(std::string, Gen)));
+		connect(&server, SIGNAL(get(std::string)),       this, SLOT(get(std::string)));
+		connect(&server, SIGNAL(result(double)),         this, SLOT(result(double)));
+
+		path_to_str = QString::fromStdString(settings.path_to_app());;
 
 		emit run_app(Point());
 	}
 
-    Application::~Application()
-    {
-        if (sp != 0)
-        {
-            delete sp;
-        }
-
-        if (alg != 0)
-        {
-            delete alg;
-        }
-
-        if (app != 0)
-        {
-            app->waitForFinished();
-            delete app;
-        }
-    }
-
-    void Application::update_status(const Status & status)
-    {
-        std::string minimum = to_str(status.minimum);
-        emit print_log("progress : [" + QString::number(status.iter) + "/" + QString::number(status.N) + "] ~ " +
-                       QString::number(status.iter * 100.0 / static_cast<double>(status.N)) + "%        " +
-                       "eps: " + QString::number(status.cur_eps) + " (" + QString::number(status.eps) + ")            " +
-                       QString::fromStdString(minimum));
-    }
-
-	void Application::params(QString name, QString value)
+	Application::~Application()
 	{
-        //emit print_log("set " + name + " = " + value);
-
-		if (name.compare("n") == 0)
+		if (sp != 0)
 		{
-			sp->set_n(from_str<size_t>(value.toStdString()));
+			delete sp;
+		}
+
+		if (alg != 0)
+		{
+			delete alg;
+		}
+
+		if (app != 0)
+		{
+			app->waitForFinished();
+			delete app;
 		}
 	}
 
-	void Application::print_log(QString msg)
+    void Application::update_status(const Status & status)
+    {
+        emit print_log("progress : [" + to_str(status.iter) + "/" + to_str(status.N) + "] ~ " +
+                       to_str(status.iter * 100.0 / static_cast<double>(status.N), 6, 2) + "%        " +
+                       "eps: " + to_str(status.cur_eps) + " (" + to_str(status.eps) + ")\n                     current: " + 
+					   to_str(status.current) + "      minimum: " + to_str(status.minimum));
+    }
+
+	void Application::params(std::string name, std::string value)
 	{
-		msg = QTime::currentTime().toString("hh:mm:ss.zzz") + "    :  " + msg;
-		qDebug() << msg;
+		if (name.compare("n") == 0)
+		{
+			sp->set_n(from_str<size_t>(value));
+		}
 	}
 
-	void Application::algorithm(QString name)
+	void Application::print_log(std::string msg)
 	{
-        //emit print_log("create algorithm : " + name);
+		qDebug() << QTime::currentTime().toString("hh:mm:ss.zzz") << "  :  " << msg.c_str();
+	}
+
+	void Application::algorithm(std::string name)
+	{
+		//emit print_log("create algorithm: " + name);
 
 		if (name.compare("rnd") == 0)
 		{
@@ -117,19 +115,19 @@ namespace pat
 		}
 	}
 
-	void Application::init(QString name, Gen gen)
+	void Application::init(std::string name, Gen gen)
 	{
-		sp->add(name.toStdString(), gen);
+		sp->add(name, gen);
+		//emit print_log("init " + name + " : " + to_str<Gen>(gen));
 	}
 
-	void Application::get(QString name)
+	void Application::get(std::string name)
 	{
-		server.send_to_client(QString::fromStdString(sp->get(name.toStdString())));
+		server.send_to_client(sp->get(name));
 	}
 
 	void Application::result(double result)
 	{
-        //emit print_log("Application::result() = " + QString::number(result));
 		if (alg->isrun())
 		{
 			alg->result(result);
@@ -142,36 +140,48 @@ namespace pat
 
 	void Application::run_app(const Point & p)
 	{
+		//emit print_log("run application");
+		
 		if (sp != 0)
 		{
 			sp->set_current_point(p);
 		}
 
-        QString path_to_app = QString::fromStdString(settings.path_to_app());
-
 		if (app != 0)
 		{
+			//qDebug() << "finish APP : " << app;
 			app->waitForFinished();
 			delete app;
+			app = 0;
 		}
 
-        app = new QProcess;
+		app = new QProcess(this);
+
+		//qDebug() << "start  APP : " << app;
 
 		connect(app, SIGNAL(finished(int)), this, SLOT(app_finished(int)));
-        //emit print_log("run application : " + QString::fromStdString(path_to_app));
-        app->start(path_to_app);
+		app->start(path_to_str);
 	}
 
 	void Application::app_finished(int code)
 	{
-        //emit print_log("application finished with code : " + QString::number(code));
+		if (code != 0)
+		{
+			emit print_log("application finished with code : " + to_str(code));
+		}
 	}
 
 	void Application::publish_result(FunctionND func)
 	{
-		emit print_log("\n\nRESULT: F(" + QString::fromStdString(to_str(func.point)) + ") = " + QString::number(func.value.to_float()) + "\n\n");
-        //emit quit(0);
-        emit qApp->quit();
+		emit print_log("\n\nRESULT: F(" + to_str(func.point) + ") = " + func.value.str() + "\n\n");
+		if (app != 0)
+		{
+			//qDebug() << "finish APP : " << app;
+			app->waitForFinished();
+			delete app;
+			app = 0;
+		}
+		emit quit();
 	}
 
 }

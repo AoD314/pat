@@ -11,12 +11,12 @@ namespace pat
 		return *this;
 	}
 
-	Number& Point::operator[](int n)
+	Number& Point::operator[](size_t n)
 	{
 		return point.at(n);
 	}
 
-	Number  Point::operator[](int n) const
+	Number  Point::operator[](size_t n) const
 	{
 		return point.at(n);
 	}

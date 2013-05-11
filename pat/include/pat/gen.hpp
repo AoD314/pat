@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <string>
+#include <ostream>
 
 #include "patconfig.hpp"
 
@@ -30,6 +31,8 @@ namespace pat
 
 			std::string get_type();
 			std::vector<Number> get_list();
+
+			friend std::ostream& operator << (std::ostream& out, const Gen& gen);
 	};
 }
 

@@ -18,8 +18,8 @@ namespace pat
 			Point& add(const Number & );
 
 
-			Number& operator[](int n);
-			Number  operator[](int n) const;
+			Number& operator[](size_t n);
+			Number  operator[](size_t n) const;
 
 			Number  delta(size_t i) const;
 

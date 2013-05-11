@@ -5,6 +5,8 @@
 
 #include <string>
 
+#include <random> // need c++11
+
 #include "patconfig.hpp"
 #include "point.hpp"
 #include "pat/gen.hpp"
@@ -38,6 +40,9 @@ namespace pat
 			size_t t;
 			size_t n;
 			double e;
+
+			std::default_random_engine generator; // need c++11
+			std::uniform_real_distribution<double> distribution;
 
 			void initialize();
 			Point def_point;

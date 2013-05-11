@@ -41,7 +41,7 @@ namespace pat
 		std::istringstream iss(val);
 		T t = T();
 		bool result = iss >> t;
-		if (!result && throw_exception) throw std::exception();
+		if (!result && throw_exception)  throw std::exception();
 		if (!result && !throw_exception) return defval;
 		return t;
 	}

@@ -40,7 +40,7 @@ namespace pat
 		msgs.push_back(gen.get_type());
 
 		std::vector<Number> l = gen.get_list();
-		msgs.push_back(QString::number(l.size()).toStdString());
+		msgs.push_back(to_str(l.size()));
 
 		send_message_to_server(msgs, l);
 	}
@@ -118,11 +118,9 @@ namespace pat
 			}
 
 			QString q_value;
-			std::string value;
-
 			in >> q_value;
 
-			value = std::string(q_value.toUtf8().constData());
+			std::string value(q_value.toAscii());
 
 			block_size = 0;
 

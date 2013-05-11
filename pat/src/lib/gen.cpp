@@ -51,5 +51,19 @@ namespace pat
 		return ((max() + min()) / Number(2));
 	}
 
+	std::ostream& operator << (std::ostream& out, const Gen& gen)
+	{
+		out << "[ ";
+
+		for (size_t i = 0; i < gen.list.size(); ++i)
+		{
+			out << to_str<Number>(gen.list.at(i));
+			if (i != gen.list.size() - 1)
+				out << ", ";
+		}
+
+		out << " ]";
+		return out;
+	}
 
 }

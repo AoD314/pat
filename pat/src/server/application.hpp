@@ -24,21 +24,24 @@ namespace pat
 			Algorithm * alg;
 			SpaceParam * sp;
 			QProcess * app;
+			QString path_to_str;
+			QMutex mutex;
+				 
 
 		public:
 			Application(int argc, char ** argv);
-            ~Application();
+			~Application();
 
 
 		signals:
-			void quit(int);
+			void quit();
 
 		public slots:
-			void print_log(QString msg);
-			void params(QString name, QString value);
-			void algorithm(QString name);
-			void init(QString name, Gen gen);
-			void get(QString name);
+			void print_log(std::string msg);
+			void params(std::string name, std::string value);
+			void algorithm(std::string name);
+			void init(std::string name, Gen gen);
+			void get(std::string name);
 			void result(double result);
 
             void update_status(const Status & status);

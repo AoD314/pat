@@ -9,7 +9,7 @@
 namespace pat
 {
 	SpaceParam::SpaceParam(size_t N, double eps, size_t time) : 
-		n(N), e(eps), t(time), space(0)
+		n(N), e(eps), generator(), distribution(0.0, 1.0), t(time), space(0)
 	{ }
 
 	void SpaceParam::set_n(size_t value)
@@ -99,14 +99,17 @@ namespace pat
 	Point SpaceParam::get_rnd()
 	{
 		Point p;
+		
 
 		for (size_t i = 0; i < names.size(); ++i)
 		{
 			Number n = space.at(i).max() - space.at(i).min();
 			Number del = (space.at(i).max().delta() < space.at(i).min().delta()) ? space.at(i).max().delta(): space.at(i).min().delta();
-			size_t count = static_cast<size_t>((n / del).to_int());
-			size_t r = rand() % count;
-			n = space.at(i).min() + r * del;
+
+			double number = distribution(generator);
+			Number nn(number * (n / del).to_float());
+			n = space.at(i).min() + nn * del;
+
 			p.add(n);
 		}
 

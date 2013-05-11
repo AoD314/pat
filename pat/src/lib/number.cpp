@@ -21,7 +21,7 @@ namespace pat
 	{
 		if (type_v == float_t)
 		{
-			return to_str(value_f);
+			return to_str(value_f, 0, 8);
 		}
 		else
 		{
@@ -119,7 +119,7 @@ namespace pat
 		if (type_v == int_t)
 			n = 1;
 		if (type_v == float_t)
-			n = 0.00000025;
+			n = 0.0000025;
 		return n;
 	}
 
@@ -507,17 +507,16 @@ namespace pat
 
 	QDataStream & operator << (QDataStream &stream, const Number & n)
 	{
-		QString type;
 		if (n.type_v == float_t)
 		{
-			type = "f";
-			stream << type << n.value_f;
+			std::string s = to_str(n.value_f, 0, 32);
+			stream << QString(s.c_str());
 		}
 
 		if (n.type_v == int_t)
 		{
-			type = "l";
-			stream << type << n.value_i;
+			std::string s = to_str(n.value_i);
+			stream << QString(s.c_str());
 		}
 
 		return stream;
@@ -525,20 +524,18 @@ namespace pat
 
 	QDataStream & operator >> (QDataStream &stream, Number & n)
 	{
-		QString type;
+		QString qnum;
+		stream >> qnum;
 
-		stream >> type;
-		if (type.compare("f") == 0)
+		std::string num(qnum.toAscii());
+
+		if (num.find(".") != std::string::npos)
 		{
-			double d;
-			stream >> d;
-			n = Number(d);
+			n = Number(from_str<double>(num));
 		}
-		else if (type.compare("l") == 0)
+		else 
 		{
-			long long int l;
-			stream >> l;
-			n = Number(l);
+			n = Number(from_str<long long int>(num));
 		}
 
 		return stream;
