@@ -45,7 +45,7 @@ macro(add_dependency)
 
     elseif(arg STREQUAL "qt4")
       set(target_use_qt TRUE)
-      find_package(Qt4 4.8.0 COMPONENTS QtCore QtGui QtNetwork REQUIRED)
+      find_package(Qt4 4.8.0 COMPONENTS QtCore QtGui QtNetwork QtTest REQUIRED)
       include(${QT_USE_FILE})
       include_directories( ${QT_INCLUDE_DIR} )
       list(APPEND target_global_list_libs ${QT_LIBRARIES})

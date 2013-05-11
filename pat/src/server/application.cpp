@@ -1,5 +1,6 @@
 
 #include <QDebug>
+#include <Qt/qtest.h>
 
 #include "application.hpp"
 
@@ -36,8 +37,6 @@ namespace pat
 		{
 			delete alg;
 		}
-
-		server.close();
 
 		if (app != 0)
 		{
@@ -176,6 +175,8 @@ namespace pat
 	void Application::publish_result(FunctionND func)
 	{
 		emit print_log("\n\nRESULT: F(" + to_str(func.point) + ") = " + func.value.str() + "\n\n");
+		server.disconnect();
+		server.close();
 		if (app != 0)
 		{
 			//qDebug() << "finish APP : " << app;
@@ -183,6 +184,7 @@ namespace pat
 			delete app;
 			app = 0;
 		}
+		QTest::qSleep(1000);
 		emit quit();
 	}
 
