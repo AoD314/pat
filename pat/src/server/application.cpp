@@ -37,6 +37,8 @@ namespace pat
 			delete alg;
 		}
 
+		server.close();
+
 		if (app != 0)
 		{
 			app->waitForFinished();
